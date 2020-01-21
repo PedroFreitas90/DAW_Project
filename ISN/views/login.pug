@@ -1,0 +1,15 @@
+extends layout
+
+block content
+    .wrapper.fadeInDown
+      .formContent
+        .fadeIn.first
+          img(src="http://danielzawadzki.com/codepen/01/icon.svg", id="icon",alt="User Icon")
+        form(method='POST' action='/login')  
+          input(type="text" id="login" class="fadeIn second" name="numAluno" placeholder="numAluno")
+          input(type="text" id="password" class="fadeIn third" name="password" placeholder="password")
+          input(type="submit" class="fadeIn fourth" value="Log In")
+
+        div(id="formFooter")
+          a(class="underlineHover" href="/register") Register          
+
