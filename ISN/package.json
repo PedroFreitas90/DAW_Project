@@ -6,7 +6,9 @@
     "start": "nodemon ./bin/www"
   },
   "nodemonConfig": {
-    "ignore": ["sessions/*"],
+    "ignore": [
+      "sessions/*"
+    ],
     "delay": "2500"
   },
   "dependencies": {
