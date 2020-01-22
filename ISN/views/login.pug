@@ -1,18 +1,40 @@
 extends layout
 
 block content
-      .container-fluid.login
-        img(src="http://danielzawadzki.com/codepen/01/icon.svg", id="icon",alt="User Icon")
-        form(method='POST' action='/login')
-          .form-group
-            label Número de aluno:
-            input(type="text" id="login" class="form-control" name="numAluno" placeholder="Número de aluno")
-          .form-group
-            label Password: 
-            input(type="text" id="password" class="form-control" name="password" placeholder="Password")
-        
-          input(type="submit" class="btn btn-success" value="Log In")
+      .container
+        .d-flex.justify-content-center.h-100
+          .card
+            .card-header
+              h3 Iniciar Sessão
+              .d-flex.justify-content-end.social_icon
+                span
+                  i.fab.fa-facebook-square
+                span
+                  i.fab.fa-google-plus-square
+                span
+                  i.fab.fa-twitter-square
+            .card-body
+              form(method='POST' action='/login')
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-user
+                  input.form-control(type='text' id="login" name="numAluno" placeholder='Número de aluno')
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-key
+                  input.form-control(type='password' id='password' name='password' placeholder='Password')
+                .row.align-items-center.remember
+                  input(type='checkbox')
+                  | Lembrar credenciais
+                .form-group
+                  input.btn.float-right.login_btn(type='submit' value='Login')
+            .card-footer
+              .d-flex.justify-content-center.links
+                a.btn.login_btn(href="/register") Registar
+              .d-flex.justify-content-center
+                //a(href='#') Forgot your password?
 
-        br
-        a(class="btn btn-success" href="/register") Register          
+         
 
