@@ -1,15 +1,18 @@
 extends layout
 
 block content
-    .wrapper.fadeInDown
-      .formContent
-        .fadeIn.first
-          img(src="http://danielzawadzki.com/codepen/01/icon.svg", id="icon",alt="User Icon")
-        form(method='POST' action='/login')  
-          input(type="text" id="login" class="fadeIn second" name="numAluno" placeholder="numAluno")
-          input(type="text" id="password" class="fadeIn third" name="password" placeholder="password")
-          input(type="submit" class="fadeIn fourth" value="Log In")
+      .container-fluid.login
+        img(src="http://danielzawadzki.com/codepen/01/icon.svg", id="icon",alt="User Icon")
+        form(method='POST' action='/login')
+          .form-group
+            label Número de aluno:
+            input(type="text" id="login" class="form-control" name="numAluno" placeholder="Número de aluno")
+          .form-group
+            label Password: 
+            input(type="text" id="password" class="form-control" name="password" placeholder="Password")
+        
+          input(type="submit" class="btn btn-success" value="Log In")
 
-        div(id="formFooter")
-          a(class="underlineHover" href="/register") Register          
+        br
+        a(class="btn btn-success" href="/register") Register          
 
