@@ -80,7 +80,7 @@ router.post('/reg',upload.single('imagem'), function(req,res){
 
 router.get('/:numAluno', verificaAutenticacao, function(req, res) {
   axios.get('http://localhost:5003/utilizadores/' + req.params.numAluno + '?token=' + token)
-    .then(dados => res.render('index', {lista: dados.data}))
+    .then(dados => res.render('perfil', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
 });
 
