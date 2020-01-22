@@ -17,6 +17,10 @@ var bcrypt = require('bcryptjs')
 var jwt = require('jsonwebtoken')
 //-----------------------------------
 
+/****************************
+ * AUTHENTICATION 
+ ****************************/
+
 // Configuração da estratégia local
 passport.use(new LocalStrategy(
   {usernameField: 'numAluno'}, (numAluno, password, done) => {
@@ -55,7 +59,16 @@ passport.deserializeUser((numAluno, done) => {
     .catch(erro => done(erro, false))
 })
 
+/****************************
+ * ROUTERS
+ ****************************/
+
 var indexRouter = require('./routes/index');
+
+
+/****************************
+ * MIDDLEWARE [JWT]
+ ****************************/
 
 var app = express();
 
@@ -86,7 +99,16 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/****************************
+ * ROUTES
+ ****************************/
+
 app.use('/', indexRouter);
+
+
+/****************************
+ * ERROR HANDLERS
+ ****************************/
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
