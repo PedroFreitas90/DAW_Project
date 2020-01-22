@@ -84,5 +84,5 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log('Servidor myAgenda à escuta na porta ' + myPort + '...')
+  console.log(`ISN Server running at port: ${myPort}`)
 }
