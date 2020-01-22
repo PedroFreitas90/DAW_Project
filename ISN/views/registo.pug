@@ -2,9 +2,11 @@ extends layout
 
 block content
   h3 Agenda de Eventos: Registo de utilizador
-  form.w3-container(action="/reg" method="POST")
+  form.w3-container(action="/reg" method="POST" enctype ="multipart/form-data")
     input.w3-input(type="text" name="numAluno" placeholder="numAluno")
     input.w3-input(type="text" name="nome" placeholder="nome")
     input.w3-input(type="password" name="password" placeholder="password")
+    label.w3-cell Avatar:
+    input.w3-input(type="file" name="imagem" accept="image/*")
     input(type="submit" value="Enviar")
     
