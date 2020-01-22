@@ -6,13 +6,17 @@ var logger = require('morgan');
 var mongoose = require('mongoose');
 
 /****************************
- * MONGO CONNECTION [JWT]
+ * MONGO CONNECTION
  ****************************/
 const DATABASE_NAME = 'ISN';
 
 mongoose.connect('mongodb://127.0.0.1:27017/' + DATABASE_NAME, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log(`Connected to Mongo at [${DATABASE_NAME}] database...`))
   .catch((erro) => console.log(`Mongo: Error connecting to [${DATABASE_NAME}]: ${erro}`))
+
+/****************************
+ * ROUTERS
+ ****************************/
 
 var eventosRouter = require('./routes/eventos');
 var utilizadoresRouter = require('./routes/utilizadores');
@@ -62,7 +66,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 /****************************
- * ROUTERS
+ * ROUTES
  ****************************/
 
 app.use('/eventos', eventosRouter)
