@@ -5,7 +5,6 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('agenda:server');
 var http = require('http');
 
 /**
@@ -84,5 +83,5 @@ function onError(error) {
  */
 
 function onListening() {
-  console.log('Servidor da API da agenda à escuta na porta ' + myPort + '...')
+  console.log(`API Server running at: ${myPort}`)
 }

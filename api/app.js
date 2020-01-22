@@ -5,27 +5,34 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/ISN', {useNewUrlParser: true, useUnifiedTopology: true})
-  .then(()=> console.log('Servidor Mongo da API da agenda a correr...'))
-  .catch((erro)=> console.log('Mongo: erro na conexão: ' + erro))
+/****************************
+ * MONGO CONNECTION [JWT]
+ ****************************/
+const DATABASE_NAME = 'ISN';
+
+mongoose.connect('mongodb://127.0.0.1:27017/' + DATABASE_NAME, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log(`Connected to Mongo at [${DATABASE_NAME}] database...`))
+  .catch((erro) => console.log(`Mongo: Error connecting to [${DATABASE_NAME}]: ${erro}`))
 
 var eventosRouter = require('./routes/eventos');
 var utilizadoresRouter = require('./routes/utilizadores');
 
-// Autentica??o com JWT -----------------------------
+/****************************
+ * AUTHENTICATION [JWT]
+ ****************************/
 var passport = require('passport')
 var JWTStrategy = require('passport-jwt').Strategy
 var ExtractJWT = require('passport-jwt').ExtractJwt
 
-var extractFromQS = function(req){
+var extractFromQS = function (req) {
   var token = null
-  if(req.query && req.query.token) token = req.query.token
+  if (req.query && req.query.token) token = req.query.token
   return token
 }
 
-var extractFromBody = function(req){
+var extractFromBody = function (req) {
   var token = null
-  if(req.body && req.body.token) token = req.body.token
+  if (req.body && req.body.token) token = req.body.token
   return token
 }
 
@@ -33,13 +40,17 @@ passport.use(new JWTStrategy({
   secretOrKey: 'isn2019',
   jwtFromRequest: ExtractJWT.fromExtractors([extractFromQS, extractFromBody])
 }, async (payload, done) => {
-  try{
+  try {
     return done(null, payload)
   }
-  catch(error){
+  catch (error) {
     return done(error)
   }
 }))
+
+/****************************
+ * MIDDLEWARE
+ ****************************/
 
 var app = express();
 
@@ -55,18 +66,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+/****************************
+ * ROUTERS
+ ****************************/
+
 app.use('/eventos', eventosRouter)
 app.use('/utilizadores', utilizadoresRouter);
-app.use('/', eventosRouter);
 
-
+/****************************
+ * ERROR HANDLERS
+ ****************************/
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
