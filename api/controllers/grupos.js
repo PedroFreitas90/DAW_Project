@@ -12,6 +12,13 @@ module.exports.consultar = numGrupo => {
         .exec()
 }
 
+module.exports.filtrarParticipante = idParticipante => {
+    return Grupo
+            .find({"utilizadores":{numAluno: idParticipante}})
+            .exec()
+}
+
+
 module.exports.inserir = g => {
     var novo = new Grupo(g)
     return novo.save()

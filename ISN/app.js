@@ -63,6 +63,7 @@ passport.deserializeUser((numAluno, done) => {
  * ROUTERS
  ****************************/
 
+var gruposRouter =require('./routes/grupos') 
 var indexRouter = require('./routes/index');
 
 
@@ -102,7 +103,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 /****************************
  * ROUTES
  ****************************/
-
+app.use('/grupos',gruposRouter); 
 app.use('/', indexRouter);
 
 

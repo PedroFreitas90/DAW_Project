@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 var Utilizador = require('./utilizadores')
-var Publicacoes = require('./Publicacoes')
+var Publicacoes = require('./publicacoes')
 
 
 var grupoSchema = new mongoose.Schema({
@@ -9,7 +9,7 @@ var grupoSchema = new mongoose.Schema({
   password: String,
   tipo :String,
   utilizadores: [Utilizador.schema],
-  Publicacoes: [Publicacoes]
+  publicacoes: [Publicacoes.schema]
 
 
 

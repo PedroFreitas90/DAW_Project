@@ -15,6 +15,25 @@ var token = jwt.sign({}, "isn2019",
         issuer: "Servidor myAgenda"
     })
 
+    router.get('/', function(req,res){
+      res.render('login')
+    })
+    
+
+   router.get('/feed',verificaAutenticacao,function(req,res){  
+    var numAluno =req.session.passport.user
+     axios.get('http://localhost:5003/publicacoes')
+        .then(dados1 =>{
+          axios.get('http://localhost:5003/grupos/'+numAluno)
+          .then(dados2 =>{
+            axios.get('http://localhost:5003/utilizadores/info/'+numAluno)
+            .then(dados3 => res.render('perfil',{ publicacoes:dados1.data, grupos : dados2.data , lista:dados3.data}))// falta a view do feed
+          })
+        })
+        .catch(e=>res.render('error',{error:e}))
+   }) 
+
+
 router.get('/eventos/:id', verificaAutenticacao, function(req,res){
   axios.get('http://localhost:5003/eventos/' + req.params.id)
       .then(dados => res.render('evento', {evento: dados.data}))
@@ -26,9 +45,6 @@ router.get('/logout', verificaAutenticacao, function(req,res){
   res.redirect('/')
 })
 
-router.get('/', function(req,res){
-  res.render('login')
-})
 
 router.get('/login', function(req,res){
   res.render('login')
@@ -45,7 +61,7 @@ router.post('/login', passport.authenticate('local',
   }),function(req, res) {
     console.log(req.body.numAluno);
     if(req.isAuthenticated(req, res)) {
-        res.redirect('/'+req.body.numAluno);
+        res.redirect('/feed');
     } 
 }
 
