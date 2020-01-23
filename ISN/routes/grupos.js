@@ -1,20 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
-var passport = require('passport')
-var bcrypt = require('bcryptjs')
-const fs = require('fs')
-var Ficheiro = require('../models/ficheiros')
-var multer = require('multer')
-var upload = multer({dest:'uploads/'})
-var jwt = require('jsonwebtoken')
-
-var token = jwt.sign({}, "isn2019", 
-    {
-        expiresIn: 3000, 
-        issuer: "Servidor myAgenda"
-    })
-
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos?token='+token)
@@ -23,7 +9,7 @@ router.get('/', verificaAutenticacao, function(req,res){
 })
 
 router.get('/:idGrupo',verificaAutenticacao, function(req,res){
-    axios.get('http://localhost:5003/grupos/' + req.params.idGrupo + '?token=' + token) 
+    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo) 
     .then(dados => res.render('index', {lista: dados.data}))// colocar view de um grupo
     .catch(e => res.render('error', {error: e}))
 })
