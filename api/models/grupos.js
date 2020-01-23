@@ -4,7 +4,7 @@ var Publicacoes = require('./publicacoes')
 
 
 var grupoSchema = new mongoose.Schema({
-  admin: { type: String, required: true },
+  admin: { type: Utilizador.schema, required: true },
   nome: { type: String, required: true },
   password: String,
   tipo :String,
