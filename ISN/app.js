@@ -7,7 +7,7 @@ var logger = require('morgan');
 // Módulos de suporte à autenticação
 var uuid = require('uuid/v4')
 var session = require('express-session')
-var FileStore = require('session-file-store')(session)
+var LokiStore = require('connect-loki')(session);
 
 var passport = require('passport')
 var LocalStrategy = require('passport-local').Strategy
@@ -23,36 +23,36 @@ var jwt = require('jsonwebtoken')
 
 // Configuração da estratégia local
 passport.use(new LocalStrategy(
-  {usernameField: 'numAluno'}, (numAluno, password, done) => {
-  var token = jwt.sign({}, "isn2019", 
-    {
-        expiresIn: 3000, 
+  { usernameField: 'numAluno' }, (numAluno, password, done) => {
+    var token = jwt.sign({}, "isn2019",
+      {
+        expiresIn: 3000,
         issuer: "Servidor myAgenda"
-    })
-  axios.get('http://localhost:5003/utilizadores/' + numAluno + '?token=' + token)
-    .then(dados => {
-      const user = dados.data
-      if(!user) { return done(null, false, {message: 'Utilizador inexistente!\n'})}
-      if(!bcrypt.compareSync(password, user.password)) { return done(null, false, {message: 'Password inválida!\n'})}
-      return done(null, user)
-  })
-  .catch(erro => done(erro))
-}))
+      })
+    axios.get('http://localhost:5003/utilizadores/' + numAluno + '?token=' + token)
+      .then(dados => {
+        const user = dados.data
+        if (!user) { return done(null, false, { message: 'Utilizador inexistente!\n' }) }
+        if (!bcrypt.compareSync(password, user.password)) { return done(null, false, { message: 'Password inválida!\n' }) }
+        return done(null, user)
+      })
+      .catch(erro => done(erro))
+  }))
 
 // Indica-se ao passport como serializar o utilizador
-passport.serializeUser((user,done) => {
+passport.serializeUser((user, done) => {
   console.log('Vou serializar o user: ' + JSON.stringify(user))
   // Serialização do utilizador. O passport grava o utilizador na sessão aqui.
   done(null, user.numAluno)
 })
-  
+
 // Desserialização: a partir do id obtem-se a informação do utilizador
 passport.deserializeUser((numAluno, done) => {
-  var token = jwt.sign({}, "isn2019", 
+  var token = jwt.sign({}, "isn2019",
     {
-        expiresIn: 3000, 
-        issuer: "Servidor myAgenda"
-  })
+      expiresIn: 3000,
+      issuer: "Servidor myAgenda"
+    })
   console.log('Vou desserializar o utilizador: ' + numAluno)
   axios.get('http://localhost:5003/utilizadores/' + numAluno + '?token=' + token)
     .then(dados => done(null, dados.data))
@@ -63,8 +63,8 @@ passport.deserializeUser((numAluno, done) => {
  * ROUTERS
  ****************************/
 
-var gruposRouter =require('./routes/grupos')
-var publicacoesRouter= require('./routes/publicacoes') 
+var gruposRouter = require('./routes/grupos')
+var publicacoesRouter = require('./routes/publicacoes')
 var indexRouter = require('./routes/index');
 
 
@@ -84,7 +84,7 @@ app.use(session({
     console.log(req.sessionID)
     return uuid()
   },
-  store: new FileStore(),
+  store: new LokiStore({path: './sessions/sessions.db'}),
   secret: 'daw2019',
   resave: false,
   saveUninitialized: true
@@ -92,7 +92,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
-  
+
 app.use(flash());
 
 app.use(logger('dev'));
@@ -104,8 +104,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 /****************************
  * ROUTES
  ****************************/
-app.use('/grupos',gruposRouter);
-app.use('/publicacoes',publicacoesRouter) 
+app.use('/grupos', gruposRouter);
+app.use('/publicacoes', publicacoesRouter)
 app.use('/', indexRouter);
 
 
@@ -114,12 +114,12 @@ app.use('/', indexRouter);
  ****************************/
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
