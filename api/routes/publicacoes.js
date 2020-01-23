@@ -22,4 +22,11 @@ router.get('/:id', function(req, res) {
     .catch(e => res.status(500).jsonp(e))
 });
 
+
+router.post('/', function(req,res){
+  Pubs.inserir(req.body)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+})
+
 module.exports = router;

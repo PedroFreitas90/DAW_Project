@@ -17,3 +17,8 @@ module.exports.filtrarAutor = uid => {
         .find({user_id: uid})
         .exec()
 }
+
+module.exports.inserir = g => {
+    var novo = new Pubs(g)
+    return novo.save()
+}

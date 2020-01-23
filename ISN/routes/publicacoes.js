@@ -2,19 +2,6 @@ var express = require('express');
 var router = express.Router();
 var axios = require('axios')
 
-router.get('/', verificaAutenticacao, function(req,res){
-    axios.get('http://localhost:5003/grupos')
-    .then(dados => res.render('grupos', {lista: dados.data}))
-    .catch(e => res.render('error', {error: e}))
-})
-
-router.get('/:idGrupo',verificaAutenticacao, function(req,res){
-    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo) 
-    .then(dados => res.render('index', {lista: dados.data}))// colocar view de um grupo
-    .catch(e => res.render('error', {error: e}))
-})
-
-   
 
 
 router.post('/',verificaAutenticacao, function(req,res){
