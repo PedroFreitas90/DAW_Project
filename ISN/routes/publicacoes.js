@@ -3,11 +3,13 @@ var router = express.Router();
 var axios = require('axios')
 
 
-
+// A SER CONSTRUIDO
 router.post('/',verificaAutenticacao, function(req,res){
-    axios.post('http://localhost:5003/grupos',{
-        admin : req.params.numAluno,
-        nome: req.params.numAluno,
+    var date =  new Date();
+    axios.post('http://localhost:5003/publicacoes',{
+        data: date,
+        user_id  : req.session.passport.user,
+        text: String,
         password: req.body.password,
         tipo: req.body.tipo // privado ou publico   
     })
