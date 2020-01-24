@@ -14,13 +14,13 @@ block content
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-hashtag
-                  input.form-control(type='text' id="login" name="numAluno" placeholder='Número de aluno')
+                  input.form-control(type='text' id="loginNumber" name="numAluno" placeholder='Número de aluno')
 
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-key
-                  input.form-control(type='password' id='password' name='password' placeholder='Password')
+                  input.form-control(type='password' id='loginPassword' name='password' placeholder='Password')
 
                 .row.align-items-center.remember
                   input(type='checkbox')
@@ -34,6 +34,11 @@ block content
                 a.btn.login_btn(href="/register") Registar
               .d-flex.justify-content-center
                 //a(href='#') Forgot your password?
+
+block script
+  script.
+    bootstrapValidate('#loginNumber', 'required:Introduza o número de aluno.');
+    bootstrapValidate('#loginPassword', 'required:Introduza a sua password.');
 
          
 
