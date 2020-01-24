@@ -83,7 +83,6 @@ router.post('/utilizador',function(req,res){
   Grupos.adicionarPublicacao(req.body.idGrupo,utilizador)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
-  }
 
  })
 
