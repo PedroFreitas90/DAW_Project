@@ -79,6 +79,7 @@ router.post('/reg',upload.single('imagem'), function(req,res){
   axios.post('http://localhost:5003/utilizadores', {
     numAluno: req.body.numAluno,
     nome: req.body.nome,
+    email: req.body.email,
     password: hash,
     foto : novoFicheiro
   })
