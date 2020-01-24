@@ -8,34 +8,41 @@ block content
               h3 Registo
               .d-flex.justify-content-end.social_icon
             .card-body
-              form(method='POST' action='/reg' enctype='multipart/form-data')
+              form(method='POST' action='/reg' enctype='multipart/form-data' onsubmit="return validateFormRegisto()")
 
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-hashtag
-                  input.form-control(type='text' id="numAluno" name="numAluno" placeholder='Número de aluno')
+                  input.form-control(type='text' id="registerNumAluno" name="numAluno" placeholder='Número de aluno')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-at
+                  input.form-control(type='email' id='registerEmail' name='email' placeholder='Email')
+
 
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-user
-                  input.form-control(type='text' id='nome' name='nome' placeholder='Nome')
+                  input.form-control(type='text' id='registerNome' name='nome' placeholder='Nome')
 
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-key
-                  input.form-control(type='password' id='password' name='password' placeholder='Password')
+                  input.form-control(type='password' id='registerPassword' name='password' placeholder='Password')
 
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-images
-                  input.form-control(type='file' id='imagem' name='imagem' accept='image/*')
+                  input.form-control(type='file' id='registerImagem' name='imagem' accept='image/*')
 
                 .text-center.mb-2
-                  img#preview.rounded.border(src='#' alt=' ' height='50%' width='50%')
+                  img#preview.rounded(src='#' alt='.' height='50%' width='50%')
 
                 .form-group
                   input.btn.float-right.login_btn(type='submit' value='Registar')
@@ -43,3 +50,6 @@ block content
             .card-footer
               .d-flex.justify-content-center.links
                 a.btn.login_btn(href="/login") Login
+
+
+
