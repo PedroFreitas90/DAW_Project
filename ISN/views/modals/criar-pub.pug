@@ -1,0 +1,38 @@
+// Modal
+#criarPublicacaoModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='criarPublicacaoModalLabel' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title
+          img.d-inline-block.align-right.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
+          strong  #{utilizador.nome}
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+              form(method='POST' action='/publicacoes' enctype='multipart/form-data' onsubmit="return validateFormPublicacaoModal()")
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-heading
+                  input.form-control(type='text' id="createPublicacaoTitulo" name="titulo" placeholder='Título publicação')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-align-justify
+                  textarea.form-control(type='text' id="createPublicacaoTexto" name="texto" placeholder='Publicação...')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-paperclip
+                  input.form-control(type='file' id="createPublicacaoAnexos" name="ficheiro" multiple)
+
+
+                input.form-control(type="hidden" name="grupo" value="feed")
+
+                .form-group
+                  input.btn.float-right.login_btn(type='submit' value='Publicar')
+
+block script
+  script(src='/scripts/views/criar-publicacao-modal.js')

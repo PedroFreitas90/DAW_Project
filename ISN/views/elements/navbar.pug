@@ -4,7 +4,7 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
     img(src='./favicon.ico' width='30' height='30' alt='')
 
   //groups
-  .container
+  .container.d-flex.justify-content-start
     .dropdown
       button#dropdownMenuButton.btn.dropdown-toggle.profile-navbar-span(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
         i.fas.fa-user-friends
@@ -12,6 +12,9 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
       .dropdown-menu(aria-labelledby='dropdownMenuButton')
         a.dropdown-item(href='#') Ver grupos
         a.dropdown-item(href='#') Criar grupo
+    button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#criarPublicacaoModal')
+      i.fas.fa-paper-plane
+      |  Publicar
 
   //options
   .btn-group.dropleft
@@ -20,4 +23,8 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
     .dropdown-menu(aria-labelledby='dropdownMenuButton')
        a.dropdown-item(href='/profile') Perfil
        a.dropdown-item(href='/logout') Logout
+
+
+include ../modals/criar-pub.pug
+
 

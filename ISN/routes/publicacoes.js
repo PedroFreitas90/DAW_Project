@@ -8,9 +8,6 @@ const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
 // A SER CONSTRUIDO
 router.post('/',upload.array('ficheiro'),verificaAutenticacao,function(req,res){
-    //var grupo = req.query.grupo
-    var titulo = req.body.titulo
-    var texto = req.body.texto;
     var ficheirosArray = []
 
     for(var i = 0; i < req.files.length; i++){
@@ -33,7 +30,7 @@ router.post('/',upload.array('ficheiro'),verificaAutenticacao,function(req,res){
         titulo : req.body.titulo,
         text : req.body.texto,
         ficheiros : ficheirosArray,
-        group : 'feed',
+        group : req.body.grupo,
         marcadores : hashtags.filtraHashtags(req.body.texto)
       })
 
