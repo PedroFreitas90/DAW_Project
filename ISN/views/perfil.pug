@@ -1,7 +1,45 @@
-extends layout
+extends layout-logged
 
 block content
-  button.w3-btn.w3-round-large(onclick="window.location.href = '/logout'") Logout
-  h1 Pagina de um aluno
-  img(src="/ficheiros/"+ lista.foto.name  width="80%") 
+  .d-flex.flex-column
+    .d-flex.flex-column
+      .header-bg
+      .profile-navbar.d-flex.flex-row
+        .box
+        .d-flex.flex-row
+          .profile-navbar-span
+            a(href="") Publicações
+          .profile-navbar-span
+            a(href="") Eventos
+      img.rounded.profile-picture(src="/ficheiros/"+ lista.foto.name  height="200px" width="200px")
+    .d-flex.flex-row
+      .d-flex.flex-column
+        .profile-left
+          .profile-card.card
+            .card-body
+              h2 #{lista.nome}
+              p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis cupiditate quae asperiores voluptatum ut quos, voluptatibus possimus aliquam sapiente nobis earum. Dolor libero deserunt vitae iure similique, nemo tempora eum!
+              p a#{lista.numAluno}
+              p a#{lista.curso}
+              p a#{lista.email}
+              a(href=lista.website) a#{lista.website}
+              p a
+      .d-flex.flex-column
+          .post-container.d-flex.flex-column
+            .post 
+              img.rounded(src="/ficheiros/"+ lista.foto.name  height="50px" width="50px")
+              strong #{lista.nome}
+      //- .d-flex.flex-column
+      //-   .group-container
+      
+
+    //button.w3-btn.w3-round-large(onclick="window.location.href = '/logout'") Logout
+    //header
+    //profile pic
+    //line
+    //profile info - posts - friends/groups
+    //    img.rounded.profile-picture(src="/ficheiros/"+ lista.foto.name  width="20%") 
+
+
+
     
