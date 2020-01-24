@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Pubs = require('../controllers/publicacoes')
+var Grupo = require('../models/grupos')
 var nanoid = require('nanoid');
 
 /* GET users listing. */
@@ -10,8 +11,12 @@ router.get('/', function(req, res) {
       .then(dados => res.jsonp(dados))
       .catch(e => res.status(500).jsonp(e))
   }
-  else{
-    Pubs.listar()
+  else if (req.query.grupo){
+    Pubs.filtrarGrupo(req.query.grupo)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+  }  
+   else {Pubs.listar()
       .then(dados => res.jsonp(dados))
       .catch(e => res.status(500).jsonp(e))
   } 
@@ -35,10 +40,9 @@ router.post('/', function(req,res){
   })
   body.data = data;
   
-  console.log(body)
   Pubs.inserir(req.body)
     .then(dados => res.jsonp(dados))
-    .catch(e => res.status(500).jsonp(e))
+    .catch(e => res.status(500).jsonp(e))    
 })
 
 module.exports = router;

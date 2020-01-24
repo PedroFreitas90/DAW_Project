@@ -18,6 +18,12 @@ module.exports.filtrarAutor = uid => {
         .exec()
 }
 
+module.exports.filtrarGrupo = grupoNome =>{
+    return Pubs
+            .find({group : grupoNome})
+            .exec()
+}
+
 
 module.exports.inserir = g => {
     var novo = new Pubs(g)
