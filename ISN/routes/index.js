@@ -22,7 +22,7 @@ var token = jwt.sign({}, "isn2019",
 
    router.get('/feed',verificaAutenticacao,function(req,res){  
     var numAluno =req.session.passport.user
-     axios.get('http://localhost:5003/publicacoes')
+     axios.get('http://localhost:5003/publicacoes?grupo=feed')
         .then(dados1 =>{
           axios.get('http://localhost:5003/grupos/')
           .then(dados2 =>{

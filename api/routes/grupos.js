@@ -71,5 +71,21 @@ router.post('/utilizador',function(req,res){
   .catch(e => res.status(500).jsonp(e))
  })
 
+ router.post('/publicacao',function(req,res){
+
+  var body = req.body
+  var data =  new Date();
+  body.id = nanoid()
+  body.ficheiros.forEach( a => {
+    a.data=data;
+  })
+  body.data = data;
+  Grupos.adicionarPublicacao(req.body.idGrupo,utilizador)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+  }
+
+ })
+
 
 module.exports = router;

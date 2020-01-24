@@ -33,7 +33,7 @@ router.post('/',upload.array('ficheiro'),verificaAutenticacao,function(req,res){
         titulo : req.body.titulo,
         text : req.body.texto,
         ficheiros : ficheirosArray,
-        group : 'feed',
+        group : req.body.grupo,
         marcadores : hashtags.filtraHashtags(req.body.texto)
       })
 
