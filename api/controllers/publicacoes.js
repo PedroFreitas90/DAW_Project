@@ -19,9 +19,10 @@ module.exports.filtrarAutor = uid => {
 }
 
 module.exports.filtrarGrupo = grupoNome =>{
-    return Pubs
-            .find({group : grupoNome}).sort({data:-1})
-            .exec()
+     return Pubs
+        .aggregate([{$match : { group : grupoNome}},
+            {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
+            }]).exec()
 }
 
 
