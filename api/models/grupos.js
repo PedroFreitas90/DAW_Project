@@ -1,14 +1,31 @@
 const mongoose = require('mongoose')
-var Utilizador = require('./utilizadores')
 var Publicacoes = require('./publicacoes')
 
 
+var fotoSchema = new mongoose.Schema({
+  _id :String,
+  name: String,
+  mimetype: String,
+  size: Number
+});
+
+
+var UtilizadorSchema = new mongoose.Schema({
+  numAluno: { type: String, required: true },
+  nome: { type: String, required: true },
+  foto: fotoSchema 
+});
+  
+
+
+
 var grupoSchema = new mongoose.Schema({
-  admin: { type: Utilizador.schema, required: true },
+  id : {type : String, required:true},
+  admin: { type: UtilizadorSchema, required: true },
   nome: { type: String, required: true },
   password: String,
   tipo :String,
-  utilizadores: [Utilizador.schema],
+  utilizadores: [UtilizadorSchema],
   publicacoes: [Publicacoes.schema]
 
 
