@@ -16,6 +16,7 @@ router.get('/', function(req, res) {
   } 
 });
 
+
 router.get('/:id', function(req, res) {
   Pubs.consultar(req.params.id)
     .then(dados => res.jsonp(dados))

@@ -41,9 +41,15 @@ module.exports.adicionarPublicacao = (idPublicacao,publicacao) => {
 
 
 module.exports.verificaPassword = (idGrupo,pass) => {
-    console.log(pass)
-    console.log(idGrupo)
     return Grupo.find({id : idGrupo ,password : pass  }).exec()
+}
+
+module.exports.consultarGruposAluno = aluno =>{
+            return Grupo.find({
+                utilizadores : {
+                    $elemMatch : { numAluno :aluno }
+                }
+            })
 }
 
 module.exports.inserir = g => {

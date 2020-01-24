@@ -22,6 +22,7 @@ var publicacaoSchema = new mongoose.Schema({
     id: String,
     data: { type: String, required: true },
     user_id: { type: String, required: true },
+    titulo: {type : String , required : true},
     text: String,
     ficheiros: [ficheiroSchema],
     group: { type: String, required: true }, // Se não houver grupo, terá de dizer feed
