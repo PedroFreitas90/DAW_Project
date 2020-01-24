@@ -78,6 +78,16 @@ input:focus {
     margin-left: 4px;
 }
 
+.shadow {
+    -webkit-box-shadow: 0 8px 6px -6px black;
+    -moz-box-shadow: 0 8px 6px -6px black;
+    box-shadow: 0 8px 6px -6px black;
+}
+
+.bottom {
+    box-shadow: 0px 15px 10px -15px #111;
+}
+
 .header-bg {
     background-image: url('/header/header.jpg');
     width: 100%;
@@ -139,7 +149,7 @@ input:focus {
 }
 
 .profile-card {
-
+    background-color: ghostwhite;
 }
 
 .post-container {
@@ -147,7 +157,6 @@ input:focus {
     height: 100%;
     background-color: gray;
     padding: 20px;
-    margin-left: 40%;
 }
 
 .post {
@@ -157,3 +166,6 @@ input:focus {
     padding: 10px;
 }
 
+.groups-box{
+    height: fit-content;
+}
