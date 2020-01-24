@@ -4,13 +4,14 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
     img(src='./favicon.ico' width='30' height='30' alt='')
 
   //groups
-  .dropdown
-    button#dropdownMenuButton.btn.dropdown-toggle.profile-navbar-span(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-      i.fas.fa-user-friends
-      |  Grupos
-    .dropdown-menu(aria-labelledby='dropdownMenuButton')
-      a.dropdown-item(href='#') Ver grupos
-      a.dropdown-item(href='#') Criar grupo
+  .container
+    .dropdown
+      button#dropdownMenuButton.btn.dropdown-toggle.profile-navbar-span(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
+        i.fas.fa-user-friends
+        |  Grupos
+      .dropdown-menu(aria-labelledby='dropdownMenuButton')
+        a.dropdown-item(href='#') Ver grupos
+        a.dropdown-item(href='#') Criar grupo
 
   //options
   .btn-group.dropleft
