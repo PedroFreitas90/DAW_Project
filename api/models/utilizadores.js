@@ -7,12 +7,6 @@ var fotoSchema = new mongoose.Schema({
   size: Number
 });
 
-var eventoSchema = new mongoose.Schema({
-  id: String,
-  nome: String,
-  local: String,
-  data: String
-});
 
 
 var utilizadorSchema = new mongoose.Schema({
@@ -20,7 +14,6 @@ var utilizadorSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   password: { type: String, required: true },
   ultimoAcesso: String,
-  eventos: [eventoSchema],
   foto: fotoSchema
 });
   

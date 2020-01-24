@@ -4,21 +4,28 @@ var axios = require('axios')
 
 
 // A SER CONSTRUIDO
-router.post('/',verificaAutenticacao, function(req,res){
-    var date =  new Date();
-    axios.post('http://localhost:5003/publicacoes',{
-        data: date,
-        user_id  : req.session.passport.user,
-        text: String,
-        password: req.body.password,
-        tipo: req.body.tipo // privado ou publico   
-    })
-    .then(dados=>res.redirect('/'+req.params.numAluno))
-    .catch(e => res.render('error', {error: e}))
-})
-
+/*router.post('/',upload.array('ficheiro'),function(req,res){
+    var ficheiros = new Array();
+    for(var i = 0; i < req.files.length; i++){
+      let oldPath = __dirname + '/../' + req.files[i].path
+      let newPath = __dirname + '/../public/ficheiros/' + req.files[i].originalname
+  
+      fs.rename(oldPath,newPath,function(err){
+        if(err) throw err
+      })
+  
+      let data = new Date()
     
-
+      let novoFicheiro = new Ficheiro({
+        name: req.files[i].originalname,
+        mimetype: req.files[i].mimetype,
+        size: req.files[i].size  
+      })
+      ficheiros.push(novoFicheiro)
+  
+    }
+    
+*/
     function verificaAutenticacao(req,res,next){
         if(req.isAuthenticated()){
         //req.isAuthenticated() will return true if user is logged in

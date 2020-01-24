@@ -12,6 +12,12 @@ router.get('/', function(req, res) {
     .catch(e => res.status(500).jsonp(e))
 });
 
+router.get('/numAluno',function(req,res){
+    Grupos.consultarGruposAluno(req.query.numAluno)
+    .then(dados => res.jsonp(dados) )
+    .catch(e => res.status(500).jsonp(e))  
+})
+
 router.get('/password',function(req,res){
   Grupos.verificaPassword(req.query.idGrupo,req.query.password)
   .then(dados => res.jsonp(dados))
