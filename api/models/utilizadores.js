@@ -13,6 +13,9 @@ var utilizadorSchema = new mongoose.Schema({
   numAluno: { type: String, required: true },
   nome: { type: String, required: true },
   password: { type: String, required: true },
+  email : {type :String , required : true},
+  bio : { type : String, maxlength : 256},
+  website : String,
   ultimoAcesso: String,
   foto: fotoSchema
 });

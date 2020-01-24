@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Pubs = require('../controllers/publicacoes')
+var nanoid = require('nanoid');
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -25,6 +26,16 @@ router.get('/:id', function(req, res) {
 
 
 router.post('/', function(req,res){
+  
+  var body = req.body
+  var data =  new Date();
+  body.id = nanoid()
+  body.ficheiros.forEach( a => {
+    a.data=data;
+  })
+  body.data = data;
+  
+  console.log(body)
   Pubs.inserir(req.body)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))

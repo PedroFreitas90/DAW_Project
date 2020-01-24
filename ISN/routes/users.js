@@ -3,8 +3,9 @@ var router = express.Router();
 
 /* GET users listing. */
 router.get('/perfil',verificaAutenticacao, function(req, res, next) {
-  axios.get('http://localhost:5003/utilizadores/info'+req.user.numAluno)
+  axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno)
   .then(dados1 =>{
+    console.log(dados1.data)
         axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno )
         .then(dados2 => {
           axios.get('http://localhost:5003/publicacoes?numAluno='+req.user.numAluno)
