@@ -7,7 +7,7 @@ function readURL(input) {
         reader.readAsDataURL(input.files[0]);
     }
 }
-$("#imagem").change(function () {
+$("#registerImagem").change(function () {
     readURL(this);
 });
 function validateFormRegisto() {

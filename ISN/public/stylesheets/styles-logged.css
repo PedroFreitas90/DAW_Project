@@ -1,7 +1,7 @@
 /* Made with love by Mutiullah Samim*/
 
 html, body {
-    background-color: salmon;
+    background-color: lightgrey;
     background-size: cover;
     background-repeat: no-repeat;
     height: 100%;
@@ -11,8 +11,7 @@ html, body {
     height: fit-content;
     margin-top: auto;
     margin-bottom: auto;
-    width: 400px;
-    background-color: rgba(0, 0, 0, 0.5) !important;
+    width: 300px;
 }
 
 .social_icon span {
