@@ -8,9 +8,6 @@ const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
 // A SER CONSTRUIDO
 router.post('/',upload.array('ficheiro'),verificaAutenticacao,function(req,res){
-    //var grupo = req.query.grupo
-    var titulo = req.body.titulo
-    var texto = req.body.texto;
     var ficheirosArray = []
 
     for(var i = 0; i < req.files.length; i++){
