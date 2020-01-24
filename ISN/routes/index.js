@@ -27,7 +27,7 @@ var token = jwt.sign({}, "isn2019",
           axios.get('http://localhost:5003/grupos/')
           .then(dados2 =>{
             axios.get('http://localhost:5003/utilizadores/info/'+numAluno)
-            .then(dados3 => res.render('teste',{ publicacoes:dados1.data, grupos : dados2.data , lista:dados3.data}))// falta a view do feed
+            .then(dados3 => res.render('homepage',{ publicacoes:dados1.data, grupos : dados2.data , utilizador:dados3.data}))// falta a view do feed
           })
         })
         .catch(e=>res.render('error',{error:e}))
