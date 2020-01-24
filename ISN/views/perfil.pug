@@ -11,18 +11,19 @@ block content
             a(href="") Publicações
           .profile-navbar-span
             a(href="") Eventos
-      img.rounded.profile-picture(src="/ficheiros/"+ lista.foto.name  height="260px" width="260px")
+      img.rounded.profile-picture(src="/ficheiros/"+ lista.foto.name  height="200px" width="200px")
     .d-flex.flex-row
       .d-flex.flex-column
         .profile-left
-          .profile-card
-            h2 #{lista.nome}
-            p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis cupiditate quae asperiores voluptatum ut quos, voluptatibus possimus aliquam sapiente nobis earum. Dolor libero deserunt vitae iure similique, nemo tempora eum!
-            p a#{lista.numAluno}
-            p a#{lista.curso}
-            p a#{lista.email}
-            a(href=lista.website) a#{lista.website}
-            p a
+          .profile-card.card
+            .card-body
+              h2 #{lista.nome}
+              p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis cupiditate quae asperiores voluptatum ut quos, voluptatibus possimus aliquam sapiente nobis earum. Dolor libero deserunt vitae iure similique, nemo tempora eum!
+              p a#{lista.numAluno}
+              p a#{lista.curso}
+              p a#{lista.email}
+              a(href=lista.website) a#{lista.website}
+              p a
       .d-flex.flex-column
           .post-container.d-flex.flex-column
             .post 

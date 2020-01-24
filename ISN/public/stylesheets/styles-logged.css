@@ -82,7 +82,7 @@ input:focus {
     background-image: url('/header/header.jpg');
     width: 100%;
     position: relative;
-    height: 250px;
+    height: 350px;
     left: 0%;
     top: 0%;
 }
@@ -97,7 +97,7 @@ input:focus {
 
 .profile-navbar-span {
     margin: 5px;
-    font-size: 20pt;
+    font-size: 16pt;
     font-weight: bold;
     margin-right: 20px;
 }
@@ -118,14 +118,14 @@ input:focus {
 }
 
 .box {
-    width: 350px;
+    width: 500px;
 }
 
 .profile-picture {
     border: 10px;
     border-color: ghostwhite;
     border-style: solid;
-    margin-left: 3%;
+    margin-left: 9%;
     position: relative;
     margin-top: -150px;
     z-index: 2;
@@ -135,7 +135,7 @@ input:focus {
     width: 250px;
     height: 100%;
     margin-top: 20px;
-    margin-left: 15%;
+    margin-left: 20%;
 }
 
 .profile-card {
