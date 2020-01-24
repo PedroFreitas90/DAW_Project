@@ -20,7 +20,7 @@ module.exports.filtrarAutor = uid => {
 
 module.exports.filtrarGrupo = grupoNome =>{
     return Pubs
-            .find({group : grupoNome})
+            .find({group : grupoNome}).sort({data:-1})
             .exec()
 }
 
