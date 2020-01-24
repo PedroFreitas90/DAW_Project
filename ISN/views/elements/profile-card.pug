@@ -1,8 +1,23 @@
-.profile-card.card
+.card.profile-card
   .card-body
-    h2 #{utilizador.nome}
-    p Lorem ipsum, dolor sit amet consectetur adipisicing elit. Corporis cupiditate quae asperiores voluptatum ut quos, voluptatibus possimus aliquam sapiente nobis earum. Dolor libero deserunt vitae iure similique, nemo tempora eum!
-    p a#{utilizador.numAluno}
-    p a#{utilizador.curso}
-    p a#{utilizador.email}
-    a(href=utilizador.website) a#{utilizador.website}
+    
+    .d-flex.align-items-center
+      h5.card-title.font-weight-bold #{utilizador.nome}
+    
+    if utilizador.email
+      .d-flex.align-items-center
+        i.fas.fa-at 
+        a.btn(href='mailto:'+utilizador.email) #{utilizador.email}
+
+    if utilizador.bio
+      .d-flex.align-items-center
+        h6.card-subtitle
+        #{utilizador.bio}
+
+    if utilizador.curso
+      h6.card-subtitle
+      | #{utilizador.curso}
+
+    if utilizador.website
+      h6.card-subtitle
+        a.card-link(href=utilizador.website) a#{utilizador.website}
