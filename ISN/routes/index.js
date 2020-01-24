@@ -24,21 +24,14 @@ var token = jwt.sign({}, "isn2019",
     var numAluno =req.session.passport.user
      axios.get('http://localhost:5003/publicacoes')
         .then(dados1 =>{
-          axios.get('http://localhost:5003/grupos/'+numAluno)
+          axios.get('http://localhost:5003/grupos/')
           .then(dados2 =>{
             axios.get('http://localhost:5003/utilizadores/info/'+numAluno)
-            .then(dados3 => res.render('perfil',{ publicacoes:dados1.data, grupos : dados2.data , lista:dados3.data}))// falta a view do feed
+            .then(dados3 => res.render('feed',{ publicacoes:dados1.data, grupos : dados2.data , lista:dados3.data}))// falta a view do feed
           })
         })
         .catch(e=>res.render('error',{error:e}))
    }) 
-
-
-router.get('/eventos/:id', verificaAutenticacao, function(req,res){
-  axios.get('http://localhost:5003/eventos/' + req.params.id)
-      .then(dados => res.render('evento', {evento: dados.data}))
-      .catch(e => res.render('error', {error: e}))
-})
 
 router.get('/logout', verificaAutenticacao, function(req,res){
   req.logout()

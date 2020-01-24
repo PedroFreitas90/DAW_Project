@@ -8,16 +8,43 @@ module.exports.listar = () => {
 
 module.exports.consultar = numGrupo => {
     return Grupo
-        .findOne({_id: numGrupo})
+        .findOne({id: numGrupo})
         .exec()
 }
 
-module.exports.filtrarParticipante = idParticipante => {
+
+
+module.exports.filtrarParticipante = (numALUNO,idGrupo) => {
     return Grupo
-            .find({"utilizadores":{numAluno: idParticipante}})
+            .aggregate([
+                {$unwind : "$utilizadores"},
+                {$match: 
+                {$and: 
+                    [{id : idGrupo},{"utilizadores.numAluno" : numALUNO}]
+                }
+            }
+            ])
             .exec()
+            
+           
 }
 
+
+module.exports.adicionarUtilizador = (idGrupo,utilizador) => {
+
+    return Grupo.updateOne({id : idGrupo },{$push : {utilizadores : utilizador}})
+}
+
+module.exports.adicionarPublicacao = (idPublicacao,publicacao) => {
+    return Grupo.update({id : idPublicacao },{$push : {publicacoes : publicacao}}).exec()
+}
+
+
+module.exports.verificaPassword = (idGrupo,pass) => {
+    console.log(pass)
+    console.log(idGrupo)
+    return Grupo.find({id : idGrupo ,password : pass  }).exec()
+}
 
 module.exports.inserir = g => {
     var novo = new Grupo(g)
