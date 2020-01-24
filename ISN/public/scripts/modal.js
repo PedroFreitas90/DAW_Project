@@ -1,10 +1,18 @@
 var cont = 1;
 
+
+function aderir(idGrupo){
+    console.log("ENTREI NA FUNCAO")
+    axios.post('/grupos/aderir?grupo=' + idGrupo)
+        .then(response => window.location.assign('/grupos/'+idGrupo))
+        .catch(error => console.log(error))
+}
+
+
 function showFormularioGrupo(){
 
     var formAction = $('<form action="/grupos" method="POST" >')
     var container = $('<div id="grupo">')
-    var endContainer = $('</div>')
 
     var nameLabel = $('<label class="w3-cell">Nome do grupo:</label>')
     var nameInput = $('<input/>',{class: 'w3-input w3-cell', type: "text", name: "nome"})
