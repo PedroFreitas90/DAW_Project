@@ -1,15 +1,20 @@
 var express = require('express');
+var axios = require('axios');
 var router = express.Router();
 
 /* GET users listing. */
-router.get('/perfil',verificaAutenticacao, function(req, res, next) {
+router.get('/',verificaAutenticacao, function(req, res, next) {
   axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno)
   .then(dados1 =>{
     console.log(dados1.data)
         axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno )
         .then(dados2 => {
           axios.get('http://localhost:5003/publicacoes?numAluno='+req.user.numAluno)
-          .then(dados3 => res.render('perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data}))
+          .then(dados3 => {
+            console.log(dados1.data)
+            console.log(dados2.data)
+            console.log(dados3.data)
+            res.render('perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
         })
   })
   .catch(e=>res.render('error',{error:e}))
