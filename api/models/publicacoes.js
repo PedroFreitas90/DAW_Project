@@ -33,6 +33,7 @@ var publicacaoSchema = new mongoose.Schema({
     text: String,
     ficheiros: [ficheiroSchema],
     group: { type: String, required: true }, // Se não houver grupo, terá de dizer feed
+    group_id: String,
     marcadores: [String],
     comentarios: [comentarioSchema],
     gostos : {type : gostoSchema ,required: true}
