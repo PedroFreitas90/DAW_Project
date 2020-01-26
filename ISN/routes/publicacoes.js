@@ -42,7 +42,7 @@ router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
           axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao)
             .then(dados3 => {
               axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno)
-                .then(dados4 => res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4 }))
+                .then(dados4 => res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
             })
         })
     })
