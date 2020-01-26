@@ -39,8 +39,9 @@ module.exports.publicacaoComentarios = idPub => {
 
 module.exports.filtrarAutor = uid => {
     return Pubs
-        .find({user_id: uid})
-        .exec()
+    .aggregate([{$match : { user_id : uid}},
+        {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
+        }]).exec()
 }
 
 module.exports.verificaGostoComentario =  (idPub, idComentario,idUser) => {
