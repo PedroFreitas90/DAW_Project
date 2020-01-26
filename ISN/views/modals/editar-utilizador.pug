@@ -1,0 +1,69 @@
+// Modal
+#editarUtilizadorModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editarUtilizadorModalLabel' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-header
+        h5#exampleModalLabel.modal-title
+          img.d-inline-block.align-right.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
+          strong  #{utilizador.nome}
+        button.close(type='button' data-dismiss='modal' aria-label='Close')
+          span(aria-hidden='true') &times;
+      .modal-body
+              form(method='POST' action='/publicacoes' enctype='multipart/form-data' onsubmit="return validateEditUtilizadorModal()")
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-heading
+                  input.form-control(type='text' id="editarUtilizadorNome" name="nome" placeholder=utilizador.nome value=utilizador.nome)
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-key
+                  input.form-control(type='password' id="editarUtilizadorPasswordAntiga" name="passwordAntiga" placeholder='Password antiga')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-key
+                  input.form-control(type='password' id="editarUtilizadorPasswordNova" name="password" placeholder='Password nova')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-book
+                  if utilizador.bio
+                    textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder=utilizador.bio value=utilizador.bio)
+                  else
+                    textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder='Uma breve descrição ou mensagem sua...')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-at
+                  input.form-control(type='text' id="editarUtilizadorEmail" name="email" placeholder=utilizador.email value=utilizador.email)
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-home
+                  if utilizador.website
+                    input.form-control(type='text' id="editarUtilizadorWebsite" name="website" placeholder=utilizador.website value=utilizador.website)
+                  else
+                    input.form-control(type='text' id="editarUtilizadorWebsite" name="website" placeholder='Seu website pessoal ou outro website...')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-user-circle
+                  input.form-control(type='file' id='editarUtilizadorImagem' name='imagem' accept='image/*' value=utilizador.foto)
+
+                .text-center.mb-2
+                  img#preview.rounded(src='#' alt='.' height='50%' width='50%')
+
+                .form-group
+                  input.btn.float-right.login_btn(type='submit' value='Editar')
+
+block script
+  script(src='/scripts/views/editar-utilizador-modal.js')

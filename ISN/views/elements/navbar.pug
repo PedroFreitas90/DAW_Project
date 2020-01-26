@@ -28,7 +28,7 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
        a.dropdown-item(href='/perfil') 
         i.fas.fa-user
         |  Perfil
-       a.dropdown-item(href='/editar-perfil') 
+       a.dropdown-item(data-toggle='modal' data-target='#editarUtilizadorModal')
         i.fas.fa-user-edit
         |  Editar Perfil
        a.dropdown-item(href='/logout') 
@@ -38,5 +38,6 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
 
 include ../modals/criar-pub.pug
 include ../modals/criar-grupo.pug
+include ../modals/editar-utilizador.pug
 
 

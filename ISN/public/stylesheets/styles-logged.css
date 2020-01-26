@@ -190,3 +190,7 @@ a { color: inherit; }
     font-style: italic;
     width: auto;
 }
+
+.dropdown-item{
+    cursor: pointer;
+}
