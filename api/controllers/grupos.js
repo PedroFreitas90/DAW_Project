@@ -44,6 +44,14 @@ module.exports.verificaPassword = (idGrupo,pass) => {
     return Grupo.find({id : idGrupo ,password : pass  }).exec()
 }
 
+ module.exports.consultarGruposPublicosAluno = aluno => {
+     return Grupo.find({ tipo : "publico",
+     utilizadores : {
+        $elemMatch : { numAluno :aluno }
+    } })
+ }
+
+
 module.exports.consultarGruposAluno = aluno =>{
             return Grupo.find({
                 utilizadores : {
