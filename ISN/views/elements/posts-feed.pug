@@ -2,9 +2,8 @@
     .post-container.d-flex.flex-column.rounded
       if publicacoes.length
         each publicacao in publicacoes
-          a(href='/publicacao/'+publicacao.id)
+        a(href='/publicacoes/'+publicacao.id)
             include ../elements/post.pug
           hr
       else
         h2.font-weight-bold.text-center Não existem publicações recentes...
-      

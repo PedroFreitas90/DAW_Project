@@ -1,0 +1,49 @@
+extends layout
+
+block content
+      .container-fluid.h-100
+        .d-flex.justify-content-center.h-100
+          .card
+            .card-header
+              h3 #{publicacao.titulo}
+              .d-flex.justify-content-end.social_icon
+            .card-body
+              p
+                | #{publicacao.text}
+              each c in comentarios
+                p
+                  | #{c.comentarios.text}   
+                  btn.login_btn(onclick="darGostoComentario('"+ publicacao.id+"','"+c.comentarios.id+"')") Like
+              form(method='POST' action='/publicacoes/comentario' enctype='multipart/form-data')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-hashtag
+                  input.form-control(type='text'  name="titulo" placeholder='Titulo')
+                  
+                  input.form-control(type='hidden'  name="idPublicacao"  value=publicacao.id)
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-user
+                  input.form-control(type='text'  name='texto' placeholder='Texto')  
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-images
+                  input.form-control(type='file'  id="f1" name='ficheiro' accept='image/*')
+
+                  input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-images
+                  input.form-control(type='file'  id ="f2" name='ficheiro' accept='image/*')
+
+                .form-group
+                  input.btn.float-right.login_btn(type='submit' value='comentar')
+
+            .card-footer
+              .d-flex.justify-content-center.links
+                btn.login_btn(onclick="darGostoPublicacao('"+ publicacao.id+"')") Like
