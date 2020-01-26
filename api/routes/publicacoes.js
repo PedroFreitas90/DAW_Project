@@ -69,8 +69,18 @@ router.post('/', function(req,res){
 
 
 router.post('/comentario/gosto',function(req,res){
-  Pubs.adicionarComentarioGosto(req.body.idPublicacao,req.body.idComentario,req.body.user)
+
+  Pubs.verificaGostoComentario(req.body.idPublicacao,req.body.idComentario,req.body.user)
+  .then(dados =>{
+    if(dados.length==0){
+      Pubs.adicionarComentarioGosto(req.body.idPublicacao,req.body.idComentario,req.body.user)
+      .then(dados2  => res.jsonp(dados2))
+      .catch(e => res.status(500).jsonp(e))
+    }
+  } )
+  .catch(e => res.status(500).jsonp(e))
 })
+
 
 
 
@@ -94,16 +104,15 @@ router.post('/comentario/:idPublicacao',function(req,res){
 
 
 router.post('/gosto',function(req,res){
-  //Pubs.verificaGosto(req.body.idPublicacao,req.body.user)
-
-  //.then(dados =>{
-    //if(dados.length==0){
+  Pubs.verificaGosto(req.body.idPublicacao,req.body.user)
+  .then(dados =>{
+    if(dados.length==0){
       Pubs.adicionarGosto(req.body.idPublicacao,req.body.user)
       .then(dados2  => res.jsonp(dados2))
       .catch(e => res.status(500).jsonp(e))
-    })
- // } )
-  //.catch(e => res.status(500).jsonp(e))
-//})
+    }
+  } )
+  .catch(e => res.status(500).jsonp(e))
+})
 
 module.exports = router;

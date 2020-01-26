@@ -43,6 +43,16 @@ module.exports.filtrarAutor = uid => {
         .exec()
 }
 
+module.exports.verificaGostoComentario =  (idPub, idComentario,idUser) => {
+    return Pubs
+    .aggregate([{$unwind : "$comentarios"},
+            {$unwind : "$comentarios.gostos"},
+            {$match : { id : idPub , "comentarios.id" : idComentario}},
+            {$unwind : "$comentarios.gostos.users"},
+            {$match : { "comentarios.gostos.users" :idUser}}]).exec()
+
+}
+
 module.exports.verificaGosto = (idPub,user_id) => {
     return Pubs
     .aggregate([

@@ -25,8 +25,7 @@ var grupoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   password: String,
   tipo :String,
-  utilizadores: [UtilizadorSchema],
-  publicacoes: [Publicacoes.schema]
+  utilizadores: [UtilizadorSchema]
 
 
 
