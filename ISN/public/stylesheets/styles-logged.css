@@ -9,7 +9,6 @@ html, body {
 
 .card {
     height: fit-content;
-    margin-top: auto;
     margin-bottom: auto;
     width: 300px;
 }
@@ -37,7 +36,7 @@ html, body {
 
 .input-group-prepend span {
     width: 50px;
-    background-color: #FFC312;
+    background-color: lightgray;
     color: black;
     border: 0 !important;
 }
@@ -60,7 +59,7 @@ input:focus {
 
 .login_btn {
     color: black;
-    background-color: #FFC312;
+    background-color: lightgrey;
     width: 100px;
 }
 
@@ -167,4 +166,12 @@ input:focus {
 a { color: inherit; } 
 .groups-box{
     height: fit-content;
+}
+
+.post:hover{
+    background-color: lightgray;
+}
+
+.navbarUserDropdownDiv:hover{
+    background-color:grey;
 }
