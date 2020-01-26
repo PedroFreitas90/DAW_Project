@@ -18,11 +18,11 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
 
 
 router.get('/:idUser',verificaAutenticacao,function(req,res,next){
-  axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno)
+  axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser)
   .then(dados1 =>{
-        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno+"&grupos=publico" )
+        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico" )
         .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes?numAluno='+req.user.numAluno)
+          axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser)
           .then(dados3 => {
             res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
         })
