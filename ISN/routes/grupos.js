@@ -6,6 +6,7 @@ var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
+var nanoid = require('nanoid')
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')
@@ -69,8 +70,9 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 
 router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
+    var id = nanoid()
     let oldPath = __dirname + '/../' + req.file.path
-    let newPath = __dirname + '/../public/ficheiros/' + req.file.originalname
+    let newPath = __dirname + '/../public/ficheiros/'+ id
    
     fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
       if(err) throw err
@@ -79,7 +81,7 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
     var hash = bcrypt.hashSync(req.body.password, 10)
 
     let novoFicheiro = new Ficheiro({
-      name: req.file.originalname,
+      name: id,
       mimetype: req.file.mimetype,
       size: req.file.size
     })

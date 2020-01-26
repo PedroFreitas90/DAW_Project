@@ -6,9 +6,9 @@ module.exports.listar = () => {
         .exec()
 }
 
-module.exports.consultar = id => {
+module.exports.consultar = idU => {
     return Pubs
-    .aggregate([{$match : { id : id}},
+    .aggregate([{$match : { id : idU}},
         {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
         }]).exec()
         

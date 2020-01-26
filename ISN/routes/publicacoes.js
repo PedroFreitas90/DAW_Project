@@ -6,6 +6,7 @@ var multer = require('multer')
 var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
+var nanoid = require('nanoid')
 
 
 
@@ -42,7 +43,7 @@ router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
           axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao)
             .then(dados3 => {
               axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno)
-                .then(dados4 => res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
+                .then(dados4 =>  res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
             })
         })
     })
@@ -53,14 +54,15 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
   var ficheirosArray = []
 
   for (var i = 0; i < req.files.length; i++) {
+    var id = nanoid()
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/' + req.files[i].originalname
+    let newPath = __dirname + '/../public/ficheiros/'+ id
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: req.files[i].originalname,
+      name: id,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -89,14 +91,15 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
   var ficheirosArray = []
 
   for (var i = 0; i < req.files.length; i++) {
+    var id = nanoid()
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/' + req.files[i].originalname
+    let newPath = __dirname + '/../public/ficheiros/'+ id
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: req.files[i].originalname,
+      name: id,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -118,14 +121,15 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
   var ficheirosArray = []
 
   for (var i = 0; i < req.files.length; i++) {
+    var id = nanoid()
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/' + req.files[i].originalname
+    let newPath = __dirname + '/../public/ficheiros/'+ id
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: req.files[i].originalname,
+      name: id,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
