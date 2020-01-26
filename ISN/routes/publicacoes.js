@@ -129,7 +129,7 @@ router.post('/:idGrupo',upload.array('ficheiro'),verificaAutenticacao,function(r
     ficheirosArray.push(novoFicheiro)
   }
   
-  axios.post('http://localhost:5003/publicacoes', {
+  axios.post('http://localhost:5003/publicacoes/'+idGrupo, {
       user_id : req.user.numAluno,
       titulo : req.body.titulo,
       text : req.body.texto,
