@@ -8,8 +8,10 @@ module.exports.listar = () => {
 
 module.exports.consultar = id => {
     return Pubs
-        .findOne({id: id})
-        .exec()
+    .aggregate([{$match : { id : id}},
+        {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
+        }]).exec()
+        
 }
 
 
