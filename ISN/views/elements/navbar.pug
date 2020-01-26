@@ -7,11 +7,15 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
   .container.d-flex.justify-content-start
     .dropdown
       button#dropdownMenuButton.btn.dropdown-toggle.profile-navbar-span(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-        i.fas.fa-user-friends
+        i.fas.fa-users
         |  Grupos
       .dropdown-menu(aria-labelledby='dropdownMenuButton')
-        a.dropdown-item(href='#') Ver grupos
-        a.dropdown-item(href='#') Criar grupo
+        a.dropdown-item(href='#') 
+          i.fas.fa-user-friends
+          |  Ver grupos
+        a.dropdown-item(data-toggle='modal' data-target='#criarGrupoModal')
+          i.fas.fa-plus
+          |  Criar grupo
     button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#criarPublicacaoModal')
       i.fas.fa-paper-plane
       |  Publicar
@@ -21,10 +25,18 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
     button.btn.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
       img.d-inline-block.align-right.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
     .dropdown-menu(aria-labelledby='dropdownMenuButton')
-       a.dropdown-item(href='/perfil') Perfil
-       a.dropdown-item(href='/logout') Logout
+       a.dropdown-item(href='/perfil') 
+        i.fas.fa-user
+        |  Perfil
+       a.dropdown-item(href='/editar-perfil') 
+        i.fas.fa-user-edit
+        |  Editar Perfil
+       a.dropdown-item(href='/logout') 
+        i.fas.fa-power-off
+        |  Logout
 
 
 include ../modals/criar-pub.pug
+include ../modals/criar-grupo.pug
 
 

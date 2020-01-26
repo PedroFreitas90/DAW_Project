@@ -4,6 +4,7 @@ var axios = require('axios')
 var Ficheiro = require('../models/ficheiros')
 var multer = require('multer')
 var upload = multer({dest:'uploads/'})
+var fs = require('fs');
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')
@@ -72,9 +73,10 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
     fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
       if(err) throw err
     })
-  
+
+
+
     let novoFicheiro = new Ficheiro({
-      desc: req.body.desc,
       name: req.file.originalname,
       mimetype: req.file.mimetype,
       size: req.file.size
@@ -82,7 +84,6 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
     axios.post('http://localhost:5003/grupos',{
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
-        fotoUtilizador : req.user.foto,
         nomeGrupo : req.body.nome,
         password: req.body.password,
         tipo: req.body.tipo,

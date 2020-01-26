@@ -49,7 +49,7 @@ router.post('/', function(req,res){
   nome : req.body.nomeGrupo,
   password: req.body.password,
   tipo: req.body.tipo,
-  fotoGrupo : req.body.foto,
+  fotoGrupo : req.body.fotoGrupo,
   utilizadores: [admin],
  }   
   Grupos.inserir(body)

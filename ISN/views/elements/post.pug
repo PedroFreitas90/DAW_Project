@@ -1,11 +1,17 @@
+- var date = new Date(publicacao.data)
 .post.rounded
     .card-header
-      img.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
-      strong  #{utilizador.nome}
+      img.rounded(src="/ficheiros/"+ publicacao.user[0].foto.name  height="50px" width="50px")
+      strong  #{publicacao.user[0].nome} 
+      |(@#{publicacao.user[0].numAluno})
     .card-body
       blockquote.blockquote.mb-0
-        p
+        h1.text-center
           | #{publicacao.titulo}
         footer.blockquote-footer
-          | #{publicacao.data}
-          cite(title='Source Title') Source Title
+          | #{date.getDate()}/#{date.getMonth()+1}/#{date.getFullYear()} #{date.getHours()}h#{date.getMinutes()}m
+        footer
+          i.fas.fa-comments
+          |  #{publicacao.comentarios.length}      
+          i.fas.fa-heart
+          |  #{publicacao.gostos.numero}
