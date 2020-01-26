@@ -18,7 +18,7 @@ router.get('/info/:numAluno',function(req,res){
   .catch(e => res.status(500).jsonp(e))
 });
 
-router.get('/:numAluno', passport.authenticate('jwt', {session: false}), function(req, res) {
+router.get('/:numAluno', function(req, res) {
   Utilizadores.consultar(req.params.numAluno)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))

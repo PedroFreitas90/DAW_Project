@@ -1,6 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var axios = require('axios')
+var Ficheiro = require('../models/ficheiros')
+var multer = require('multer')
+var upload = multer({dest:'uploads/'})
+var fs = require('fs');
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')
@@ -62,15 +66,28 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 
 
-router.post('/',verificaAutenticacao, function(req,res){
-    console.log(req.body)
+router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
+    let oldPath = __dirname + '/../' + req.file.path
+    let newPath = __dirname + '/../public/ficheiros/' + req.file.originalname
+   
+    fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
+      if(err) throw err
+    })
+
+
+
+    let novoFicheiro = new Ficheiro({
+      name: req.file.originalname,
+      mimetype: req.file.mimetype,
+      size: req.file.size
+    })
     axios.post('http://localhost:5003/grupos',{
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
-        fotoUtilizador : req.user.foto,
         nomeGrupo : req.body.nome,
         password: req.body.password,
-        tipo: req.body.tipo   
+        tipo: req.body.tipo,
+        fotoGrupo : novoFicheiro   
     })
     .then(dados=>res.redirect('/feed'))
     .catch(e => res.render('error', {error: e}))
