@@ -6,11 +6,8 @@ block content
       .header-bg
       .profile-navbar.shadow.d-flex.flex-row
         .box
-        .d-flex.flex-row
-          .profile-navbar-span
-            a(href="") Publicações
-          .profile-navbar-span
-            a(href="") Grupos
+        .d-flex.flex-row.profile-bio
+          p #{utilizador.bio}
       img.rounded.profile-picture(src="/ficheiros/"+ utilizador.foto.name  height="200px" width="200px")
     .d-flex.justify-content-around.mt-3.mb-5.perfil-body.align-items-start
       include elements/perfil-card.pug

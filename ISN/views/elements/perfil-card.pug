@@ -1,10 +1,9 @@
 .card.profile-card
   .card-body
-    .d-flex
-      h5.card-title.font-weight-bold #{utilizador.nome}
+    h5.card-title.font-weight-bold.text-center #{utilizador.nome}
     
     if utilizador.email
-      .d-flex.align-items-center
+      .d-flex.align-items-center.profile-email.rounded
         i.fas.fa-at 
         a.btn(href='mailto:'+utilizador.email) #{utilizador.email}
 

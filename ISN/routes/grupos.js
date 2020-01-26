@@ -5,7 +5,7 @@ var Ficheiro = require('../models/ficheiros')
 var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var fs = require('fs');
-var bcrypt = require('bcrypt');
+var bcrypt = require('bcryptjs');
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')

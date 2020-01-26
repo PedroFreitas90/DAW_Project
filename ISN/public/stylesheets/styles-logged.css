@@ -10,7 +10,7 @@ html, body {
 .card {
     height: fit-content;
     margin-bottom: auto;
-    width: 300px;
+    width: 400px;
 }
 
 .social_icon span {
@@ -174,4 +174,19 @@ a { color: inherit; }
 
 .navbarUserDropdownDiv:hover{
     background-color:grey;
+}
+
+.profile-email{
+    width: max-content;
+}
+
+.profile-email:hover{
+    background-color: lightgray;
+}
+
+.profile-bio{
+    text-align: center;
+    font-weight: bold;
+    font-style: italic;
+    width: auto;
 }
