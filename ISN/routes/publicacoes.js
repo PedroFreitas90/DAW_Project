@@ -40,8 +40,10 @@ router.get('/:idPublicacao',verificaAutenticacao,function(req,res){
           axios.get('http://localhost:5003/publicacoes/comentarios/'+req.params.idPublicacao)
           .then(dados2 => {
             axios.get('http://localhost:5003/publicacoes/gostos/'+req.params.idPublicacao)
-            .then(dados3 =>res.render('teste',{publicacao:dados1.data,comentarios : dados2.data, gostos : dados3.data  }))
-          })
+            .then (dados3 => {
+              axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno)
+            .then(dados4=>res.render('teste',{publicacao:dados1.data,comentarios : dados2.data, gostos : dados3.data ,utilizador :dados4 }))
+        })})
       }) 
       .catch(e=>res.render('error',{error:e}))
 })
