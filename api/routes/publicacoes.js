@@ -7,8 +7,8 @@ var Utilizador = require('../controllers/utilizadores')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
-  if(req.query.autor){
-    Pubs.filtrarAutor(req.query.autor)
+  if(req.query.numAluno){
+    Pubs.filtrarAutor(req.query.numAluno)
       .then(dados => res.jsonp(dados))
       .catch(e => res.status(500).jsonp(e))
   }
@@ -24,6 +24,19 @@ router.get('/', function(req, res) {
 });
 
 
+router.get('/gostos/:id',function(req, res) {
+  Pubs.publicacaoGostos(req.params.id)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+})
+
+router.get('/comentarios/:id', function(req, res) {
+  Pubs.publicacaoComentarios(req.params.id)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+});
+
+
 router.get('/:id', function(req, res) {
   Pubs.consultar(req.params.id)
     .then(dados => res.jsonp(dados))
@@ -31,8 +44,15 @@ router.get('/:id', function(req, res) {
 });
 
 
+
+
+
 router.post('/', function(req,res){
-  
+ 
+  var gostos = {
+    numero : 0,
+    users : []
+  }
   var body = req.body
   var data =  new Date();
   body.id = nanoid()
@@ -40,10 +60,50 @@ router.post('/', function(req,res){
     a.data=data;
   })
   body.data = data;
+  body.gostos = gostos
   
   Pubs.inserir(req.body)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))    
 })
+
+
+router.post('/comentario/gosto',function(req,res){
+  Pubs.adicionarComentarioGosto(req.body.idPublicacao,req.body.idComentario,req.body.user)
+})
+
+
+
+router.post('/comentario/:idPublicacao',function(req,res){
+  var gostos = {
+    numero : 0,
+    users : []
+  }
+  var body = req.body
+  var data =  new Date();
+  body.id = nanoid()
+  body.ficheiros.forEach( a => {
+    a.data=data;
+  })
+  body.data = data;
+  body.gostos = gostos
+  Pubs.adicionarComentario(req.params.idPublicacao,body)
+  .then(dados => res.jsonp(dados))
+  .catch(e => res.status(500).jsonp(e))  
+})
+
+
+router.post('/gosto',function(req,res){
+  //Pubs.verificaGosto(req.body.idPublicacao,req.body.user)
+
+  //.then(dados =>{
+    //if(dados.length==0){
+      Pubs.adicionarGosto(req.body.idPublicacao,req.body.user)
+      .then(dados2  => res.jsonp(dados2))
+      .catch(e => res.status(500).jsonp(e))
+    })
+ // } )
+  //.catch(e => res.status(500).jsonp(e))
+//})
 
 module.exports = router;

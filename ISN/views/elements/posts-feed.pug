@@ -1,7 +1,7 @@
 .d-flex.flex-column
     .post-container.d-flex.flex-column.rounded
       each publicacao in publicacoes
-        a(href='/publicacao/'+publicacao.id)
+        a(href='/publicacoes/'+publicacao.id)
           include ../elements/post.pug
         hr
       
