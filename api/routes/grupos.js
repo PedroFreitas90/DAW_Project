@@ -13,9 +13,16 @@ router.get('/', function(req, res) {
 });
 
 router.get('/numAluno',function(req,res){
+  if(req.query.grupos){
+    Grupos.consultarGruposPublicosAluno(req.query.numAluno)
+    .then(dados => res.jsonp(dados) )
+    .catch(e => res.status(500).jsonp(e))
+  }
+  else {
     Grupos.consultarGruposAluno(req.query.numAluno)
     .then(dados => res.jsonp(dados) )
-    .catch(e => res.status(500).jsonp(e))  
+    .catch(e => res.status(500).jsonp(e)) 
+  } 
 })
 
 router.get('/password',function(req,res){
