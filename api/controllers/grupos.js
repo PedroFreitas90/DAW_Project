@@ -8,7 +8,7 @@ module.exports.listar = () => {
 
 module.exports.consultar = numGrupo => {
     return Grupo
-        .findOne({id: numGrupo})
+        .findOne({_id: numGrupo})
         .exec()
 }
 
