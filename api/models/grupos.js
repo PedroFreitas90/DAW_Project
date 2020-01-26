@@ -13,7 +13,6 @@ var fotoSchema = new mongoose.Schema({
 var UtilizadorSchema = new mongoose.Schema({
   numAluno: { type: String, required: true },
   nome: { type: String, required: true },
-  foto: fotoSchema 
 });
   
 
@@ -25,6 +24,7 @@ var grupoSchema = new mongoose.Schema({
   nome: { type: String, required: true },
   password: String,
   tipo :String,
+  fotoGrupo : {type : fotoSchema ,required :true},
   utilizadores: [UtilizadorSchema]
 
 

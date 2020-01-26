@@ -41,8 +41,7 @@ router.post('/', function(req,res){
  var admin = {
     numAluno : req.body.numAluno,
     nome : req.body.nomeUtilizador,
-    foto : req.body.fotoUtilizador,
-      }
+    }
 
  var body = {
   id : nanoid(),
@@ -50,7 +49,8 @@ router.post('/', function(req,res){
   nome : req.body.nomeGrupo,
   password: req.body.password,
   tipo: req.body.tipo,
-  utilizadores: [admin]
+  fotoGrupo : req.body.foto,
+  utilizadores: [admin],
  }   
   Grupos.inserir(body)
     .then(dados => res.jsonp(dados))
