@@ -76,7 +76,13 @@ var usersRouter = require('./routes/users');
 var app = express();
 
 // view engine setup
-app.set('views', path.join(__dirname, 'views'));
+app.set('views',
+  path.join(__dirname, 'views'),
+  path.join(__dirname, 'views/elements'),
+  path.join(__dirname, 'views/layouts'),
+  path.join(__dirname, 'views/modals'),
+  path.join(__dirname, 'views/pages')
+);
 app.set('view engine', 'pug');
 
 app.use(session({
@@ -85,7 +91,7 @@ app.use(session({
     console.log(req.sessionID)
     return uuid()
   },
-  store: new LokiStore({path: './sessions/sessions.db'}),
+  store: new LokiStore({ path: './sessions/sessions.db' }),
   secret: 'daw2019',
   resave: false,
   saveUninitialized: true

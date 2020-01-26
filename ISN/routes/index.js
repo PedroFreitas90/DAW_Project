@@ -16,7 +16,7 @@ var token = jwt.sign({}, "isn2019",
     })
 
     router.get('/', function(req,res){
-      res.render('login')
+      res.render('pages/login')
     })
     
 
@@ -27,7 +27,7 @@ var token = jwt.sign({}, "isn2019",
           axios.get('http://localhost:5003/grupos/')
           .then(dados2 =>{
             axios.get('http://localhost:5003/utilizadores/info/'+numAluno)
-            .then(dados3 => res.render('homepage',{ publicacoes:dados1.data, grupos : dados2.data , utilizador:dados3.data}))// falta a view do feed
+            .then(dados3 => res.render('pages/homepage',{ publicacoes:dados1.data, grupos : dados2.data , utilizador:dados3.data}))// falta a view do feed
           })
         })
         .catch(e=>res.render('error',{error:e}))
@@ -40,11 +40,11 @@ router.get('/logout', verificaAutenticacao, function(req,res){
 
 
 router.get('/login', function(req,res){
-  res.render('login')
+  res.render('pages/login')
 })
 
 router.get('/register', function(req,res){
-  res.render('registo')
+  res.render('pages/registo')
 })
 
 router.post('/login', passport.authenticate('local', 
