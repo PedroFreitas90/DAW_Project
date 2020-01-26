@@ -1,0 +1,22 @@
+- var date = new Date(publicacao[0].data)
+.post.rounded
+    .card-header
+      a(href='../perfil/'+publicacao[0].user[0].numAluno)
+        img.rounded(src="/ficheiros/"+ publicacao[0].user[0].foto.name  height="50px" width="50px")
+        strong  #{publicacao[0].user[0].nome} 
+        |(@#{publicacao[0].user[0].numAluno})
+    .card-body
+      blockquote.blockquote.mb-0
+        h1.text-left
+          | #{publicacao[0].titulo}
+        hr
+        h4
+          | #{publicacao[0].text}
+        hr
+        footer.blockquote-footer
+          | #{date.getDate()}/#{date.getMonth()+1}/#{date.getFullYear()} #{date.getHours()}h#{date.getMinutes()}m
+        footer
+          i.fas.fa-comments
+          |  #{publicacao[0].comentarios.length}      
+          i.fas.fa-heart
+          |  #{publicacao[0].gostos.numero}
