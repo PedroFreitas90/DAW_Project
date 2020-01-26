@@ -41,7 +41,7 @@ module.exports.filtrarAutor = uid => {
     return Pubs
     .aggregate([{$match : { user_id : uid}},
         {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
-        }]).exec()
+        },{$sort : { data : -1}}]).exec()
 }
 
 module.exports.verificaGostoComentario =  (idPub, idComentario,idUser) => {
@@ -74,7 +74,7 @@ module.exports.filtrarGrupo = grupoNome =>{
      return Pubs
         .aggregate([{$match : { group : grupoNome}},
             {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
-            }]).exec()
+            },{$sort : { data : -1}}]).exec()
 }
 
 
