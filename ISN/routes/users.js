@@ -17,6 +17,16 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
 });
 
 
+router.get('/:idUser',verificaAutenticacao,function(req,res,next){
+  axios.get('http://localhost:5003/utilizadores/info/'+idUser)
+  .then(dados1 =>{
+          axios.get('http://localhost:5003/publicacoes?numAluno='+idUser)
+          .then(dados3 => {
+            res.render('perfil',{ utilizador:dados1.data, publicacoes:dados3.data})})
+        })
+})
+
+
 function verificaAutenticacao(req,res,next){
   if(req.isAuthenticated()){
   //req.isAuthenticated() will return true if user is logged in

@@ -1,9 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Pubs = require('../controllers/publicacoes')
-var Grupo = require('../models/grupos')
 var nanoid = require('nanoid');
-var Utilizador = require('../controllers/utilizadores')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
