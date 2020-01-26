@@ -101,4 +101,5 @@ router.post('/utilizador',function(req,res){
  })
 
 
+
 module.exports = router;

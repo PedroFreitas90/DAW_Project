@@ -10,10 +10,10 @@ var fotoSchema = new mongoose.Schema({
 
 
 var utilizadorSchema = new mongoose.Schema({
-  numAluno: { type: String, required: true },
+  numAluno: { type: String, required: true, unique: true },
   nome: { type: String, required: true },
   password: { type: String, required: true },
-  email : {type :String , required : true},
+  email : {type :String , required : true, unique: true},
   bio : { type : String, maxlength : 256},
   website : String,
   ultimoAcesso: String,

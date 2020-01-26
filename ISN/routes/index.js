@@ -69,22 +69,34 @@ router.post('/reg',upload.single('imagem'), function(req,res){
   })
 
   let novoFicheiro = new Ficheiro({
-    desc: req.body.desc,
     name: req.file.originalname,
     mimetype: req.file.mimetype,
     size: req.file.size
   })
 
   var hash = bcrypt.hashSync(req.body.password, 10);
-  axios.post('http://localhost:5003/utilizadores', {
-    numAluno: req.body.numAluno,
-    nome: req.body.nome,
-    email: req.body.email,
-    password: hash,
-    foto : novoFicheiro
-  })
-    .then(dados => res.redirect('/login'))
-    .catch(e => res.render('error', {error: e}))
+  console.log(req.body)
+  console.log(hash)
+  console.log(novoFicheiro)
+  axios.get('http://localhost:5003/utilizadores/utilizador?numAluno='+req.body.numAluno+'&email='+req.body.email)
+  .then(dados => {
+    console.log(dados.data)
+    if (dados.data.length>0){
+      console.log("Já existe")
+      res.redirect('/welelele') //adicionar front end para aparecer um aviso 
+    }
+    else {
+      axios.post('http://localhost:5003/utilizadores', {
+      numAluno: req.body.numAluno,
+      nome: req.body.nome,
+      email: req.body.email,
+      password: hash,
+      foto : novoFicheiro
+    })
+      .then(dados => res.redirect('/login'))
+      .catch(e => res.render('error', {error: e}))
+    }
+    })
 })
 
 
@@ -93,7 +105,6 @@ router.get('/:numAluno', verificaAutenticacao, function(req, res) {
     .then(dados => res.render('perfil', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
 });
-
 
 function verificaAutenticacao(req,res,next){
   if(req.isAuthenticated()){
