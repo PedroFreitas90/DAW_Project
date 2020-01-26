@@ -5,6 +5,7 @@ var Ficheiro = require('../models/ficheiros')
 var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var fs = require('fs');
+var bcrypt = require('bcrypt');
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')
@@ -16,7 +17,8 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
     if(req.body.password){
         idGrupo=req.body.idGrupo
-        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password)
+        var hash = bcrypt.hashSync(req.body.password, 10) 
+        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+hash)
         .then(dados => {
             if (dados.data.length>0){
                 axios.post('http://localhost:5003/grupos/utilizador',{
@@ -74,7 +76,7 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
       if(err) throw err
     })
 
-
+    var hash = bcrypt.hashSync(req.body.password, 10)
 
     let novoFicheiro = new Ficheiro({
       name: req.file.originalname,
@@ -85,7 +87,7 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
         nomeGrupo : req.body.nome,
-        password: req.body.password,
+        password: hash, 
         tipo: req.body.tipo,
         fotoGrupo : novoFicheiro   
     })

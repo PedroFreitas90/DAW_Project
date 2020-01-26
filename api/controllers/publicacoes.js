@@ -92,3 +92,7 @@ module.exports.inserir = g => {
     var novo = new Pubs(g)
     return novo.save()
 }
+
+module.exports.publicacoesPorGrupo = gid =>{
+    return Pubs.find({group_id: gid}).exec()
+}

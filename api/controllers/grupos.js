@@ -8,7 +8,7 @@ module.exports.listar = () => {
 
 module.exports.consultar = numGrupo => {
     return Grupo
-        .findOne({id: numGrupo})
+        .findOne({_id: numGrupo})
         .exec()
 }
 
@@ -43,6 +43,14 @@ module.exports.adicionarPublicacao = (idPublicacao,publicacao) => {
 module.exports.verificaPassword = (idGrupo,pass) => {
     return Grupo.find({id : idGrupo ,password : pass  }).exec()
 }
+
+ module.exports.consultarGruposPublicosAluno = aluno => {
+     return Grupo.find({ tipo : "publico",
+     utilizadores : {
+        $elemMatch : { numAluno :aluno }
+    } })
+ }
+
 
 module.exports.consultarGruposAluno = aluno =>{
             return Grupo.find({

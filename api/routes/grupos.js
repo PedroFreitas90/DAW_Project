@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var Grupos = require('../controllers/grupos')
+var Publicacoes = require('../controllers/publicacoes')
 var Utilizador = require('../models/utilizadores')
 var passport = require('passport')
 var nanoid = require('nanoid')
@@ -13,9 +14,16 @@ router.get('/', function(req, res) {
 });
 
 router.get('/numAluno',function(req,res){
+  if(req.query.grupos){
+    Grupos.consultarGruposPublicosAluno(req.query.numAluno)
+    .then(dados => res.jsonp(dados) )
+    .catch(e => res.status(500).jsonp(e))
+  }
+  else {
     Grupos.consultarGruposAluno(req.query.numAluno)
     .then(dados => res.jsonp(dados) )
-    .catch(e => res.status(500).jsonp(e))  
+    .catch(e => res.status(500).jsonp(e)) 
+  } 
 })
 
 router.get('/password',function(req,res){
@@ -36,6 +44,12 @@ router.get('/:idGrupo', function(req, res) {
     .catch(e => res.status(500).jsonp(e))
     }  
 });
+
+router.get('/:idGrupo/publicacoes',function(req,res){
+  Publicacoes.publicacoesPorGrupo(req.params.idGrupo)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).json(e))
+})
 
 router.post('/', function(req,res){
  var admin = {
