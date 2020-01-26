@@ -123,12 +123,12 @@ router.post('/:idGrupo',function(req,res){
   var body = req.body
   var data =  new Date();
   body.id = nanoid()
-  body.ficheiros.forEach( a => {
-    a.data=data;  
-  })
+ // body.ficheiros.forEach( a => {
+  //  a.data=data;  
+  //})
   body.data = data;
   body.gostos = gostos;
-  body.group_id=req.params.idGrupo 
+  body.group_id=req.params.idGrupo
   Pubs.inserir(req.body)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e)) 
