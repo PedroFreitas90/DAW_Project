@@ -25,7 +25,6 @@ function validateEditUtilizadorModal() {
         }).catch(error => {
             alert('Ocorreu um erro a validar o perfil: ' + error)
         })
-        return false;
     } else {
         return (nome.length > 0 && email.length > 0);
     }
