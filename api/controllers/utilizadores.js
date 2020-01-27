@@ -21,7 +21,8 @@ module.exports.consultar = numAluno => {
 }
 
 
-module.exports.updateUtilizadores = (numAluno,body) =>{
+
+module.exports.updateUtilizadoresPassword = (numAluno,body) =>{
     if(!body.foto){
     return Utilizador.update({numAluno : numAluno},
         {$set :{
@@ -30,7 +31,34 @@ module.exports.updateUtilizadores = (numAluno,body) =>{
             email : body.email,
             bio : body.bio,
             website : body.website,
-            curso : body.curso
+            curso :body.curso
+            
+        } })
+}
+else{
+return Utilizador.update({numAluno : numAluno},
+    {$set :{
+        nome : body.nome,
+        email : body.email,
+        bio : body.bio,
+        website : body.website,
+        foto : body.foto,
+        curso : body.curso            
+    } })
+}
+}
+
+
+
+module.exports.updateUtilizadores = (numAluno,body) =>{
+    if(!body.foto){
+    return Utilizador.update({numAluno : numAluno},
+        {$set :{
+            nome : body.nome,
+            email : body.email,
+            bio : body.bio,
+            website : body.website,
+            curso :body.curso
             
         } })
 }

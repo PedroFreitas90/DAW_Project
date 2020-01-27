@@ -53,9 +53,21 @@ router.post('/', function(req,res){
 
 
 router.put('/',function(req,res){
- Utilizadores.updateUtilizadores(req.body.numAluno,req.body)
+  var body = req.body;
+  if(req.body.password!= ""){
+    var hashNova = bcrypt.hashSync(req.body.password, 10);
+    body.password = hashNova
+ Utilizadores.updateUtilizadoresPassword(req.body.numAluno,req.body)
  .then(dados => res.jsonp(dados))
   .catch(e => res.status(500).jsonp(e))
+  }
+ else{
+   Utilizadores.updateUtilizadores(req.body.numAluno,req.body)
+   .then(dados => res.jsonp(dados))
+  .catch(e => res.status(500).jsonp(e))
+
+
+ } 
 })
     
 
