@@ -1,7 +1,7 @@
 - var date = new Date(publicacao.data)
 .post.rounded
     .card-header
-      img.rounded(src="/ficheiros/"+ publicacao.user[0].foto.name  height="50px" width="50px")
+      img.rounded.image-cover(src="/ficheiros/"+ publicacao.user[0].foto.name  height="50px" width="50px")
       strong  #{publicacao.user[0].nome} 
       |(@#{publicacao.user[0].numAluno})
     .card-body

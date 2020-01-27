@@ -1,6 +1,8 @@
 .card.groups-box
  .card-body
-  if grupos.length > 0
-    .d-flex.flex-column
-  else 
-    h5.text-center Não pertence a nenhum grupo...
+  .d-flex.flex-wrap.justify-content-center
+    if grupos.length > 0
+      each grupo in grupos
+        include ../elements/profile-group.pug
+    else 
+      h5.text-center Não pertence a nenhum grupo...

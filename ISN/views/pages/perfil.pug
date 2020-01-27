@@ -8,7 +8,7 @@ block content
         .box
         .d-flex.flex-row.profile-bio
           p #{utilizador.bio}
-      img.rounded.profile-picture(src="/ficheiros/"+ utilizador.foto.name  height="200px" width="200px")
+      img.rounded.profile-picture.image-cover(src="/ficheiros/"+ utilizador.foto.name  height="200px" width="200px")
     .d-flex.justify-content-around.mt-3.mb-5.perfil-body.align-items-start
       include ../elements/perfil-card.pug
       include ../elements/posts-feed.pug

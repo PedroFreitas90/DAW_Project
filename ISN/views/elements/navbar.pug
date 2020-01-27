@@ -1,7 +1,7 @@
 nav.shadow.navbar.navbar-light.bg-light.justify-content-between
   //homepage
   a.navbar-brand(href='/feed')
-    img(src='../favicon.ico' width='30' height='30' alt='')
+    img.rounded(src='../favicon.ico' width='40' height='40' alt='')
 
   //groups
   .container.d-flex.justify-content-start
@@ -23,7 +23,7 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
   //options
   .btn-group.dropleft.rounded.navbarUserDropdownDiv
     button.btn.dropdown-toggle(type='button' data-toggle='dropdown' aria-haspopup='true' aria-expanded='false')
-      img.d-inline-block.align-right.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
+      img.d-inline-block.align-right.rounded.image-cover(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
     .dropdown-menu(aria-labelledby='dropdownMenuButton')
        a.dropdown-item(href='/perfil') 
         i.fas.fa-user

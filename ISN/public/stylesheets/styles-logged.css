@@ -194,3 +194,28 @@ a { color: inherit; }
 .dropdown-item{
     cursor: pointer;
 }
+
+.profile-group{
+    background-color: grey;
+    width:150px; 
+    height: 150px;
+}
+
+.profile-group:hover{
+    opacity: 0.8;
+}
+
+.image-cover{
+    object-fit: cover;
+}
+
+.group-figure{
+    z-index: 1;
+    margin-top:-25%;
+    font-weight: bold;
+    font-size: large;
+    color:black;
+    text-shadow: -1px 1px 0 whitesmoke, 
+    1px 1px 0 whitesmoke, 
+    1px -1px 0 whitesmoke; 
+}
