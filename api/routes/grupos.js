@@ -5,15 +5,17 @@ var Publicacoes = require('../controllers/publicacoes')
 var Utilizador = require('../models/utilizadores')
 var passport = require('passport')
 var nanoid = require('nanoid')
+var bcrypt= require('bcryptjs')
+var passport = require('passport')
 
 /* GET users listing. */
-router.get('/', function(req, res) {
+router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
   Grupos.listar()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
 });
 
-router.get('/numAluno',function(req,res){
+router.get('/numAluno',passport.authenticate('jwt',{session: false}),function(req,res){
   if(req.query.grupos){
     Grupos.consultarGruposPublicosAluno(req.query.numAluno)
     .then(dados => res.jsonp(dados) )
@@ -26,10 +28,10 @@ router.get('/numAluno',function(req,res){
   } 
 })
 
-router.get('/password',function(req,res){
+router.get('/password',passport.authenticate('jwt',{session: false}),function(req,res){
   Grupos.consultar(req.body.idGrupo)
   .then(dados =>{
-    if(bcrypt.compareSync(req.query.password,dados.passwor))
+    if(bcrypt.compareSync(req.query.password,dados.password))
       res.jsonp(dados)
     else
     res.jsonp([])  
@@ -37,7 +39,7 @@ router.get('/password',function(req,res){
   .catch(e => res.status(500).jsonp(e))
 })
 
-router.get('/:idGrupo', function(req, res) {
+router.get('/:idGrupo',passport.authenticate('jwt',{session: false}), function(req, res) {
   if(req.query.numAluno){
   Grupos.filtrarParticipante(req.query.numAluno,req.params.idGrupo)
     .then(dados => res.jsonp(dados))
@@ -50,13 +52,13 @@ router.get('/:idGrupo', function(req, res) {
     }  
 });
 
-router.get('/:idGrupo/publicacoes',function(req,res){
+router.get('/:idGrupo/publicacoes',passport.authenticate('jwt',{session: false}),function(req,res){
   Publicacoes.publicacoesPorGrupo(req.params.idGrupo)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).json(e))
 })
 
-router.post('/', function(req,res){
+router.post('/',passport.authenticate('jwt',{session: false}), function(req,res){
  var admin = {
     numAluno : req.body.numAluno,
     nome : req.body.nomeUtilizador,
@@ -79,7 +81,7 @@ router.post('/', function(req,res){
 
 
 
-router.post('/utilizador',function(req,res){
+router.post('/utilizador',passport.authenticate('jwt',{session: false}),function(req,res){
    var utilizador ={
     numAluno : req.body.numAluno,
     nome :  req.body.nome,
@@ -90,7 +92,7 @@ router.post('/utilizador',function(req,res){
   .catch(e => res.status(500).jsonp(e))
  })
 
- router.post('/publicacao',function(req,res){
+ router.post('/publicacao',passport.authenticate('jwt',{session: false}),function(req,res){
 
   var body = req.body
   var data =  new Date();

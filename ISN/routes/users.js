@@ -6,16 +6,28 @@ var Ficheiro = require('../models/ficheiros')
 var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var nanoid = require('nanoid')
+var jwt = require('jsonwebtoken')
+
+function geratoken(req,res,next){
+  var token = jwt.sign({},"isn2020",
+    {
+      expiresIn: 3000,
+      issuer: "FrontEnd ISN"
+    })
+  return token
+}
+
 var bcrypt = require('bcryptjs');
 var path = require('path')
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
-  axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno)
+  var token = geratoken()
+  axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno+'?token='+token)
   .then(dados1 =>{
-        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno )
+        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno+'&token='+token )
         .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes?numAluno='+req.user.numAluno)
+          axios.get('http://localhost:5003/publicacoes?numAluno='+req.user.numAluno+'&token='+token)
           .then(dados3 => {
             res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
         })
@@ -44,11 +56,12 @@ router.post('/checkPassword',verificaAutenticacao,function(req,res){
 
 
 router.get('/:idUser',verificaAutenticacao,function(req,res,next){
-  axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser)
+  var token = geratoken()
+  axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser+'?token='+token)
   .then(dados1 =>{
-        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico" )
+        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico&token="+token)
         .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser)
+          axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser+'&token='+token)
           .then(dados3 => {
             res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
         })
@@ -88,7 +101,7 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
   body.foto=novoFicheiro
 }
  
-      axios.put('http://localhost:5003/utilizadores',body )
+      axios.put('http://localhost:5003/utilizadores?token='+token,body )
       .then(dados => res.redirect('/feed'))
       .catch(e => res.render('error', {error: e}))
 })

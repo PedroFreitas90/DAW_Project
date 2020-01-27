@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var Pubs = require('../controllers/publicacoes')
 var nanoid = require('nanoid');
+var passport = require('passport')
 
 /* GET users listing. */
-router.get('/', function(req, res) {
+router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
   if(req.query.numAluno){
     Pubs.filtrarAutor(req.query.numAluno)
       .then(dados => res.jsonp(dados))
@@ -22,20 +23,20 @@ router.get('/', function(req, res) {
 });
 
 
-router.get('/gostos/:id',function(req, res) {
+router.get('/gostos/:id',passport.authenticate('jwt',{session: false}),function(req, res) {
   Pubs.publicacaoGostos(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
 })
 
-router.get('/comentarios/:id', function(req, res) {
+router.get('/comentarios/:id',passport.authenticate('jwt',{session: false}), function(req, res) {
   Pubs.publicacaoComentarios(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
 });
 
 
-router.get('/:id', function(req, res) {
+router.get('/:id',passport.authenticate('jwt',{session: false}), function(req, res) {
   Pubs.consultar(req.params.id)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
@@ -45,7 +46,7 @@ router.get('/:id', function(req, res) {
 
 
 
-router.post('/', function(req,res){
+router.post('/',passport.authenticate('jwt',{session: false}), function(req,res){
  
   var gostos = {
     numero : 0,
@@ -67,7 +68,7 @@ router.post('/', function(req,res){
 })
 
 
-router.post('/comentario/gosto',function(req,res){
+router.post('/comentario/gosto',passport.authenticate('jwt',{session: false}),function(req,res){
 
   Pubs.verificaGostoComentario(req.body.idPublicacao,req.body.idComentario,req.body.user)
   .then(dados =>{
@@ -83,7 +84,7 @@ router.post('/comentario/gosto',function(req,res){
 
 
 
-router.post('/comentario/:idPublicacao',function(req,res){
+router.post('/comentario/:idPublicacao',passport.authenticate('jwt',{session: false}),function(req,res){
   var gostos = {
     numero : 0,
     users : []
@@ -102,7 +103,7 @@ router.post('/comentario/:idPublicacao',function(req,res){
 })
 
 
-router.post('/gosto',function(req,res){
+router.post('/gosto',passport.authenticate('jwt',{session: false}),function(req,res){
   Pubs.verificaGosto(req.body.idPublicacao,req.body.user)
   .then(dados =>{
     if(dados.length==0){
@@ -114,7 +115,7 @@ router.post('/gosto',function(req,res){
   .catch(e => res.status(500).jsonp(e))
 })
 
-router.post('/:idGrupo',function(req,res){
+router.post('/:idGrupo',passport.authenticate('jwt',{session: false}),function(req,res){
   var gostos = {
     numero : 0,
     users : []

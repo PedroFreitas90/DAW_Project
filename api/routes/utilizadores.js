@@ -5,15 +5,14 @@ var passport = require('passport')
 var bcrypt = require('bcryptjs')
 
 /* GET users listing. */
-router.get('/', function(req, res) {
+router.get('/', passport.authenticate('jwt',{session: false}), function(req, res) {
   Utilizadores.listar()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
 });
 
 
-
-router.get('/info/:numAluno',function(req,res){
+router.get('/info/:numAluno',passport.authenticate('jwt',{session: false}),function(req,res){
   Utilizadores.consultar(req.params.numAluno)
   .then(dados => res.jsonp(dados))
   .catch(e => res.status(500).jsonp(e))

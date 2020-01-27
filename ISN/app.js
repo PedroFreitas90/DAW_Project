@@ -24,10 +24,10 @@ var jwt = require('jsonwebtoken')
 // Configuração da estratégia local
 passport.use(new LocalStrategy(
   { usernameField: 'numAluno' }, (numAluno, password, done) => {
-    var token = jwt.sign({}, "isn2019",
+    var token = jwt.sign({}, "isn2020",
       {
         expiresIn: 3000,
-        issuer: "Servidor myAgenda"
+        issuer: "FrontEnd ISN"
       })
     axios.get('http://localhost:5003/utilizadores/' + numAluno + '?token=' + token)
       .then(dados => {
@@ -38,6 +38,8 @@ passport.use(new LocalStrategy(
       })
       .catch(erro => done(erro))
   }))
+
+
 
 // Indica-se ao passport como serializar o utilizador
 passport.serializeUser((user, done) => {
