@@ -7,6 +7,7 @@ var upload = multer({dest:'uploads/'})
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
+var path = require('path')
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos')

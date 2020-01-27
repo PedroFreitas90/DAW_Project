@@ -9,6 +9,7 @@ var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var jwt = require('jsonwebtoken')
 var nanoid = require('nanoid')
+var path = require('path')
 
 var token = jwt.sign({}, "isn2019", 
     {

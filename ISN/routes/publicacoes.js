@@ -7,6 +7,7 @@ var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
 var nanoid = require('nanoid')
+var path = require('path')
 
 
 
