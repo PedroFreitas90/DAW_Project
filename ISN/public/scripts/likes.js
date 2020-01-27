@@ -4,16 +4,21 @@ function darGostoPublicacao(idPub) {
     })
         .then(dados => {
             var elem_class = $('#like' + idPub).attr('class');
-
             switch (elem_class) {
                 case "far fa-heart coracao":
                     $('#like' + idPub).addClass('fas').removeClass('far');
+                    var count = document.getElementById(idPub).nextSibling.data.trim();
+                    count + 1;
+                    document.getElementById(idPub).nextSibling.data = ' ' + count;
                     return;
                 case "fas fa-heart coracao":
                     $('#like' + idPub).addClass('far').removeClass('fas');
+                    var count = document.getElementById(idPub).nextSibling.data.trim();
+                    count - 1;
+                    document.getElementById(idPub).nextSibling.data = ' ' + count;
                     return;
             }
-        }/* res.redirect("" + idPub) */)
+        })
         .catch(e => res.render('error', { error: e }))
 }
 
@@ -25,7 +30,6 @@ function darGostoComentario(idPub, idComentario) {
     })
         .then(dados => {
             var elem_class = $('#like' + idComentario).attr('class');
-
             switch (elem_class) {
                 case "far fa-heart coracao":
                     $('#like' + idComentario).addClass('fas').removeClass('far');
@@ -34,6 +38,6 @@ function darGostoComentario(idPub, idComentario) {
                     $('#like' + idComentario).addClass('far').removeClass('fas');
                     return;
             }
-        }/* res.redirect(""+idPub) */)
+        })
         .catch(e => res.render('error', { error: e }))
 }
