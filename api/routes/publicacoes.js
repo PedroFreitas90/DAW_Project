@@ -134,4 +134,17 @@ router.post('/:idGrupo',passport.authenticate('jwt',{session: false}),function(r
     .catch(e => res.status(500).jsonp(e)) 
 })
 
+router.delete('/:id', function(req, res) {
+  console.log(req.body.user_id)
+  Pubs.consultar(req.params.id)
+    .then(dados => {
+      console.log((dados[0].user_id == req.body.user_id))
+      if(dados[0].user_id == req.body.user_id)
+        Pubs.removerPublicacao(req.params.id)
+          .then(dados1=>res.jsonp(dados1))
+          .catch(e => res.status(500).jsonp(e))
+    })
+    .catch(e => res.status(500).jsonp(e))
+});
+
 module.exports = router;
