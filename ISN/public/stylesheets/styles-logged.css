@@ -237,3 +237,12 @@ a {
 .pre-wrap {
     white-space: pre-wrap;
 }
+
+.comment-detail{
+    background-color: whitesmoke;
+}
+
+.coracao:hover{
+    cursor: pointer;
+    color: tomato;
+}

@@ -1,0 +1,37 @@
+
+
+- var date = new Date(comentario.comentarios.data)
+- var comment = comentario.comentarios
+- var user = comentario.userComentario[0]
+
+.comment-detail.rounded
+    .card-header
+      .navbarUserDropdownDiv.rounded.p-1(style='width:max-content')
+        a(href='../perfil/'+user.numAluno)
+          img.rounded(src="/ficheiros/"+ user.foto.name  height="50px" width="50px")
+          strong  #{user.nome} 
+          |(@#{user.numAluno})
+
+    .card-body
+      blockquote.blockquote.mb-0
+        h6.pre-wrap
+          | #{comment.text}
+
+        hr
+        each anexo in comment.ficheiros
+          if anexo.mimetype.includes('image')
+            a(href='../ficheiros/'+anexo.name)
+              img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:200px' target="_blank")
+
+        hr
+    
+        footer
+          if (comment.gostos.users.includes(utilizador.numAluno))
+            i.fas.fa-heart.coracao(id="like"+comment.id onclick="darGostoComentario('"+publicacao[0].id+"','"+comment.id+"')")
+            |  #{comment.gostos.numero}
+          else
+            i.far.fa-heart.coracao(id="like"+comment.id onclick="darGostoComentario('"+publicacao[0].id+"','"+comment.id+"')")
+            |  #{comment.gostos.numero}  
+
+br
+          

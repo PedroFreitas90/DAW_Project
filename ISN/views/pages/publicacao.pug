@@ -2,3 +2,9 @@ extends ../layouts/layout-logged
 
 block content
     include ../elements/post-detail.pug
+    hr
+    .comentarios.container
+      h2 Comentários
+      each comentario in comentarios
+        include ../elements/comentario.pug
+    include ../modals/criar-comentario.pug
