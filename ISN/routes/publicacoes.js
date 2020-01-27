@@ -7,15 +7,27 @@ var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
 var nanoid = require('nanoid')
+<<<<<<< HEAD
+var jwt = require('jsonwebtoken')
+=======
 var path = require('path')
+>>>>>>> 4fb248f9443dcac7d9a5b0df86f3f1f391106cc3
 
-
+function geratoken(req,res,next){
+  var token = jwt.sign({},"isn2020",
+    {
+      expiresIn: 3000,
+      issuer: "FrontEnd ISN"
+    })
+  return token
+}
 
 
 
 router.post('/comentario/gosto', verificaAutenticacao, function (req, res) {
   console.log(req.body)
-  axios.post('http://localhost:5003/publicacoes/comentario/gosto', {
+  token = geratoken()
+  axios.post('http://localhost:5003/publicacoes/comentario/gosto?token='+token, {
     idPublicacao: req.body.idPublicacao,
     idComentario: req.body.idComentario,
     user: req.user.numAluno
@@ -28,7 +40,8 @@ router.post('/comentario/gosto', verificaAutenticacao, function (req, res) {
 
 router.post('/gosto', verificaAutenticacao, function (req, res) {
   console.log(req.body)
-  axios.post('http://localhost:5003/publicacoes/gosto', {
+  token = geratoken()
+  axios.post('http://localhost:5003/publicacoes/gosto?token='+token, {
     idPublicacao: req.body.idPublicacao,
     user: req.user.numAluno
   })
@@ -37,13 +50,14 @@ router.post('/gosto', verificaAutenticacao, function (req, res) {
 })
 
 router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
-  axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao)
+  token = geratoken()
+  axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao+'?token='+token)
     .then(dados1 => {
-      axios.get('http://localhost:5003/publicacoes/comentarios/' + req.params.idPublicacao)
+      axios.get('http://localhost:5003/publicacoes/comentarios/' + req.params.idPublicacao+'?token='+token)
         .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao)
+          axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao+'?token='+token)
             .then(dados3 => {
-              axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno)
+              axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
                 .then(dados4 =>  res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
             })
         })
@@ -58,8 +72,12 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     var id = nanoid()
     var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
+<<<<<<< HEAD
+    let newPath = __dirname + '/../public/ficheiros/'+ id
+=======
     let newPath = __dirname + '/../public/ficheiros/'+ id+extension
     console.log("cheguei aqui ")
+>>>>>>> 4fb248f9443dcac7d9a5b0df86f3f1f391106cc3
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
@@ -70,8 +88,8 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     })
     ficheirosArray.push(novoFicheiro)
   }
-
-  axios.post('http://localhost:5003/publicacoes', {
+  token = geratoken()
+  axios.post('http://localhost:5003/publicacoes?token='+token, {
     user_id: req.user.numAluno,
     titulo: req.body.titulo,
     text: req.body.texto,
@@ -108,8 +126,8 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
     })
     ficheirosArray.push(novoFicheiro)
   }
-
-  axios.post('http://localhost:5003/publicacoes/comentario/' + req.body.idPublicacao, {
+  token = geratoken()
+  axios.post('http://localhost:5003/publicacoes/comentario/' + req.body.idPublicacao+'?token='+token, {
     user_id: req.user.numAluno,
     text: req.body.texto,
     ficheiros: ficheirosArray
@@ -139,8 +157,8 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
     })
     ficheirosArray.push(novoFicheiro)
   }
-
-  axios.post('http://localhost:5003/publicacoes/' + idGrupo, {
+  token = geratoken()
+  axios.post('http://localhost:5003/publicacoes/' + idGrupo+'?token='+token, {
     user_id: req.user.numAluno,
     titulo: req.body.titulo,
     text: req.body.texto,
