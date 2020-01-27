@@ -28,14 +28,14 @@ router.post('/checkPassword',verificaAutenticacao,function(req,res){
   .then(dados => {
     console.log(dados.data)
     if(dados.data.length==0){
-      return {
+      res.jsonp( {
         password : false
-      }
+      })
     }
     else{ 
-      return {
+      res.jsonp({
         password : true
-      }
+      })
     }
 
  })
