@@ -29,11 +29,13 @@ router.get('/numAluno',passport.authenticate('jwt',{session: false}),function(re
 })
 
 router.get('/password',passport.authenticate('jwt',{session: false}),function(req,res){
-  console.log('Estou na route do grupo.get password/idGrupo')
-  Grupos.consultar(req.query.idGrupo)
-  .then(dados => {
-    if(bcrypt.compareSync(req.query.password,dados.password))
-      res.jsonp(dados)})
+  Grupos.consultar(req.body.idGrupo)
+  .then(dados =>{
+    if(bcrypt.compareSync(req.query.password,dados.passwor))
+      res.jsonp(dados)
+    else
+    res.jsonp([])  
+  })
   .catch(e => res.status(500).jsonp(e))
 })
 

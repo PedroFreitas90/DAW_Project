@@ -8,6 +8,15 @@ var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
 var jwt = require('jsonwebtoken')
+var path = require('path')
+
+function geratoken(req,res,next){
+    var token = jwt.sign({}, "isn2020", {
+          expiresIn: 3000, 
+          issuer: "FrontEnd ISN"
+      })
+    return token;
+  }
 
 router.get('/', verificaAutenticacao, function(req,res){
     token = geratoken()
@@ -60,23 +69,27 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
     .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
-            .then(dados2 => {
+        .then (dados2 => {
+            axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
+            .then(dados3 =>{   
                 if(dados1.data.length ==0 )
-                res.render('aderir', {grupo: dados2.data})
+                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data})
                 else
-                res.render('pages/grupo', {grupo:dados2.data})
+                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3})
             })
             .catch(e => res.render('error', {error: e}))
             })
     .catch(e => res.render('error', {error: e}))
+})
 })
 
 
 
 router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
     var id = nanoid()
+    var extension = path.extname(req.file[i].originalname)
     let oldPath = __dirname + '/../' + req.file.path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id+extension
    
     fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
       if(err) throw err
@@ -85,7 +98,7 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
     var hash = bcrypt.hashSync(req.body.password, 10)
 
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.file.mimetype,
       size: req.file.size
     })

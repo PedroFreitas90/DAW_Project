@@ -17,6 +17,8 @@ function geratoken(req,res,next){
   return token
 }
 
+var bcrypt = require('bcryptjs');
+var path = require('path')
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
@@ -32,6 +34,25 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
   })
   .catch(e=>res.render('error',{error:e}))
 });
+
+router.post('/checkPassword',verificaAutenticacao,function(req,res){
+  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + req.body.passwordAntiga)
+  .then(dados => {
+    console.log(dados.data)
+    if(dados.data.length==0){
+      res.jsonp( {
+        password : false
+      })
+    }
+    else{ 
+      res.jsonp({
+        password : true
+      })
+    }
+
+ })
+})
+
 
 
 router.get('/:idUser',verificaAutenticacao,function(req,res,next){
@@ -49,44 +70,40 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
 })
 
 
+ 
+
 router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
   var id = nanoid()
+  var hashNova = bcrypt.hashSync(req.body.password, 10);
+  var body = {
+    numAluno: req.user.numAluno,
+        nome: req.body.nome,
+        password: hashNova,
+        bio : req.body.bio,
+        email: req.body.email,
+        website : req.body.website,
+        curso: req.body.curso
+  }
+  if(req.file){
+    var extension = path.extname(req.file.originalname)
   let oldPath = __dirname + '/../' + req.file.path
-  let newPath = __dirname + '/../public/ficheiros/'+id
- 
+  let newPath = __dirname + '/../public/ficheiros/'+id+extension
+ console.log(req.file)
   fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
     if(err) throw err
   })
 
   let novoFicheiro = new Ficheiro({
-    name: id,
+    name: id+""+extension,
     mimetype: req.file.mimetype,
     size: req.file.size
   })
-
-  var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
-  var hashNova = bcrypt.hashSync(req.body.password, 10);
-  var token = geratoken()
-  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash+'?token='+token)
-  .then(dados => {
-    if (dados.data.length==0){
-      console.log("Nao existe")
-      res.redirect('/welelele') //adicionar front end para aparecer um aviso 
-    }
-    else {
-      axios.put('http://localhost:5003/utilizadores?token='+token, {
-      numAluno: req.user.numAluno,
-      nome: req.body.nome,
-      password: hashNova,
-      bio : req.body.bio,
-      email: req.body.email,
-      website : req.body.website,
-      foto : novoFicheiro
-    })
-      .then(dados => res.redirect('/login'))
+  body.foto=novoFicheiro
+}
+ 
+      axios.put('http://localhost:5003/utilizadores?token='+token,body )
+      .then(dados => res.redirect('/feed'))
       .catch(e => res.render('error', {error: e}))
-    }
-    })
 })
 
 

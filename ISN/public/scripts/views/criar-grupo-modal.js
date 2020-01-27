@@ -18,7 +18,6 @@ $("#createGrupoTipo").change(() => {
     switch (tipo) {
         case 'privado':
             $('#createGrupoPasswordDiv').removeClass('d-none');
-            //$('#createGrupoPassword').addAttribute('required')
             break;
         case 'publico':
             $('#createGrupoPasswordDiv').addClass('d-none');
@@ -26,5 +25,6 @@ $("#createGrupoTipo").change(() => {
     }
 });
 
-bootstrapValidate('#createGrupoNome', 'required:Introduza um nome para o grupo.');
+bootstrapValidate('#createGrupoNome', 'required:Introduza um nome para o grupo.|max:12:Nome do grupo só pode ir até 12 caractéres.');
 bootstrapValidate('#createGrupoPassword', 'min:8:Introduza uma password com mais de 8 caractéres.');
+bootstrapValidate('#createGrupoImagem', 'required:Escolha uma imagem de grupo.');

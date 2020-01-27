@@ -9,7 +9,7 @@
         button.close(type='button' data-dismiss='modal' aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
-              form(method='POST' action='/publicacoes' enctype='multipart/form-data' onsubmit="return validateEditUtilizadorModal()")
+              form(method='POST' action='/perfil/editar' enctype='multipart/form-data' onsubmit="return validateEditUtilizadorModal()")
 
                 .input-group.form-group
                   .input-group-prepend
@@ -32,9 +32,18 @@
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
+                      i.fas.fa-user-graduate
+                  if utilizador.bio
+                    input.form-control(type='text' id="editarUtilizadorCurso" name="curso" placeholder=utilizador.curso value=utilizador.curso)
+                  else
+                    input.form-control(type='text' id="editarUtilizadorCurso" name="curso" placeholder='O seu curso...')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
                       i.fas.fa-book
                   if utilizador.bio
-                    textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder=utilizador.bio value=utilizador.bio)
+                    textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder=utilizador.bio) #{utilizador.bio}
                   else
                     textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder='Uma breve descrição ou mensagem sua...')
 

@@ -7,7 +7,11 @@ var upload = multer({ dest: 'uploads/' })
 const fs = require('fs')
 var hashtags = require('../public/scripts/hashtags')
 var nanoid = require('nanoid')
+<<<<<<< HEAD
 var jwt = require('jsonwebtoken')
+=======
+var path = require('path')
+>>>>>>> 4fb248f9443dcac7d9a5b0df86f3f1f391106cc3
 
 function geratoken(req,res,next){
   var token = jwt.sign({},"isn2020",
@@ -66,13 +70,19 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
+<<<<<<< HEAD
     let newPath = __dirname + '/../public/ficheiros/'+ id
+=======
+    let newPath = __dirname + '/../public/ficheiros/'+ id+extension
+    console.log("cheguei aqui ")
+>>>>>>> 4fb248f9443dcac7d9a5b0df86f3f1f391106cc3
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -102,14 +112,15 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id+extension
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -132,14 +143,15 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id + extension
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })

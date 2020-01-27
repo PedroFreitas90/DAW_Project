@@ -9,6 +9,7 @@ var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var jwt = require('jsonwebtoken')
 var nanoid = require('nanoid')
+var path = require('path')
 
 function geratoken(req,res,next){
   var token = jwt.sign({}, "isn2020", {
@@ -16,7 +17,6 @@ function geratoken(req,res,next){
         issuer: "FrontEnd ISN"
     })
   return token;
-
 }
 
     router.get('/', function(req,res){
@@ -24,7 +24,8 @@ function geratoken(req,res,next){
     })
     
 
-   router.get('/feed',verificaAutenticacao,function(req,res){  
+   router.get('/feed',verificaAutenticacao,function(req,res){
+     console.log(req.session.passport.user)
     var numAluno =req.session.passport.user
     var token = geratoken()
      axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
@@ -67,15 +68,16 @@ router.post('/login', passport.authenticate('local',
 
 router.post('/reg',upload.single('imagem'), function(req,res){
   var id = nanoid()
+  var extension = path.extname(req.file[i].originalname)
   let oldPath = __dirname + '/../' + req.file.path
-  let newPath = __dirname + '/../public/ficheiros/'+ id
+  let newPath = __dirname + '/../public/ficheiros/'+ id +extension
  
   fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
     if(err) throw err
   })
 
   let novoFicheiro = new Ficheiro({
-    name: id,
+    name: id+extension,
     mimetype: req.file.mimetype,
     size: req.file.size
   })
