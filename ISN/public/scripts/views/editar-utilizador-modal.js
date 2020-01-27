@@ -1,8 +1,29 @@
 function validateEditUtilizadorModal() {
-    let titulo = $('#createPublicacaoTitulo').val();
-    let texto = $('#createPublicacaoTexto').val();
-    return (titulo.length > 0 && texto.length > 0)
-        ? true : false;
+    let nome = $('#editarUtilizadorNome').val();
+    let passwordAntiga = $('#editarUtilizadorPasswordAntiga').val();
+    let passwordNova = $('#editarUtilizadorPasswordNova').val();
+    let bio = $('#editarUtilizadorBio').val();
+    let email = $('#editarUtilizadorEmail').val();
+    let website = $('#editarUtilizadorWebsite').val();
+    let imagemPerfil = $('#editarUtilizadorImagem').val();
+
+    if (passwordAntiga.length > 0 && passwordNova.length > 0) {
+        let body = { passwordAntiga: passwordAntiga }
+
+        axios.get('/checkPassword', body).then(data => {
+            if (data.password) {
+                alert('A password antiga está incorreta.')
+                return false;
+            }
+            else
+                return (nome.length > 0 && email.length > 0);
+        }).catch(error => {
+            alert('Ocorreu um erro a validar o perfil: ' + error)
+        })
+    } else {
+        return (nome.length > 0 && email.length > 0);
+    }
+
 }
 
 function readURL(input) {
