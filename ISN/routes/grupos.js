@@ -25,6 +25,27 @@ router.get('/', verificaAutenticacao, function(req,res){
     .catch(e => res.render('error', {error: e}))
 })
 
+
+
+router.get('/:idGrupo',verificaAutenticacao, function(req,res){
+    token = geratoken()
+    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
+    .then(dados1 => {
+        axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
+        .then (dados2 => {
+            axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
+            .then(dados3 =>{   
+                if(dados1.data.length ==0 )
+                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data})
+                else
+                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3})
+            })
+            .catch(e => res.render('error', {error: e}))
+            })
+    .catch(e => res.render('error', {error: e}))
+})
+})
+
 router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
     if(req.body.password){
@@ -64,26 +85,6 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 })   
 
 
-router.get('/:idGrupo',verificaAutenticacao, function(req,res){
-    token = geratoken()
-    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
-    .then(dados1 => {
-        axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
-        .then (dados2 => {
-            axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
-            .then(dados3 =>{   
-                if(dados1.data.length ==0 )
-                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data})
-                else
-                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3})
-            })
-            .catch(e => res.render('error', {error: e}))
-            })
-    .catch(e => res.render('error', {error: e}))
-})
-})
-
-
 
 router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
     var id = nanoid()
@@ -117,6 +118,8 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
 })
 
     
+
+
 
     function verificaAutenticacao(req,res,next){
         if(req.isAuthenticated()){
