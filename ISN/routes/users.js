@@ -74,11 +74,11 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
 
 router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
   var id = nanoid()
-  var hashNova = bcrypt.hashSync(req.body.password, 10);
+  
   var body = {
     numAluno: req.user.numAluno,
         nome: req.body.nome,
-        password: hashNova,
+        password: req.body.password,
         bio : req.body.bio,
         email: req.body.email,
         website : req.body.website,
