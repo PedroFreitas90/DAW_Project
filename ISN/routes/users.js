@@ -22,10 +22,11 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
   .catch(e=>res.render('error',{error:e}))
 });
 
-router.get('/checkPassword',verificaAutenticacao,function(req,res){
+router.post('/checkPassword',verificaAutenticacao,function(req,res){
   var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
   axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
   .then(dados => {
+    console.log(dados.data)
     if(dados.data.length==0){
       return {
         password : false
