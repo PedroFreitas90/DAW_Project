@@ -36,6 +36,25 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
 })
 
 
+ router.get('/checkPassword',function(req,res){
+  var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
+  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
+  .then(dados => {
+    if(dados.data.length==0){
+      return {
+        password : false
+      }
+    }
+    else{ 
+      return {
+        password : true
+      }
+    }
+
+ })
+})
+
+
 router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
   var id = nanoid()
   let oldPath = __dirname + '/../' + req.file.path
@@ -50,16 +69,7 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
     mimetype: req.file.mimetype,
     size: req.file.size
   })
-
-  var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
   var hashNova = bcrypt.hashSync(req.body.password, 10);
-  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
-  .then(dados => {
-    if (dados.data.length==0){
-      console.log("Nao existe")
-      res.redirect('/welelele') //adicionar front end para aparecer um aviso 
-    }
-    else {
       axios.put('http://localhost:5003/utilizadores', {
       numAluno: req.user.numAluno,
       nome: req.body.nome,
@@ -71,8 +81,6 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
     })
       .then(dados => res.redirect('/login'))
       .catch(e => res.render('error', {error: e}))
-    }
-    })
 })
 
 
