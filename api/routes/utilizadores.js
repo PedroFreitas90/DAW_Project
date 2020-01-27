@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var Utilizadores = require('../controllers/utilizadores')
 var passport = require('passport')
+var bcrypt = require('bcryptjs')
 
 /* GET users listing. */
 router.get('/', function(req, res) {
@@ -26,11 +27,18 @@ router.get('/utilizador',function(req,res){
 })
 
 router.get('/:numAluno', function(req, res) {
+ 
   if(req.query.password) {
-  Utilizadores.consultarPassword(req.params.numAluno,req.query.password)
-  .then(dados => res.jsonp(dados))
-  .catch(e => res.status(500).jsonp(e))
-  }
+  Utilizadores.consultar(req.params.numAluno)
+    .then(dados => {
+      if (bcrypt.compareSync(req.query.password, dados.password))
+      res.jsonp(dados)
+      else 
+      res.jsonp([])
+    })
+    .catch(e => res.status(500).jsonp(e))
+  } 
+  
   else {
   Utilizadores.consultar(req.params.numAluno)
     .then(dados => res.jsonp(dados))
@@ -46,7 +54,10 @@ router.post('/', function(req,res){
 
 
 router.put('/',function(req,res){
-  console.log(req.body)
+ Utilizadores.updateUtilizadores(req.body.numAluno,req.body)
+ .then(dados => res.jsonp(dados))
+.catch(e => res.status(500).jsonp(e))
 })
+    
 
 module.exports = router;

@@ -23,8 +23,7 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
 });
 
 router.post('/checkPassword',verificaAutenticacao,function(req,res){
-  var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
-  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
+  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + req.body.passwordAntiga)
   .then(dados => {
     console.log(dados.data)
     if(dados.data.length==0){
@@ -61,6 +60,16 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
 
 router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
   var id = nanoid()
+  var hashNova = bcrypt.hashSync(req.body.password, 10);
+  var body = {
+    numAluno: req.user.numAluno,
+        nome: req.body.nome,
+        password: hashNova,
+        bio : req.body.bio,
+        email: req.body.email,
+        website : req.body.website,
+  }
+  if(req.file){
   let oldPath = __dirname + '/../' + req.file.path
   let newPath = __dirname + '/../public/ficheiros/'+id
  
@@ -73,17 +82,11 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
     mimetype: req.file.mimetype,
     size: req.file.size
   })
-  var hashNova = bcrypt.hashSync(req.body.password, 10);
-      axios.put('http://localhost:5003/utilizadores', {
-      numAluno: req.user.numAluno,
-      nome: req.body.nome,
-      password: hashNova,
-      bio : req.body.bio,
-      email: req.body.email,
-      website : req.body.website,
-      foto : novoFicheiro
-    })
-      .then(dados => res.redirect('/login'))
+  body.foto=novoFicheiro
+}
+ 
+      axios.put('http://localhost:5003/utilizadores',body )
+      .then(dados => res.redirect('/feed'))
       .catch(e => res.render('error', {error: e}))
 })
 

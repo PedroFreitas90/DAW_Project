@@ -20,7 +20,36 @@ module.exports.consultar = numAluno => {
         .exec()
 }
 
+
+module.exports.updateUtilizadores = (numAluno,body) =>{
+    if(!body.foto){
+    return Utilizador.update({numAluno : numAluno},
+        {$set :{
+            nome : body.nome,
+            password : body.password,
+            email : body.email,
+            bio : body.bio,
+            website : body.website
+            
+        } })
+}
+else{
+return Utilizador.update({numAluno : numAluno},
+    {$set :{
+        nome : body.nome,
+        password : body.password,
+        email : body.email,
+        bio : body.bio,
+        website : body.website,
+        foto : body.foto            
+    } })
+}
+
+
+}
+
 module.exports.inserir = u => {
     var novo = new Utilizador(u)
     return novo.save()
+   
 }
