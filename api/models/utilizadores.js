@@ -4,7 +4,8 @@ var fotoSchema = new mongoose.Schema({
   desc: String,
   name: String,
   mimetype: String,
-  size: Number
+  size: Number,
+  originalName:String
 });
 
 

@@ -6,7 +6,8 @@ var fotoSchema = new mongoose.Schema({
   _id :String,
   name: String,
   mimetype: String,
-  size: Number
+  size: Number,
+  originalName:String
 });
 
 

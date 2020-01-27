@@ -94,9 +94,10 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
   })
 
   let novoFicheiro = new Ficheiro({
-    name: id+""+extension,
+    name: id+extension,
     mimetype: req.file.mimetype,
-    size: req.file.size
+    size: req.file.size,
+    originalName:req.file.originalname
   })
   body.foto=novoFicheiro
 }

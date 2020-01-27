@@ -77,7 +77,8 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     let novoFicheiro = new Ficheiro({
       name: id+extension,
       mimetype: req.files[i].mimetype,
-      size: req.files[i].size
+      size: req.files[i].size,
+      originalName:req.files[i].originalname
     })
     ficheirosArray.push(novoFicheiro)
   }
@@ -115,7 +116,8 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
     let novoFicheiro = new Ficheiro({
       name: id+extension,
       mimetype: req.files[i].mimetype,
-      size: req.files[i].size
+      size: req.files[i].size,
+      originalName:req.files[i].originalname
     })
     ficheirosArray.push(novoFicheiro)
   }
@@ -146,7 +148,8 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
     let novoFicheiro = new Ficheiro({
       name: id+extension,
       mimetype: req.files[i].mimetype,
-      size: req.files[i].size
+      size: req.files[i].size,
+      originalName:req.files[i].originalname
     })
     ficheirosArray.push(novoFicheiro)
   }

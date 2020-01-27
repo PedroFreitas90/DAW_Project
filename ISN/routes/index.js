@@ -79,7 +79,8 @@ router.post('/reg',upload.single('imagem'), function(req,res){
   let novoFicheiro = new Ficheiro({
     name: id+extension,
     mimetype: req.file.mimetype,
-    size: req.file.size
+    size: req.file.size,
+    originalName:req.file.originalname
   })
 
   var hash = bcrypt.hashSync(req.body.password, 10);

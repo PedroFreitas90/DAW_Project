@@ -8,7 +8,8 @@ var ficheiroSchema = new mongoose.Schema({
     data: String,
     name: String,
     mimetype: String,
-    size: Number
+    size: Number,
+    originalName:String
 })
 
 var gostoSchema = new mongoose.Schema({
