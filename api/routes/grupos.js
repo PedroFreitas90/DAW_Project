@@ -29,7 +29,7 @@ router.get('/numAluno',function(req,res){
 router.get('/password',function(req,res){
   Grupos.consultar(req.body.idGrupo)
   .then(dados =>{
-    if(bcrypt.compareSync(req.query.password,dados.passwor))
+    if(bcrypt.compareSync(req.query.password,dados.password))
       res.jsonp(dados)
     else
     res.jsonp([])  

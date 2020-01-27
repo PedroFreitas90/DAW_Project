@@ -19,8 +19,7 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
     if(req.body.password){
         idGrupo=req.body.idGrupo
-        var hash = bcrypt.hashSync(req.body.password, 10) 
-        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+hash)
+        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password)
         .then(dados => {
             if (dados.data.length>0){
                 axios.post('http://localhost:5003/grupos/utilizador',{
