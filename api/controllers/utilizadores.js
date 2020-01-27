@@ -30,7 +30,7 @@ module.exports.updateUtilizadores = (numAluno,body) =>{
             email : body.email,
             bio : body.bio,
             website : body.website,
-            curso :curso
+            curso : body.curso
             
         } })
 }

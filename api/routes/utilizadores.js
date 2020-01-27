@@ -56,7 +56,7 @@ router.post('/', function(req,res){
 router.put('/',function(req,res){
  Utilizadores.updateUtilizadores(req.body.numAluno,req.body)
  .then(dados => res.jsonp(dados))
-.catch(e => res.status(500).jsonp(e))
+  .catch(e => res.status(500).jsonp(e))
 })
     
 
