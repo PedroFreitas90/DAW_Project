@@ -16,6 +16,7 @@ var utilizadorSchema = new mongoose.Schema({
   email : {type :String , required : true, unique: true},
   bio : { type : String, maxlength : 512},
   website : String,
+  curso : String,
   ultimoAcesso: String,
   foto: fotoSchema
 });

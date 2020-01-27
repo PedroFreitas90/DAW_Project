@@ -29,7 +29,8 @@ module.exports.updateUtilizadores = (numAluno,body) =>{
             password : body.password,
             email : body.email,
             bio : body.bio,
-            website : body.website
+            website : body.website,
+            curso :curso
             
         } })
 }
@@ -41,7 +42,8 @@ return Utilizador.update({numAluno : numAluno},
         email : body.email,
         bio : body.bio,
         website : body.website,
-        foto : body.foto            
+        foto : body.foto,
+        curso : curso            
     } })
 }
 
