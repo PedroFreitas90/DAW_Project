@@ -18,7 +18,6 @@ mongoose.connect('mongodb://127.0.0.1:27017/' + DATABASE_NAME, { useNewUrlParser
  * ROUTERS
  ****************************/
 
-var eventosRouter = require('./routes/eventos');
 var utilizadoresRouter = require('./routes/utilizadores');
 var gruposRouter = require('./routes/grupos');
 var publicacoesRouter = require('./routes/publicacoes');
@@ -71,7 +70,6 @@ app.use(express.static(path.join(__dirname, 'public')));
  * ROUTES
  ****************************/
 
-app.use('/eventos', eventosRouter)
 app.use('/utilizadores', utilizadoresRouter);
 app.use('/grupos',gruposRouter);
 app.use('/publicacoes',publicacoesRouter);

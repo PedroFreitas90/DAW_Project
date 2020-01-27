@@ -106,10 +106,16 @@ module.exports.inserir = g => {
     return novo.save()
 }
 
+
 module.exports.publicacoesPorGrupo = gid =>{
     return Pubs.find({group_id: gid}).exec()
 }
 
 module.exports.removerPublicacao= function(pid) {
     return Pubs.deleteOne({id:pid})
+}
+
+
+module.exports.filtrarHashtags = hashtag => {
+    return Pubs.find({ group_id : "feed" , marcadores : hashtag })
 }

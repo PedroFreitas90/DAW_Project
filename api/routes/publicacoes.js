@@ -15,8 +15,14 @@ router.get('/',passport.authenticate('jwt',{session: false}), function(req, res)
     Pubs.filtrarGrupo(req.query.grupo)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
+  }
+  else if(req.query.hashtag){
+    Pubs.filtrarHashtags('#'+req.query.hashtag)
+    .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
   }  
-   else {Pubs.listar()
+   else {
+     Pubs.listar()
       .then(dados => res.jsonp(dados))
       .catch(e => res.status(500).jsonp(e))
   } 

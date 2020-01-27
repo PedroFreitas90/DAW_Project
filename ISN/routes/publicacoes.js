@@ -19,6 +19,27 @@ function geratoken(req,res,next){
   return token
 }
 
+/*
+router.get('/hashtag/:hashtag',verificaAutenticacao,function(req,res){
+  axios.get('http://localhost:5003/publicacoes?hashtag='+req.params.hashtags+'&token='+token)
+})
+
+*/
+router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
+  token = geratoken()
+  axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao+'?token='+token)
+    .then(dados1 => {
+      axios.get('http://localhost:5003/publicacoes/comentarios/' + req.params.idPublicacao+'?token='+token)
+        .then(dados2 => {
+          axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao+'?token='+token)
+            .then(dados3 => {
+              axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
+                .then(dados4 =>  res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
+            })
+        })
+    })
+    .catch(e => res.render('error', { error: e }))
+})
 
 
 router.post('/comentario/gosto', verificaAutenticacao, function (req, res) {
@@ -43,22 +64,6 @@ router.post('/gosto', verificaAutenticacao, function (req, res) {
     user: req.user.numAluno
   })
     .then(dados => res.redirect("/publicacoes/" + req.body.idPublicacao))
-    .catch(e => res.render('error', { error: e }))
-})
-
-router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
-  token = geratoken()
-  axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao+'?token='+token)
-    .then(dados1 => {
-      axios.get('http://localhost:5003/publicacoes/comentarios/' + req.params.idPublicacao+'?token='+token)
-        .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes/gostos/' + req.params.idPublicacao+'?token='+token)
-            .then(dados3 => {
-              axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
-                .then(dados4 =>  res.render('pages/publicacao', { publicacao: dados1.data, comentarios: dados2.data, gostos: dados3.data, utilizador: dados4.data }))
-            })
-        })
-    })
     .catch(e => res.render('error', { error: e }))
 })
 
@@ -133,7 +138,7 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
 
 })
 
-router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, function (req, res) {
+/*router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, function (req, res) {
   var ficheirosArray = []
 
   for (var i = 0; i < req.files.length; i++) {
@@ -169,7 +174,7 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
 
 
 })
-
+*/
 function verificaAutenticacao(req, res, next) {
   if (req.isAuthenticated()) {
     //req.isAuthenticated() will return true if user is logged in
