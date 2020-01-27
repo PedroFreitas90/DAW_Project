@@ -80,6 +80,13 @@ module.exports.filtrarGrupo = grupoID =>{
 }
 
 
+module.exports.removeGosto = (idPub,user_id) => {
+    return Pubs.update(
+        { id: idPub },
+        { $pull: { 'gostos': { user: user_id } } }
+      );
+}
+
 module.exports.adicionarGosto = (idPub, user) => {
     return Pubs.update({ id: idPub}, {$push : {"gostos.users" : user },$inc : {"gostos.numero" : 1}}).exec()
 }

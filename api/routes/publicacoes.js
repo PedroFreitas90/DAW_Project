@@ -111,6 +111,11 @@ router.post('/gosto',passport.authenticate('jwt',{session: false}),function(req,
       .then(dados2  => res.jsonp(dados2))
       .catch(e => res.status(500).jsonp(e))
     }
+    else {
+      Pubs.retirarGosto(req.body.idPublicacao,req.body.user)
+      .then(dados2  => res.jsonp(dados2))
+      .catch(e => res.status(500).jsonp(e))
+    }
   } )
   .catch(e => res.status(500).jsonp(e))
 })
