@@ -8,8 +8,10 @@
           |(@#{publicacao[0].user[0].numAluno})
     .card-body
       blockquote.blockquote.mb-0
-        h1.text-left
-          | #{publicacao[0].titulo}
+        .d-flex.justify-content-between
+          h1.text-left
+            | #{publicacao[0].titulo}
+          p.align-self-center #{date.getDate()}/#{date.getMonth()+1}/#{date.getFullYear()} #{date.getHours()}h#{date.getMinutes()}m
         hr
         h6.pre-wrap
           | #{publicacao[0].text}
@@ -18,7 +20,7 @@
         each anexo in publicacao[0].ficheiros
           if anexo.mimetype.includes('image')
             a(href='../ficheiros/'+anexo.name)
-              img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:500px')
+              img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:500px' target="_blank")
 
         hr
         
@@ -31,10 +33,15 @@
               each anexo in publicacao[0].ficheiros
                 if !anexo.mimetype.includes('image')
                   li(style="list-style-type: none")
-                    a.background-hover.rounded(href='../ficheiros/'+anexo.name) #{anexo.name}
+                    a.background-hover.rounded(href='../ficheiros/'+anexo.name  target="_blank") #{anexo.name}
           
         footer
           i.fas.fa-comments
           |  #{publicacao[0].comentarios.length}      
-          i.fas.fa-heart
-          |  #{publicacao[0].gostos.numero}
+          if (publicacao[0].gostos.users.includes(utilizador.numAluno))
+            i.fas.fa-heart.coracao(id="like"+publicacao[0].id onclick="darGostoPublicacao('"+publicacao[0].id+"')")
+            |  #{publicacao[0].gostos.numero}
+          else
+            i.far.fa-heart.coracao(id="like"+publicacao[0].id onclick="darGostoPublicacao('"+publicacao[0].id+"')")
+            |  #{publicacao[0].gostos.numero}     
+          button.btn.btn-secondary(type="submit" data-toggle='modal' data-target='#criarComentarioModal') Comentar
