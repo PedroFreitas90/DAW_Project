@@ -8,7 +8,7 @@
     .card-header
       .navbarUserDropdownDiv.rounded.p-1(style='width:max-content')
         a(href='../perfil/'+user.numAluno)
-          img.rounded(src="/ficheiros/"+ user.foto.name  height="50px" width="50px")
+          img.rounded.image-cover(src="/ficheiros/"+ user.foto.name  height="50px" width="50px")
           strong  #{user.nome} 
           |(@#{user.numAluno})
 
@@ -17,9 +17,9 @@
         h6.pre-wrap
           | #{comment.text}
 
-        hr
         each anexo in comment.ficheiros
           if anexo.mimetype.includes('image')
+            hr
             a(href='../ficheiros/'+anexo.name)
               img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:200px' target="_blank")
 
