@@ -1,6 +1,11 @@
 var express = require('express');
 var axios = require('axios');
 var router = express.Router();
+const fs = require('fs')
+var Ficheiro = require('../models/ficheiros')
+var multer = require('multer')
+var upload = multer({dest:'uploads/'})
+var nanoid = require('nanoid')
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
@@ -28,6 +33,46 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
         })
 
         })
+})
+
+
+router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
+  var id = nanoid()
+  let oldPath = __dirname + '/../' + req.file.path
+  let newPath = __dirname + '/../public/ficheiros/'+id
+ 
+  fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
+    if(err) throw err
+  })
+
+  let novoFicheiro = new Ficheiro({
+    name: id,
+    mimetype: req.file.mimetype,
+    size: req.file.size
+  })
+
+  var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
+  var hashNova = bcrypt.hashSync(req.body.password, 10);
+  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
+  .then(dados => {
+    if (dados.data.length==0){
+      console.log("Nao existe")
+      res.redirect('/welelele') //adicionar front end para aparecer um aviso 
+    }
+    else {
+      axios.put('http://localhost:5003/utilizadores', {
+      numAluno: req.user.numAluno,
+      nome: req.body.nome,
+      password: hashNova,
+      bio : req.body.bio,
+      email: req.body.email,
+      website : req.body.website,
+      foto : novoFicheiro
+    })
+      .then(dados => res.redirect('/login'))
+      .catch(e => res.render('error', {error: e}))
+    }
+    })
 })
 
 

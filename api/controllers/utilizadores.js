@@ -10,6 +10,10 @@ module.exports.verificarUtilizador = (uid,umail) =>{
     return Utilizador.find({$or: [{numAluno: uid},{email: umail}]}).exec()
 }
 
+module.exports.consultarPassword = ( numAluno, password) => {
+    return Utilizador.find({numAluno : numAluno , password : password}).exec()
+}
+
 module.exports.consultar = numAluno => {
     return Utilizador
         .findOne({numAluno: numAluno})
