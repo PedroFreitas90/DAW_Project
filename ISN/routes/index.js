@@ -68,7 +68,7 @@ router.post('/login', passport.authenticate('local',
 
 router.post('/reg',upload.single('imagem'), function(req,res){
   var id = nanoid()
-  var extension = path.extname(req.file[i].originalname)
+  var extension = path.extname(req.file.originalname)
   let oldPath = __dirname + '/../' + req.file.path
   let newPath = __dirname + '/../public/ficheiros/'+ id +extension
  

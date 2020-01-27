@@ -101,7 +101,7 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
   })
   body.foto=novoFicheiro
 }
- 
+ var token= geratoken()
       axios.put('http://localhost:5003/utilizadores?token='+token,body )
       .then(dados => res.redirect('/feed'))
       .catch(e => res.render('error', {error: e}))

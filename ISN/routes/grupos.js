@@ -87,7 +87,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
     var id = nanoid()
-    var extension = path.extname(req.file[i].originalname)
+    var extension = path.extname(req.file.originalname)
     let oldPath = __dirname + '/../' + req.file.path
     let newPath = __dirname + '/../public/ficheiros/'+ id+extension
    
