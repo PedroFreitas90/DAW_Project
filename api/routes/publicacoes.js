@@ -77,6 +77,11 @@ router.post('/comentario/gosto',passport.authenticate('jwt',{session: false}),fu
       .then(dados2  => res.jsonp(dados2))
       .catch(e => res.status(500).jsonp(e))
     }
+    else {
+      Pubs.removeGostoComentario(req.body.idPublicacao,req.body.idComentario,req.body.user)
+      .then(dados2  => res.jsonp(dados2))
+      .catch(e => res.status(500).jsonp(e))
+    }
   } )
   .catch(e => res.status(500).jsonp(e))
 })
