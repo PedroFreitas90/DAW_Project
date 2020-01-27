@@ -21,22 +21,7 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
   .catch(e=>res.render('error',{error:e}))
 });
 
-
-router.get('/:idUser',verificaAutenticacao,function(req,res,next){
-  axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser)
-  .then(dados1 =>{
-        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico" )
-        .then(dados2 => {
-          axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser)
-          .then(dados3 => {
-            res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
-        })
-
-        })
-})
-
-
- router.get('/checkPassword',function(req,res){
+router.get('/checkPassword',verificaAutenticacao,function(req,res){
   var hash = bcrypt.hashSync(req.body.passwordAntiga, 10);
   axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + hash)
   .then(dados => {
@@ -54,6 +39,23 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
  })
 })
 
+
+
+router.get('/:idUser',verificaAutenticacao,function(req,res,next){
+  axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser)
+  .then(dados1 =>{
+        axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico" )
+        .then(dados2 => {
+          axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser)
+          .then(dados3 => {
+            res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
+        })
+
+        })
+})
+
+
+ 
 
 router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req,res){
   var id = nanoid()
