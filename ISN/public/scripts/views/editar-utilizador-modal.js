@@ -7,11 +7,16 @@ function validateEditUtilizadorModal() {
     let website = $('#editarUtilizadorWebsite').val();
     let imagemPerfil = $('#editarUtilizadorImagem').val();
 
-    if (passwordAntiga.length > 0 && passwordNova.length > 0) {
-        let body = { passwordAntiga: passwordAntiga }
+    if (passwordAntiga.length > 0 && passwordNova.length == 0 || passwordAntiga.length == 0 && passwordNova.length > 0) {
+        alert('Tem de preencher os dois campos da password para puder mudar a sua password.');
+        return false;
+    }
 
-        axios.get('/checkPassword', body).then(data => {
-            if (data.password) {
+    if (passwordAntiga.length > 0 && passwordNova.length > 0) {
+        var body = { passwordAntiga: passwordAntiga }
+
+        axios.post('../perfil/checkPassword', body).then(data => {
+            if (!data.password) {
                 alert('A password antiga está incorreta.')
                 return false;
             }
@@ -20,6 +25,7 @@ function validateEditUtilizadorModal() {
         }).catch(error => {
             alert('Ocorreu um erro a validar o perfil: ' + error)
         })
+        return false;
     } else {
         return (nome.length > 0 && email.length > 0);
     }
