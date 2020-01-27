@@ -10,11 +10,14 @@ var upload = multer({dest:'uploads/'})
 var jwt = require('jsonwebtoken')
 var nanoid = require('nanoid')
 
-var token = jwt.sign({}, "isn2019", 
-    {
+function geratoken(req,res,next){
+  var token = jwt.sign({}, "isn2020", {
         expiresIn: 3000, 
-        issuer: "Servidor myAgenda"
+        issuer: "FrontEnd ISN"
     })
+  return token;
+
+}
 
     router.get('/', function(req,res){
       res.render('pages/login')
@@ -23,11 +26,12 @@ var token = jwt.sign({}, "isn2019",
 
    router.get('/feed',verificaAutenticacao,function(req,res){  
     var numAluno =req.session.passport.user
-     axios.get('http://localhost:5003/publicacoes?grupo=feed')
+    var token = geratoken()
+     axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
         .then(dados1 =>{
-          axios.get('http://localhost:5003/grupos/')
+          axios.get('http://localhost:5003/grupos?token='+token)
           .then(dados2 =>{
-            axios.get('http://localhost:5003/utilizadores/info/'+numAluno)
+            axios.get('http://localhost:5003/utilizadores/info/'+numAluno+'?token='+token)
             .then(dados3 => res.render('pages/homepage',{ publicacoes:dados1.data, grupos : dados2.data , utilizador:dados3.data}))// falta a view do feed
           })
         })
@@ -40,7 +44,7 @@ router.get('/logout', verificaAutenticacao, function(req,res){
 })
 
 
-router.get('/login', function(req,res){
+router.get('/login',alreadyAutenticado, function(req,res){
   res.render('pages/login')
 })
 
@@ -107,6 +111,15 @@ router.get('/:numAluno', verificaAutenticacao, function(req, res) {
     .then(dados => res.render('perfil', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
 });
+
+function alreadyAutenticado(req,res,next){
+  if(req.isAuthenticated()){
+    res.redirect("/feed")
+  }
+  else{
+    next();
+  }
+}
 
 function verificaAutenticacao(req,res,next){
   if(req.isAuthenticated()){

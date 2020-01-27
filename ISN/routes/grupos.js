@@ -7,9 +7,11 @@ var upload = multer({dest:'uploads/'})
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
+var jwt = require('jsonwebtoken')
 
 router.get('/', verificaAutenticacao, function(req,res){
-    axios.get('http://localhost:5003/grupos')
+    token = geratoken()
+    axios.get('http://localhost:5003/grupos?token'+token)
     .then(dados => res.render('grupos', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
 })
@@ -18,11 +20,11 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
     if(req.body.password){
         idGrupo=req.body.idGrupo
-        var hash = bcrypt.hashSync(req.body.password, 10) 
-        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+hash)
+        token = geratoken()
+        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {
             if (dados.data.length>0){
-                axios.post('http://localhost:5003/grupos/utilizador',{
+                axios.post('http://localhost:5003/grupos/utilizador?token'+token,{
                     numAluno :  req.user.numAluno,
                     nome : req.user.nome,
                     foto : req.user.foto,
@@ -40,7 +42,8 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
         .catch(e => res.render('error', {error :e}))
         } 
    else{
-    axios.post('http://localhost:5003/grupos/utilizador',{
+    token = geratoken()
+    axios.post('http://localhost:5003/grupos/utilizador?token='+token,{
         numAluno :  req.user.numAluno,
         nome : req.user.nome,
         foto : req.user.foto,
@@ -53,9 +56,10 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 
 
 router.get('/:idGrupo',verificaAutenticacao, function(req,res){
-    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno) 
+    token = geratoken()
+    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
     .then(dados1 => {
-        axios.get('http://localhost:5003/grupos/'+req.params.idGrupo)
+        axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
             .then(dados2 => {
                 if(dados1.data.length ==0 )
                 res.render('aderir', {grupo: dados2.data})
@@ -85,7 +89,8 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
       mimetype: req.file.mimetype,
       size: req.file.size
     })
-    axios.post('http://localhost:5003/grupos',{
+    token = geratoken()
+    axios.post('http://localhost:5003/grupos?token='+token,{
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
         nomeGrupo : req.body.nome,
