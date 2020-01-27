@@ -7,6 +7,7 @@ var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var nanoid = require('nanoid')
 var bcrypt = require('bcryptjs');
+var path = require('path')
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
@@ -70,15 +71,16 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
         website : req.body.website,
   }
   if(req.file){
+    var extension = path.extname(req.file.originalname)
   let oldPath = __dirname + '/../' + req.file.path
-  let newPath = __dirname + '/../public/ficheiros/'+id
- 
+  let newPath = __dirname + '/../public/ficheiros/'+id+extension
+ console.log(req.file)
   fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
     if(err) throw err
   })
 
   let novoFicheiro = new Ficheiro({
-    name: id,
+    name: id+""+extension,
     mimetype: req.file.mimetype,
     size: req.file.size
   })

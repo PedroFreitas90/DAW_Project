@@ -55,14 +55,15 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id+extension
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -92,14 +93,15 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id+extension
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })
@@ -122,14 +124,15 @@ router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, functio
 
   for (var i = 0; i < req.files.length; i++) {
     var id = nanoid()
+    var extension = path.extname(req.files[i].originalname)
     let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id
+    let newPath = __dirname + '/../public/ficheiros/'+ id + extension
     console.log("cheguei aqui ")
     fs.rename(oldPath, newPath, function (err) {
       if (err) throw err
     })
     let novoFicheiro = new Ficheiro({
-      name: id,
+      name: id+extension,
       mimetype: req.files[i].mimetype,
       size: req.files[i].size
     })

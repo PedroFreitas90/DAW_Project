@@ -64,15 +64,16 @@ router.post('/login', passport.authenticate('local',
 
 router.post('/reg',upload.single('imagem'), function(req,res){
   var id = nanoid()
+  var extension = path.extname(req.file[i].originalname)
   let oldPath = __dirname + '/../' + req.file.path
-  let newPath = __dirname + '/../public/ficheiros/'+ id
+  let newPath = __dirname + '/../public/ficheiros/'+ id +extension
  
   fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
     if(err) throw err
   })
 
   let novoFicheiro = new Ficheiro({
-    name: id,
+    name: id+extension,
     mimetype: req.file.mimetype,
     size: req.file.size
   })
