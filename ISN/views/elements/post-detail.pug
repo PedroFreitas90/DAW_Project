@@ -1,10 +1,11 @@
 - var date = new Date(publicacao[0].data)
-.post.rounded
+.post-detail.rounded
     .card-header
-      a(href='../perfil/'+publicacao[0].user[0].numAluno)
-        img.rounded(src="/ficheiros/"+ publicacao[0].user[0].foto.name  height="50px" width="50px")
-        strong  #{publicacao[0].user[0].nome} 
-        |(@#{publicacao[0].user[0].numAluno})
+      .navbarUserDropdownDiv.rounded.p-1(style='width:max-content')
+        a(href='../perfil/'+publicacao[0].user[0].numAluno)
+          img.rounded(src="/ficheiros/"+ publicacao[0].user[0].foto.name  height="50px" width="50px")
+          strong  #{publicacao[0].user[0].nome} 
+          |(@#{publicacao[0].user[0].numAluno})
     .card-body
       blockquote.blockquote.mb-0
         h1.text-left

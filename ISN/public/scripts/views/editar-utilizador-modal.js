@@ -16,7 +16,7 @@ function validateEditUtilizadorModal() {
         var body = { passwordAntiga: passwordAntiga }
 
         axios.post('../perfil/checkPassword', body).then(data => {
-            if (!data.password) {
+            if (!data.data.password) {
                 alert('A password antiga está incorreta.')
                 return false;
             }

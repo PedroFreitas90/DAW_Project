@@ -219,3 +219,10 @@ a { color: inherit; }
     1px 1px 0 whitesmoke, 
     1px -1px 0 whitesmoke; 
 }
+
+.post-detail{
+    height: auto;
+    width: fit-content;
+    background-color: ghostwhite;
+    padding: 10px;
+}
