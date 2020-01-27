@@ -21,16 +21,17 @@
               img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:500px')
 
         hr
-        footer.blockquote-footer
-          | #{date.getDate()}/#{date.getMonth()+1}/#{date.getFullYear()} #{date.getHours()}h#{date.getMinutes()}m
         
         if publicacao[0].ficheiros.length
-          footer.blockquote-footer 
-            | Anexos
-            each anexo in publicacao[0].ficheiros
-              if !anexo.mimetype.includes('image')
-                a(href='../ficheiros/'+anexo.name)
-                  p #{anexo.name}
+          footer.blockquote-footer
+            i.fas.fa-download
+            |  Anexos 
+            br
+            ul
+              each anexo in publicacao[0].ficheiros
+                if !anexo.mimetype.includes('image')
+                  li(style="list-style-type: none")
+                    a.background-hover.rounded(href='../ficheiros/'+anexo.name) #{anexo.name}
           
         footer
           i.fas.fa-comments
