@@ -2,6 +2,7 @@ function validateEditUtilizadorModal() {
     let nome = $('#editarUtilizadorNome').val();
     let passwordAntiga = $('#editarUtilizadorPasswordAntiga').val();
     let passwordNova = $('#editarUtilizadorPasswordNova').val();
+    let curso = $('#editarUtilizadorCurso').val();
     let bio = $('#editarUtilizadorBio').val();
     let email = $('#editarUtilizadorEmail').val();
     let website = $('#editarUtilizadorWebsite').val();
@@ -47,6 +48,7 @@ $("#editarUtilizadorImagem").change(function () {
 bootstrapValidate('#editarUtilizadorNome', 'required:Introduza o seu nome.');
 bootstrapValidate('#editarUtilizadorPasswordAntiga', 'min:8:Introduza uma password com mais de 8 caractéres.');
 bootstrapValidate('#editarUtilizadorPasswordNova', 'min:8:Introduza uma password com mais de 8 caractéres.');
-bootstrapValidate('#editarUtilizadorBio', 'max:512:Atingiu o máximo de caractéres.');
+bootstrapValidate('#editarUtilizadorCurso', 'min:3:Introduza o seu curso.|max:44:Atingiu o máximo de caractéres.')
+bootstrapValidate('#editarUtilizadorBio', 'max:134:Atingiu o máximo de caractéres.');
 bootstrapValidate('#editarUtilizadorEmail', 'required:Introduza um email.|email:Introduza um email válido.');
-bootstrapValidate('#editarUtilizadorWebsite', 'max:256:Atingiu o máximo de caractéres.');
+bootstrapValidate('#editarUtilizadorWebsite', 'max:44:Atingiu o máximo de caractéres.');

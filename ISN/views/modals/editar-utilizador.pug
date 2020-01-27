@@ -32,6 +32,15 @@
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
+                      i.fas.fa-user-graduate
+                  if utilizador.bio
+                    input.form-control(type='text' id="editarUtilizadorCurso" name="curso" placeholder=utilizador.curso value=utilizador.curso)
+                  else
+                    input.form-control(type='text' id="editarUtilizadorCurso" name="curso" placeholder='O seu curso...')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
                       i.fas.fa-book
                   if utilizador.bio
                     textarea.form-control(type='text' id="editarUtilizadorBio" name="bio" placeholder=utilizador.bio) #{utilizador.bio}

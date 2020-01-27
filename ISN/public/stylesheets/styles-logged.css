@@ -127,6 +127,7 @@ input:focus {
 
 .box {
     width: 500px;
+    height: 50px;
 }
 
 .profile-picture {
@@ -163,70 +164,72 @@ input:focus {
     background-color: ghostwhite;
     padding: 10px;
 }
-a { color: inherit; } 
-.groups-box{
+
+a {
+    color: inherit;
+}
+
+.groups-box {
     height: fit-content;
 }
 
-.post:hover{
+.post:hover {
     background-color: lightgray;
 }
 
-.navbarUserDropdownDiv:hover{
-    background-color:grey;
+.navbarUserDropdownDiv:hover {
+    background-color: grey;
 }
 
-.profile-email{
+.profile-email {
     width: max-content;
 }
 
-.profile-email:hover{
+.profile-email:hover {
     background-color: lightgray;
 }
 
-.profile-bio{
+.profile-bio {
     text-align: center;
     font-weight: bold;
     font-style: italic;
     width: auto;
 }
 
-.dropdown-item{
+.dropdown-item {
     cursor: pointer;
 }
 
-.profile-group{
+.profile-group {
     background-color: grey;
-    width:150px; 
+    width: 150px;
     height: 150px;
 }
 
-.profile-group:hover{
+.profile-group:hover {
     opacity: 0.8;
 }
 
-.image-cover{
+.image-cover {
     object-fit: cover;
 }
 
-.group-figure{
+.group-figure {
     z-index: 1;
-    margin-top:-25%;
+    margin-top: -25%;
     font-weight: bold;
     font-size: large;
-    color:black;
-    text-shadow: -1px 1px 0 whitesmoke, 
-    1px 1px 0 whitesmoke, 
-    1px -1px 0 whitesmoke; 
+    color: black;
+    text-shadow: -1px 1px 0 whitesmoke, 1px 1px 0 whitesmoke, 1px -1px 0 whitesmoke;
 }
 
-.post-detail{
+.post-detail {
     height: auto;
     width: fit-content;
     background-color: ghostwhite;
     padding: 10px;
 }
 
-.pre-wrap{
+.pre-wrap {
     white-space: pre-wrap;
 }

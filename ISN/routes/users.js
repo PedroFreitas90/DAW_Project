@@ -69,6 +69,7 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
         bio : req.body.bio,
         email: req.body.email,
         website : req.body.website,
+        curso: req.body.curso
   }
   if(req.file){
     var extension = path.extname(req.file.originalname)

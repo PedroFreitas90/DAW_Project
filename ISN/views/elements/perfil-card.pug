@@ -17,5 +17,6 @@
       | #{utilizador.curso}
 
     if utilizador.website
-      h6.card-subtitle
-        a.card-link(href=utilizador.website) a#{utilizador.website}
+      h6.card-subtitle.profile-email.rounded
+        i.fas.fa-home
+        a.btn(href=utilizador.website) #{utilizador.website}
