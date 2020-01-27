@@ -19,7 +19,7 @@ function geratoken(req,res,next){
   return token;
 }
 
-    router.get('/', function(req,res){
+    router.get('/',alreadyAutenticado, function(req,res){
       res.render('pages/login')
     })
     
