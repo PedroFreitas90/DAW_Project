@@ -189,6 +189,10 @@ a {
     background-color: lightgray;
 }
 
+.background-hover:hover {
+    background-color: lightgray;
+}
+
 .profile-bio {
     text-align: center;
     font-weight: bold;
