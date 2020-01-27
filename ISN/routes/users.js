@@ -6,6 +6,7 @@ var Ficheiro = require('../models/ficheiros')
 var multer = require('multer')
 var upload = multer({dest:'uploads/'})
 var nanoid = require('nanoid')
+var bcrypt = require('bcryptjs');
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
