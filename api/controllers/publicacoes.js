@@ -41,7 +41,7 @@ module.exports.publicacaoComentarios = idPub => {
 
 module.exports.filtrarAutor = uid => {
     return Pubs
-    .aggregate([{$match : { user_id : uid , group : "feed" }},
+    .aggregate([{$match : { user_id : uid , group_id : "feed" }},
         {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
         },{$sort : { data : -1}}]).exec()
 }
@@ -72,9 +72,9 @@ module.exports.verificaGosto = (idPub,user_id) => {
 }
 
 
-module.exports.filtrarGrupo = grupoNome =>{
+module.exports.filtrarGrupo = grupoID =>{
      return Pubs
-        .aggregate([{$match : { group : grupoNome}},
+        .aggregate([{$match : { group_id : grupoID}},
             {$lookup : { from : "utilizadores", localField :"user_id",foreignField : "numAluno",as:"user"} 
             },{$sort : { data : -1}}]).exec()
 }
