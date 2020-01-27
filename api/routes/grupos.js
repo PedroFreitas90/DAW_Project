@@ -27,8 +27,13 @@ router.get('/numAluno',function(req,res){
 })
 
 router.get('/password',function(req,res){
-  Grupos.verificaPassword(req.query.idGrupo,req.query.password)
-  .then(dados => res.jsonp(dados))
+  Grupos.consultar(req.body.idGrupo)
+  .then(dados =>{
+    if(bcrypt.compareSync(req.query.password,dados.passwor))
+      res.jsonp(dados)
+    else
+    res.jsonp([])  
+  })
   .catch(e => res.status(500).jsonp(e))
 })
 

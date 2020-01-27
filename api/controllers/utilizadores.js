@@ -43,7 +43,7 @@ return Utilizador.update({numAluno : numAluno},
         bio : body.bio,
         website : body.website,
         foto : body.foto,
-        curso : curso            
+        curso : body.curso            
     } })
 }
 
