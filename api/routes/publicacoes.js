@@ -106,9 +106,13 @@ router.post('/comentario/:idPublicacao',passport.authenticate('jwt',{session: fa
 router.post('/gosto',passport.authenticate('jwt',{session: false}),function(req,res){
   Pubs.verificaGosto(req.body.idPublicacao,req.body.user)
   .then(dados =>{
+    console.log(dados)
     if(dados.length==0){
+      console.log('-----------------------')
       Pubs.adicionarGosto(req.body.idPublicacao,req.body.user)
-      .then(dados2  => res.jsonp(dados2))
+      .then(dados2  => {
+        console.log(dados2)
+        res.jsonp(dados2)})
       .catch(e => res.status(500).jsonp(e))
     }
     else {
@@ -128,9 +132,9 @@ router.post('/:idGrupo',passport.authenticate('jwt',{session: false}),function(r
   var body = req.body
   var data =  new Date();
   body.id = nanoid()
- // body.ficheiros.forEach( a => {
-  //  a.data=data;  
-  //})
+  body.ficheiros.forEach( a => {
+    a.data=data;  
+  })
   body.data = data;
   body.gostos = gostos;
   body.group_id=req.params.idGrupo

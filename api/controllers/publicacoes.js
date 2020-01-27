@@ -80,15 +80,19 @@ module.exports.filtrarGrupo = grupoID =>{
 }
 
 
+module.exports.removeGostoComentario =(idPub,idCom,idUser) =>{
+    return Pubs.update({id: idPub ,"comentarios.id" : idCom },
+    {$pull : {"comentarios.$.gostos.users" : idUser },$inc : {"comentarios.$.gostos.numero" : -1}})
+}
+
 module.exports.removeGosto = (idPub,user_id) => {
     return Pubs.update(
         { id: idPub },
-        { $pull: { 'gostos': { user: user_id } } }
-      );
+        { $pull: { 'gostos.users': user_id } ,$inc : {"gostos.numero" : -1}}) 
 }
 
 module.exports.adicionarGosto = (idPub, user) => {
-    return Pubs.update({ id: idPub}, {$push : {"gostos.users" : user },$inc : {"gostos.numero" : 1}}).exec()
+    return Pubs.updateOne({ id: idPub}, {$push : {"gostos.users" : user },$inc : {"gostos.numero" : 1}}).exec()
 }
 
 module.exports.adicionarComentario = (idPublicacao,comentario) => {
