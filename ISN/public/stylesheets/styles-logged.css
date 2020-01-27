@@ -226,3 +226,7 @@ a { color: inherit; }
     background-color: ghostwhite;
     padding: 10px;
 }
+
+.pre-wrap{
+    white-space: pre-wrap;
+}
