@@ -2,18 +2,16 @@
 #aderirGrupoModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='aderirGrupoModalLabel' aria-hidden='true')
   .modal-dialog(role='document')
     .modal-content
-      .modal-body
-              form(method='POST' action='/grupos/aderir' enctype='multipart/form-data' onsubmit="return validateAderirGrupoForm()")
-
+      .modal-body                
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
                       i.fas.fa-key
                   input.form-control(type='password' id='aderirGrupoPassword' name='password' placeholder='Password')
 
-                input.form-control(type="hidden" name="idGrupo" value=grupo[0].id)
+                input.form-control(type="hidden" id='aderirGrupoId' name="idGrupo" value=grupo[0].id)
 
                 .form-group
-                  input.btn.float-right.login_btn(type='submit' value='Aderir')
+                  input.btn.float-right.login_btn(type='submit' value='Aderir'  onclick='validateAderirGrupoForm()')
 
 script(src='/scripts/views/aderir-grupo-modal.js')
