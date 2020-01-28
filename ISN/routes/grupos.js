@@ -34,23 +34,17 @@ router.get('/', verificaAutenticacao, function(req,res){
 
 router.get('/:idGrupo',verificaAutenticacao, function(req,res){
     token = gerarToken()
-    axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
-    .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
-        .then (dados2 => {
+        .then (dados1 => {
             axios.get('http://localhost:5003/publicacoes?grupo='+req.params.idGrupo+'&token='+token)
-            .then(dados3 =>{
+            .then(dados2 =>{
                 axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
-                .then (dados4 => {   
-                if(dados1.data.length ==0 )
-                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data , utilizador : dados4.data})
-                else
-                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3.data, utilizador : dados4.data})
+                .then (dados3 => {   
+                res.render('pages/grupo', {grupo:dados1.data , publicacoes : dados2.data, utilizador : dados3.data})
             })
             .catch(e => res.render('error', {error: e}))
             })
     .catch(e => res.render('error', {error: e}))
-})
 })
 })
 
