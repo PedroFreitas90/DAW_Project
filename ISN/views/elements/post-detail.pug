@@ -16,11 +16,10 @@
         h6.pre-wrap
           | #{publicacao[0].text}
 
-        hr
         each anexo in publicacao[0].ficheiros
           if anexo.mimetype.includes('image')
             a(href='../ficheiros/'+anexo.name)
-              img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:500px' target="_blank")
+              img.image-cover(src="../ficheiros/"+anexo.name)(style='max-width:500px; max-height:500px;' target="_blank")
 
         hr
         
@@ -33,7 +32,7 @@
               each anexo in publicacao[0].ficheiros
                 if !anexo.mimetype.includes('image')
                   li(style="list-style-type: none")
-                    a.background-hover.rounded(href='../ficheiros/'+anexo.name  target="_blank") #{anexo.name}
+                    a.background-hover.rounded(href='../ficheiros/'+anexo.name  target="_blank") #{anexo.originalName}
           
         footer
           i.fas.fa-comments

@@ -30,11 +30,6 @@ passport.use(new LocalStrategy(
         expiresIn: 3000,
         issuer: "FrontEnd ISN"
       })
-    
-    fs.writeFile('token.txt', token, function (err) {
-        if (err) throw err;
-        console.log('saved');
-    });
     axios.get('http://localhost:5003/utilizadores/' + numAluno + '?token=' + token)
       .then(dados => {
         const user = dados.data

@@ -3,4 +3,4 @@ function validateFormPublicacaoModal() {
     return (texto.length > 0);
 }
 
-bootstrapValidate('#createPublicacaoTexto', 'required:Introduza o comentário.|max:256:Atingiu o máximo de caractéres.');
+bootstrapValidate('#createComentarioTexto', 'required:Introduza o comentário.|max:256:Atingiu o máximo de caractéres.');

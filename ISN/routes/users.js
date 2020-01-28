@@ -9,15 +9,19 @@ var nanoid = require('nanoid')
 var jwt = require('jsonwebtoken')
 var bcrypt = require('bcryptjs');
 var path = require('path')
-var filePath = __dirname + '/../token.txt'
-var token = ''
-fs.readFile(filePath, (err, data) => { 
-  if (err) throw err;
-    token = data.toString()
-})
+
+function gerarToken(){
+  var token = jwt.sign({}, "isn2020",
+    {
+      expiresIn: 3000,
+      issuer: "FrontEnd ISN"
+    })
+    return token
+}
 
 /* GET users listing. */
 router.get('/',verificaAutenticacao, function(req, res, next) {
+  token = gerarToken()
   axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno+'?token='+token)
   .then(dados1 =>{
         axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.user.numAluno+'&token='+token )
@@ -51,6 +55,7 @@ router.post('/checkPassword',verificaAutenticacao,function(req,res){
 
 
 router.get('/:idUser',verificaAutenticacao,function(req,res,next){ 
+  token = gerarToken()
   axios.get('http://localhost:5003/utilizadores/info/'+req.params.idUser+'?token='+token)
   .then(dados1 =>{
         axios.get('http://localhost:5003/grupos/numAluno?numAluno='+req.params.idUser+"&grupos=publico&token="+token)
@@ -95,6 +100,7 @@ router.post('/editar', upload.single('imagem'),verificaAutenticacao,function(req
   })
   body.foto=novoFicheiro
 }
+token = gerarToken()
       axios.put('http://localhost:5003/utilizadores?token='+token,body )
       .then(dados => res.redirect('/feed'))
       .catch(e => res.render('error', {error: e}))

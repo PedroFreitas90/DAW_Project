@@ -11,12 +11,14 @@ var jwt = require('jsonwebtoken')
 var nanoid = require('nanoid')
 var path = require('path')
 
-var filePath = __dirname + '/../token.txt'
-var token = ''
-fs.readFile(filePath, (err, data) => { 
-  if (err) throw err;
-    token = data.toString()
-})
+function gerarToken(){
+  var token = jwt.sign({}, "isn2020",
+    {
+      expiresIn: 3000,
+      issuer: "FrontEnd ISN"
+    })
+    return token
+}
 
 
     router.get('/',alreadyAutenticado, function(req,res){
@@ -27,8 +29,7 @@ fs.readFile(filePath, (err, data) => {
    router.get('/feed',verificaAutenticacao,function(req,res){
      console.log(req.session.passport.user)
     var numAluno =req.session.passport.user
-    console.log('-------------')
-    console.log('-------------')
+    token = gerarToken()
      axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
         .then(dados1 =>{
           axios.get('http://localhost:5003/grupos?token='+token)
@@ -111,6 +112,7 @@ router.post('/reg',upload.single('imagem'), function(req,res){
 
 
 router.get('/:numAluno', verificaAutenticacao, function(req, res) {
+  token = gerarToken()
   axios.get('http://localhost:5003/utilizadores/' + req.params.numAluno + '?token=' + token)
     .then(dados => res.render('perfil', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
