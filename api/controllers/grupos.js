@@ -7,9 +7,13 @@ module.exports.listar = () => {
 }
 
 module.exports.consultar = numGrupo => {
-    return Grupo
-        .findOne({id: numGrupo})
-        .exec()
+    return Grupo.aggregate([
+        {$match : { id : numGrupo}},
+        {$unwind : "$utilizadores"},
+        {$lookup : { from : "utilizadores", localField :"utilizadores.numAluno",foreignField : "numAluno",as:"utilizadorFoto"}},
+        {$project : { utilizadores : 0}}
+    ])
+        .exec()        
 }
 
 
