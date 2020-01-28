@@ -11,13 +11,13 @@ var jwt = require('jsonwebtoken')
 var nanoid = require('nanoid')
 var path = require('path')
 
-function geratoken(req,res,next){
-  var token = jwt.sign({}, "isn2020", {
-        expiresIn: 3000, 
-        issuer: "FrontEnd ISN"
-    })
-  return token;
-}
+var filePath = __dirname + '/../token.txt'
+var token = ''
+fs.readFile(filePath, (err, data) => { 
+  if (err) throw err;
+    token = data.toString()
+})
+
 
     router.get('/',alreadyAutenticado, function(req,res){
       res.render('pages/login')
@@ -27,7 +27,8 @@ function geratoken(req,res,next){
    router.get('/feed',verificaAutenticacao,function(req,res){
      console.log(req.session.passport.user)
     var numAluno =req.session.passport.user
-    var token = geratoken()
+    console.log('-------------')
+    console.log('-------------')
      axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
         .then(dados1 =>{
           axios.get('http://localhost:5003/grupos?token='+token)

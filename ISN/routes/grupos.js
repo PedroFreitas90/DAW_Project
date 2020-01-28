@@ -7,19 +7,17 @@ var upload = multer({dest:'uploads/'})
 var fs = require('fs');
 var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
-var jwt = require('jsonwebtoken')
+var fs = require('fs')
 var path = require('path')
 
-function geratoken(req,res,next){
-    var token = jwt.sign({}, "isn2020", {
-          expiresIn: 3000, 
-          issuer: "FrontEnd ISN"
-      })
-    return token;
-  }
+var filePath = __dirname + '/../token.txt'
+var token = ''
+fs.readFile(filePath, (err, data) => { 
+  if (err) throw err;
+    token = data.toString()
+})
 
 router.get('/', verificaAutenticacao, function(req,res){
-    token = geratoken()
     axios.get('http://localhost:5003/grupos?token'+token)
     .then(dados => res.render('grupos', {lista: dados.data}))
     .catch(e => res.render('error', {error: e}))
@@ -28,7 +26,6 @@ router.get('/', verificaAutenticacao, function(req,res){
 
 
 router.get('/:idGrupo',verificaAutenticacao, function(req,res){
-    token = geratoken()
     axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
     .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
@@ -50,7 +47,6 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
     if(req.body.password){
         idGrupo=req.body.idGrupo
-        token = geratoken()
         axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {
             if (dados.data.length>0){
@@ -72,7 +68,6 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
         .catch(e => res.render('error', {error :e}))
         } 
    else{
-    token = geratoken()
     axios.post('http://localhost:5003/grupos/utilizador?token='+token,{
         numAluno :  req.user.numAluno,
         nome : req.user.nome,
@@ -104,7 +99,6 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
       size: req.file.size,
       originalName:req.file.originalname
     })
-    token = geratoken()
     axios.post('http://localhost:5003/grupos?token='+token,{
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
