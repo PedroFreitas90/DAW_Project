@@ -101,8 +101,9 @@ router.post('/utilizador',passport.authenticate('jwt',{session: false}),function
 
 
 
- router.delete('/sair',/*passport.authenticate('jwt',{session : false}),*/function(req,res){
-   Grupos.eliminarUtilizadorGrupo(req.body.idGrupo,req.body.numAluno)
+ router.delete('/sair',passport.authenticate('jwt',{session : false}),function(req,res){
+  console.log(req.body)
+   Grupos.eliminarUtilizadorGrupo(req.query.idGrupo,req.query.numAluno)
    .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
  })
