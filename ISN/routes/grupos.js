@@ -19,7 +19,10 @@ fs.readFile(filePath, (err, data) => {
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos?token'+token)
-    .then(dados => res.render('grupos', {lista: dados.data}))
+    .then(dados1 => {res.render('grupos', {lista: dados.data})
+    axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
+    .then(dados2 =>  res.render('', { grupos: dados1.data, utilizador: dados2.data}))
+})
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -31,7 +34,9 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
         .then (dados2 => {
             axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
-            .then(dados3 =>{   
+            .then(dados3 =>{
+                axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
+                .then (dados4 => {   
                 if(dados1.data.length ==0 )
                 res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data})
                 else
@@ -40,6 +45,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
             .catch(e => res.render('error', {error: e}))
             })
     .catch(e => res.render('error', {error: e}))
+})
 })
 })
 
