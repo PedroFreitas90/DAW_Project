@@ -49,7 +49,6 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 })
 
 router.post('/aderir',verificaAutenticacao,function(req,res){
-    var idGrupo = req.query.grupo
     token = gerarToken()
     if(req.body.password){
         idGrupo=req.body.idGrupo
@@ -78,7 +77,7 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
         numAluno :  req.user.numAluno,
         nome : req.user.nome,
         foto : req.user.foto,
-        idGrupo : idGrupo,
+        idGrupo : req.body.idGrupo,
     })
     .then(dados=>res.redirect('/grupos/'+idGrupo))
     .catch(e => res.render('error', {error: e}))
