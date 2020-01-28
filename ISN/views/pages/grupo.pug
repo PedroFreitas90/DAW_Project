@@ -1,6 +1,11 @@
 extends ../layouts/layout-logged
 
 block content
+  - var found = false
+  each g in grupo
+    if (g.utilizadorFoto[0].numAluno == utilizador.numAluno)
+      - found = true    
+
   .d-flex.flex-column
     .d-flex.flex-column
       .header-bg
@@ -12,12 +17,10 @@ block content
               i.fas.fa-users-cog
               |  Editar Grupo
           else 
-            each g in grupo
-              if (g.utilizadorFoto[0].numAluno == utilizador.numAluno)
+              if found
                 button.btn.profile-navbar-span(type='button' onclick="sairGrupo('"+grupo[0].id+"')")
                   i.fas.fa-sign-out-alt
                   |  Sair
-                - break
               else
                 button.btn.profile-navbar-span(type='button' onclick="aderirGrupo('"+grupo[0].id+"')")
                   i.fas.fa-sign-in-alt
