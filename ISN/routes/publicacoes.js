@@ -19,12 +19,6 @@ function gerarToken(){
     return token
 }
 
-/*
-router.get('/hashtag/:hashtag',verificaAutenticacao,function(req,res){
-  axios.get('http://localhost:5003/publicacoes?hashtag='+req.params.hashtags+'&token='+token)
-})
-
-*/
 router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
   token = gerarToken()
   axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao+'?token='+token)
