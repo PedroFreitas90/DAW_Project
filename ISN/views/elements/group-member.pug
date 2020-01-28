@@ -1,4 +1,3 @@
-h4 Membros
 .rounded.member-group.m-1.container
     a(href='../perfil/'+user.utilizadorFoto[0].numAluno)
         .d-flex.flex-column
@@ -12,7 +11,7 @@ h4 Membros
                         i.fas.fa-hashtag 
                         |   #{user.utilizadorFoto[0].numAluno}
                 if grupo[0].admin.numAluno == utilizador.numAluno && user.utilizadorFoto[0].numAluno != utilizador.numAluno
-                    button.btn.btn-secondary(href="#") Remover
+                    i.remover-membro(style='font-size:20pt;align-self:center' onclick="removerMembroGrupo('"+grupo[0].id+"','"+user.utilizadorFoto[0].numAluno+"')").fas.fa-user-minus
                 
 
 

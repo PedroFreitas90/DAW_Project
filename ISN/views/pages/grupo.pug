@@ -6,14 +6,28 @@ block content
       .header-bg
       .profile-navbar.shadow.d-flex.flex-row
         .box
-        .d-flex.flex-row.profile-bio
+        .d-flex.flex-row.profile-bio(style='font-style:inherit')
           if grupo[0].admin.numAluno == utilizador.numAluno
-            a.btn.btn-secondary.mr-2(href="#") Editar Grupo
-          a.btn.btn-secondary(href="#") Botao 2
-          a.btn.btn-secondary(href="3") Botao 3
+            button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#editarGrupoModal')
+              i.fas.fa-users-cog
+              |  Editar Grupo
+          else 
+            each g in grupo
+              if (g.utilizadorFoto[0].numAluno == utilizador.numAluno)
+                button.btn.profile-navbar-span(type='button' onclick="sairGrupo('"+grupo[0].id+"')")
+                  i.fas.fa-sign-out-alt
+                  |  Sair
+                - break
+              else
+                button.btn.profile-navbar-span(type='button' onclick="aderirGrupo('"+grupo[0].id+"')")
+                  i.fas.fa-sign-in-alt
+                  |  Aderir
       img.rounded.profile-picture.image-cover(src="/ficheiros/"+ grupo[0].fotoGrupo.name  height="200px" width="200px")
     .d-flex.justify-content-around.mt-3.mb-5.perfil-body.align-items-start
-      include ../elements/grupo-card.pug
-      include ../elements/posts-feed.pug
-      include ../elements/membros-list.pug
+      if grupo[0].tipo == 'publico'
+        include ../elements/grupo-card.pug
+        include ../elements/posts-feed.pug
+        include ../elements/membros-list.pug
+
+  script(src='/scripts/views/grupo.js')
 
