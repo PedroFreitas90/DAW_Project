@@ -96,8 +96,15 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     group_id: req.body.grupo,
     marcadores: hashtags.filtraHashtags(req.body.texto)
   })
-
-    .then(dados => res.redirect('/feed'))
+   
+    .then(dados =>{
+      if(group_id=='feed'){
+      res.redirect('/feed')
+      }
+      else{
+      res.redirect('/grupos/'+req.body.grupo)
+      }
+    })  
     .catch(e => res.render('error', { error: e }))
 
 
