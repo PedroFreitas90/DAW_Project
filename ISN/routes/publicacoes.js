@@ -10,14 +10,12 @@ var nanoid = require('nanoid')
 var jwt = require('jsonwebtoken')
 var path = require('path')
 
-function geratoken(req,res,next){
-  var token = jwt.sign({},"isn2020",
-    {
-      expiresIn: 3000,
-      issuer: "FrontEnd ISN"
-    })
-  return token
-}
+var filePath = __dirname + '/../token.txt'
+var token = ''
+fs.readFile(filePath, (err, data) => { 
+  if (err) throw err;
+    token = data.toString()
+})
 
 /*
 router.get('/hashtag/:hashtag',verificaAutenticacao,function(req,res){
@@ -26,7 +24,6 @@ router.get('/hashtag/:hashtag',verificaAutenticacao,function(req,res){
 
 */
 router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
-  token = geratoken()
   axios.get('http://localhost:5003/publicacoes/' + req.params.idPublicacao+'?token='+token)
     .then(dados1 => {
       axios.get('http://localhost:5003/publicacoes/comentarios/' + req.params.idPublicacao+'?token='+token)
@@ -44,7 +41,7 @@ router.get('/:idPublicacao', verificaAutenticacao, function (req, res) {
 
 router.post('/comentario/gosto', verificaAutenticacao, function (req, res) {
   console.log(req.body)
-  token = geratoken()
+  
   axios.post('http://localhost:5003/publicacoes/comentario/gosto?token='+token, {
     idPublicacao: req.body.idPublicacao,
     idComentario: req.body.idComentario,
@@ -58,7 +55,7 @@ router.post('/comentario/gosto', verificaAutenticacao, function (req, res) {
 
 router.post('/gosto', verificaAutenticacao, function (req, res) {
   console.log(req.body)
-  token = geratoken()
+  
   axios.post('http://localhost:5003/publicacoes/gosto?token='+token, {
     idPublicacao: req.body.idPublicacao,
     user: req.user.numAluno
@@ -87,7 +84,7 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     })
     ficheirosArray.push(novoFicheiro)
   }
-  token = geratoken()
+  
   axios.post('http://localhost:5003/publicacoes?token='+token, {
     user_id: req.user.numAluno,
     titulo: req.body.titulo,
@@ -126,7 +123,7 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
     })
     ficheirosArray.push(novoFicheiro)
   }
-  token = geratoken()
+  
   axios.post('http://localhost:5003/publicacoes/comentario/' + req.body.idPublicacao+'?token='+token, {
     user_id: req.user.numAluno,
     text: req.body.texto,
@@ -158,7 +155,7 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
     })
     ficheirosArray.push(novoFicheiro)
   }
-  token = geratoken()
+  
   axios.post('http://localhost:5003/publicacoes/' + idGrupo+'?token='+token, {
     user_id: req.user.numAluno,
     titulo: req.body.titulo,
