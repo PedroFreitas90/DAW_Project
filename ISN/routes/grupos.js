@@ -50,6 +50,10 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 router.post('/aderir',verificaAutenticacao,function(req,res){
     token = gerarToken()
+    console.log('......................')
+    console.log('......................')
+    console.log('......................')
+    console.log(req.body)
     if(req.body.password){
         axios.get('http://localhost:5003/grupos/password?idGrupo='+req.body.idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {

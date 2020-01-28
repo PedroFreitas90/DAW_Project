@@ -92,7 +92,7 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
   })
    
     .then(dados =>{
-      if(req.body.group_id=='feed'){
+      if(req.body.grupo=='feed'){
       res.redirect('/feed')
       }
       else{
