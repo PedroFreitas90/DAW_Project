@@ -38,7 +38,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
     .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
         .then (dados2 => {
-            axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
+            axios.get('http://localhost:5003/publicacoes?grupo='+req.params.idGrupo+'&token='+token)
             .then(dados3 =>{
                 axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
                 .then (dados4 => {   
