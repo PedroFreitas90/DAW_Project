@@ -23,24 +23,24 @@ if utilizadorPerfil
           a.btn(href=utilizadorPerfil.website) #{utilizadorPerfil.website}
 else 
   .card.profile-card
-  .card-body
-    h5.card-title.font-weight-bold.text-center #{utilizador.nome}
-    
-    h6.card-subtitle
-      i.fas.fa-hashtag
-      a.btn(style="cursor:default") #{utilizador.numAluno}
-
-    if utilizador.curso
+    .card-body
+      h5.card-title.font-weight-bold.text-center #{utilizador.nome}
+      
       h6.card-subtitle
-        i.fas.fa-user-graduate
-        a.btn(style="cursor:default").btn #{utilizador.curso}
-
-    if utilizador.email
-      h6.card-subtitle.profile-email.rounded
-        i.fas.fa-at 
-        a.btn(href='mailto:'+utilizador.email) #{utilizador.email}
-
-    if utilizador.website
-      h6.card-subtitle.profile-email.rounded
-        i.fas.fa-home
-        a.btn(href=utilizador.website) #{utilizador.website}
+        i.fas.fa-hashtag
+        a.btn(style="cursor:default") #{utilizador.numAluno}
+  
+      if utilizador.curso
+        h6.card-subtitle
+          i.fas.fa-user-graduate
+          a.btn(style="cursor:default").btn #{utilizador.curso}
+  
+      if utilizador.email
+        h6.card-subtitle.profile-email.rounded
+          i.fas.fa-at 
+          a.btn(href='mailto:'+utilizador.email) #{utilizador.email}
+  
+      if utilizador.website
+        h6.card-subtitle.profile-email.rounded
+          i.fas.fa-home
+          a.btn(href=utilizador.website) #{utilizador.website}
