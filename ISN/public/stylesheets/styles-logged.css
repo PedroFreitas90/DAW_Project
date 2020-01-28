@@ -88,6 +88,7 @@ input:focus {
 
 .header-bg {
     background-image: url('/header/header.jpg');
+    background-position: center;
     width: 100%;
     position: relative;
     height: 350px;
@@ -238,11 +239,22 @@ a {
     white-space: pre-wrap;
 }
 
-.comment-detail{
+.comment-detail {
     background-color: whitesmoke;
 }
 
-.coracao:hover{
+.coracao:hover {
     cursor: pointer;
     color: tomato;
+}
+
+.group-box:hover {
+    opacity: 0.8;
+}
+
+.grey-container {
+    width: 100%;
+    height: auto;
+    background-color: grey;
+    padding: 20px;
 }

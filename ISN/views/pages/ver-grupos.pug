@@ -1,11 +1,11 @@
 extends ../layouts/layout-logged
 
 block content
-    .container-fluid
-        .d-flex.flex-wrap
-            each grupo in grupos
-                .d-flex.flex-column.mr-2
-                    p #{grupo.nome}
-                    p #{grupo.utilizadores.length}
-                    p #{grupo.fotoGrupo.name}
-                    p #{grupo.tipo}
+    .container.mt-5.grey-container
+            form.form-inline.my-2.my-lg-0.justify-content-center
+                input.form-control.mr-sm-2(type='search' placeholder='Nome de grupo...' aria-label='Search')
+
+            .d-flex.flex-wrap.justify-content-center.mt-3
+                each grupo in grupos
+                    .d-flex.flex-column.mr-2.mb-2
+                        include ../elements/group-box.pug

@@ -1,0 +1,13 @@
+
+.card.rounded.group-box(style='max-width: 500px')
+    a(href='../grupos/'+grupo.id)
+        img.card-img-top.image-cover(src='../ficheiros/'+grupo.fotoGrupo.name style="max-height:200px;")
+        .card-body
+          h5.font-weight-bold.font-style-bold.card-title.text-center.mr-2 #{grupo.nome} #{nsbp}
+            if grupo.tipo == 'publico'
+                i.fas.fa-lock-open.mr-1
+            else 
+                i.fas.fa-lock.mr-1
+            i.fas.fa-user     
+            |  #{grupo.utilizadores.length}
+            
