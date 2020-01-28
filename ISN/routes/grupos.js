@@ -53,12 +53,12 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     console.log('......................')
     console.log('......................')
     console.log('......................')
-    console.log(req.body)
+    console.log(req)
     if(req.body.password){
         axios.get('http://localhost:5003/grupos/password?idGrupo='+req.body.idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {
             if (dados.data.length>0){
-                axios.post('http://localhost:5003/grupos/utilizador?token'+token,{
+                axios.post('http://localhost:5003/grupos/utilizador?token='+token,{
                     numAluno :  req.user.numAluno,
                     nome : req.user.nome,
                     idGrupo : req.body.idGrupo,

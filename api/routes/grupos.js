@@ -37,9 +37,11 @@ router.get('/top10',passport.authenticate('jwt',{session :false}),function(req,r
 
 
 router.get('/password',passport.authenticate('jwt',{session: false}),function(req,res){
-  Grupos.consultar(req.body.idGrupo)
+  console.log(req.query)
+  Grupos.consultar(req.query.idGrupo)
   .then(dados =>{
-    if(bcrypt.compareSync(req.query.password,dados.password))
+      console.log(dados)
+    if(bcrypt.compareSync(req.query.password,dados[0].password))
       res.jsonp(dados)
     else
     res.jsonp([])  
