@@ -43,9 +43,9 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
                 axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
                 .then (dados4 => {   
                 if(dados1.data.length ==0 )
-                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data})
+                res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data , utilizador : dados4.data})
                 else
-                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3})
+                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3, utilizador : dados4.data})
             })
             .catch(e => res.render('error', {error: e}))
             })
