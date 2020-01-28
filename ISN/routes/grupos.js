@@ -85,19 +85,19 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 
 router.delete('/sair',verificaAutenticacao,function(req,res){
     if(req.body.numAluno){
-        axios.delete('http://localhost:5003/grupos/sair?token='+token),{
+        axios.delete('http://localhost:5003/grupos/sair?token='+token,{
             idGrupo : req.body.idGrupo,
             numAluno: req.body.numAluno
-        }
+        })
         .then(dados => res.redirect("/grupos/"+idGrupo))
         .catch(e => res.render('error', {error: e}))
         
     }
     else {
-    axios.delete('http://localhost:5003/grupos/sair?token='+token),{
+    axios.delete('http://localhost:5003/grupos/sair?token='+token,{
         idGrupo : req.body.idGrupo,
         numAluno: req.user.numAluno
-    }
+    })
     .then(dados => res.redirect("/grupos/"+idGrupo))
     .catch(e => res.render('error', {error: e}))
 }
