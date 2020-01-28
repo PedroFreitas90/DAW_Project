@@ -19,10 +19,10 @@ fs.readFile(filePath, (err, data) => {
 
 router.get('/', verificaAutenticacao, function(req,res){
     axios.get('http://localhost:5003/grupos?token'+token)
-    .then(dados1 => {res.render('grupos', {lista: dados.data})
+    .then(dados1 => { 
     axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
-    .then(dados2 =>  res.render('', { grupos: dados1.data, utilizador: dados2.data}))
-})
+    .then(dados2 =>  res.render('page/ver-grupos', { grupos: dados1.data, utilizador: dados2.data}))
+    })
     .catch(e => res.render('error', {error: e}))
 })
 
