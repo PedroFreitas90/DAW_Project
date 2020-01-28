@@ -51,16 +51,15 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 router.post('/aderir',verificaAutenticacao,function(req,res){
     token = gerarToken()
     if(req.body.password){
-        idGrupo=req.body.idGrupo
-        axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password+'&token='+token)
+        axios.get('http://localhost:5003/grupos/password?idGrupo='+req.body.idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {
             if (dados.data.length>0){
                 axios.post('http://localhost:5003/grupos/utilizador?token'+token,{
                     numAluno :  req.user.numAluno,
                     nome : req.user.nome,
-                    idGrupo : idGrupo,
+                    idGrupo : req.body.idGrupo,
                 })
-                .then(dados=>res.redirect('/grupos/'+idGrupo))
+                .then(dados=>res.redirect('/grupos/'+req.body.idGrupo))
                 .catch(e => res.render('error', {error: e}))
             }
             else {
@@ -77,7 +76,7 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
         nome : req.user.nome,
         idGrupo : req.body.idGrupo,
     })
-    .then(dados=>res.redirect('/grupos/'+idGrupo))
+    .then(dados=>res.redirect('/grupos/'+req.body.idGrupo))
     .catch(e => res.render('error', {error: e}))
 }
 })   
