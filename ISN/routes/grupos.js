@@ -9,6 +9,7 @@ var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
 var fs = require('fs')
 var path = require('path')
+var jwt = require('jsonwebtoken')
 
 function gerarToken(){
     var token = jwt.sign({}, "isn2020",
@@ -22,10 +23,10 @@ function gerarToken(){
 router.get('/', verificaAutenticacao, function(req,res){
     token = gerarToken()
     axios.get('http://localhost:5003/grupos?token'+token)
-    .then(dados1 => {res.render('grupos', {lista: dados.data})
+    .then(dados1 => { 
     axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
-    .then(dados2 =>  res.render('', { grupos: dados1.data, utilizador: dados2.data}))
-})
+    .then(dados2 =>  res.render('pages/ver-grupos', { grupos: dados1.data, utilizador: dados2.data}))
+    })
     .catch(e => res.render('error', {error: e}))
 })
 
@@ -37,7 +38,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
     .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
         .then (dados2 => {
-            axios.get('http://localhost:5003/publicacacoes?grupo='+req.params.idGrupo+'&token='+token)
+            axios.get('http://localhost:5003/publicacoes?grupo='+req.params.idGrupo+'&token='+token)
             .then(dados3 =>{
                 axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
                 .then (dados4 => {   

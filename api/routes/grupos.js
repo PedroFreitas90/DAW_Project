@@ -9,7 +9,7 @@ var bcrypt= require('bcryptjs')
 var passport = require('passport')
 
 /* GET users listing. */
-router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
+router.get('/',/*passport.authenticate('jwt',{session: false}),*/ function(req, res) {
   Grupos.listar()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))

@@ -5,13 +5,14 @@ var nanoid = require('nanoid');
 var passport = require('passport')
 
 /* GET users listing. */
-router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
+router.get('/',/*passport.authenticate('jwt',{session: false}),*/ function(req, res) {
   if(req.query.numAluno){
     Pubs.filtrarAutor(req.query.numAluno)
       .then(dados => res.jsonp(dados))
       .catch(e => res.status(500).jsonp(e))
   }
   else if (req.query.grupo){
+    console.log(req.query.grupo)
     Pubs.filtrarGrupo(req.query.grupo)
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
