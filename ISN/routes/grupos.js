@@ -9,6 +9,7 @@ var bcrypt = require('bcryptjs');
 var nanoid = require('nanoid')
 var fs = require('fs')
 var path = require('path')
+var jwt = require('jsonwebtoken')
 
 function gerarToken(){
     var token = jwt.sign({}, "isn2020",
