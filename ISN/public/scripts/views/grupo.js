@@ -8,10 +8,9 @@ function aderirGrupo(idGrupo) {
 }
 
 function sairGrupo(idGrupo) {
-    var body = { idGrupo: idGrupo };
-    axios.delete('/grupos/sair', body)
+    axios.delete('/grupos/sair?idGrupo=' + idGrupo)
         .then(dados => {
-            location.reload();            
+            location.reload();
         })
         .catch(e => alert('Ocorreu um erro: ' + e.error))
 }
@@ -19,9 +18,9 @@ function sairGrupo(idGrupo) {
 function removerMembroGrupo(idGrupo, idAluno) {
     var body = { numAluno: idAluno, idGrupo: idGrupo };
 
-    axios.delete('/grupos/sair', body)
+    axios.delete('/grupos/sair?idGrupo=' + idGrupo + '&numAluno=' + idAluno)
         .then(dados => {
-
+            location.reload();
         })
         .catch(e => alert('Ocorreu um erro: ' + e.error))
 }
