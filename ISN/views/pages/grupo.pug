@@ -16,8 +16,14 @@ block content
             button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#editarGrupoModal')
               i.fas.fa-users-cog
               |  Editar Grupo
+            button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#criarPublicacaoGrupoModal  ')
+              i.fas.fa-paper-plane
+              |  Publicar Grupo
           else 
               if found
+                button.btn.profile-navbar-span(type='button' data-toggle='modal' data-target='#criarPublicacaoGrupoModal  ')
+                  i.fas.fa-paper-plane
+                  |  Publicar Grupo
                 button.btn.profile-navbar-span(type='button' onclick="sairGrupo('"+grupo[0].id+"')")
                   i.fas.fa-sign-out-alt
                   |  Sair

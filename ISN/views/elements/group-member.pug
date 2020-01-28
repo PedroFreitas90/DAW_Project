@@ -5,10 +5,10 @@
                 img.rounded-circle.image-cover.image-member-list.mr-3(src='../ficheiros/'+user.utilizadorFoto[0].foto.name)
                 .info.d-flex.flex-column.mr-3
                     .d-flex.flex-row.mr-2
-                        i.fas.fa-user
+                        i.fas.fa-user.mr-2
                         |   #{user.utilizadorFoto[0].nome}
                     .d-flex.flex-row.mr-2
-                        i.fas.fa-hashtag 
+                        i.fas.fa-hashtag.mr-2
                         |   #{user.utilizadorFoto[0].numAluno}
                 if grupo[0].admin.numAluno == utilizador.numAluno && user.utilizadorFoto[0].numAluno != utilizador.numAluno
                     i.remover-membro(style='font-size:20pt;align-self:center' onclick="removerMembroGrupo('"+grupo[0].id+"','"+user.utilizadorFoto[0].numAluno+"')").fas.fa-user-minus
