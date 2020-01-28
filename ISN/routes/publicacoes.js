@@ -98,7 +98,7 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
   })
    
     .then(dados =>{
-      if(group_id=='feed'){
+      if(req.body.group_id=='feed'){
       res.redirect('/feed')
       }
       else{
@@ -144,44 +144,6 @@ router.post('/comentario', upload.array('ficheiro'), verificaAutenticacao, funct
     .catch(e => res.render('error', { error: e }))
 
 })
-
-/*router.post('/:idGrupo', upload.array('ficheiro'), verificaAutenticacao, function (req, res) {
-  var ficheirosArray = []
-
-  for (var i = 0; i < req.files.length; i++) {
-    var id = nanoid()
-    var extension = path.extname(req.files[i].originalname)
-    let oldPath = __dirname + '/../' + req.files[i].path
-    let newPath = __dirname + '/../public/ficheiros/'+ id + extension
-    console.log("cheguei aqui ")
-    fs.rename(oldPath, newPath, function (err) {
-      if (err) throw err
-    })
-    let novoFicheiro = new Ficheiro({
-      name: id+extension,
-      mimetype: req.files[i].mimetype,
-      size: req.files[i].size,
-      originalName:req.files[i].originalname
-    })
-    ficheirosArray.push(novoFicheiro)
-  }
-  
-  axios.post('http://localhost:5003/publicacoes/' + idGrupo+'?token='+token, {
-    user_id: req.user.numAluno,
-    titulo: req.body.titulo,
-    text: req.body.texto,
-    ficheiros: ficheirosArray,
-    group: req.body.grupo,
-    group_id: req.params.idGrupo,
-    marcadores: hashtags.filtraHashtags(req.body.texto)
-  })
-
-    .then(dados => res.redirect('/grupos/:idGrupo'))
-    .catch(e => res.render('error', { error: e }))
-
-
-})
-*/
 function verificaAutenticacao(req, res, next) {
   if (req.isAuthenticated()) {
     //req.isAuthenticated() will return true if user is logged in

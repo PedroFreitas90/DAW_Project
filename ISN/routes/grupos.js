@@ -84,6 +84,7 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 
 
 router.delete('/sair',verificaAutenticacao,function(req,res){
+   var token = gerarToken()
     if(req.query.numAluno){
         axios.delete('http://localhost:5003/grupos/sair?idGrupo='+req.query.idGrupo+'&numAluno='
                                                                 +req.query.numAluno+'&token='+token)
