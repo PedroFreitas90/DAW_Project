@@ -39,6 +39,7 @@ else{
 return Utilizador.update({numAluno : numAluno},
     {$set :{
         nome : body.nome,
+        password : body.password,
         email : body.email,
         bio : body.bio,
         website : body.website,
@@ -66,7 +67,6 @@ else{
 return Utilizador.update({numAluno : numAluno},
     {$set :{
         nome : body.nome,
-        password : body.password,
         email : body.email,
         bio : body.bio,
         website : body.website,

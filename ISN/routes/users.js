@@ -62,10 +62,16 @@ router.get('/:idUser',verificaAutenticacao,function(req,res,next){
         .then(dados2 => {
           axios.get('http://localhost:5003/publicacoes?numAluno='+req.params.idUser+'&token='+token)
           .then(dados3 => {
-            res.render('pages/perfil',{ utilizador:dados1.data, grupos : dados2.data , publicacoes:dados3.data})})
-        })
-
-        })
+            axios.get('http://localhost:5003/utilizadores/info/'+req.user.numAluno+'?token='+token)
+            .then(dados4 =>
+            res.render('pages/perfil',{ utilizadorPerfil:dados1.data, 
+                                        grupos : dados2.data , 
+                                        publicacoes:dados3.data,
+                                        utilizador:dados4.data
+                                      }))
+                                    })
+                                  })
+                                })
 })
 
 

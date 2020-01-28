@@ -116,5 +116,26 @@ router.post('/utilizador',passport.authenticate('jwt',{session: false}),function
  })
 
 
+ router.delete('/sair',/*passport.authenticate('jwt',{session : false}),*/function(req,res){
+   Grupos.eliminarUtilizadorGrupo(req.body.idGrupo,req.body.numAluno)
+   .then(dados => res.jsonp(dados))
+    .catch(e => res.status(500).jsonp(e))
+ })
+
+ router.put('/:idGrupo',passport.authenticate('jwt',{session : false}),function(req,res){  
+    if(req.body.password!= ""){
+    var hashNova = bcrypt.hashSync(req.body.password, 10);
+    body.password = hashNova
+ Grupos.updateComPassword(req.param.idGrupo,req.body)
+ .then(dados => res.jsonp(dados))
+  .catch(e => res.status(500).jsonp(e))
+  }
+ else{
+   Grupos.updateSemPassword(req.params.idGrupo,req.body)
+   .then(dados => res.jsonp(dados))
+  .catch(e => res.status(500).jsonp(e))
+ }
+})
+
 
 module.exports = router;

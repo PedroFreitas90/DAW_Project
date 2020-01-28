@@ -76,3 +76,49 @@ module.exports.inserir = g => {
     var novo = new Grupo(g)
     return novo.save()
 }
+
+module.exports.eliminarUtilizadorGrupo = (idGrupo,numAluno) => {
+    return Grupo.update({id : idGrupo},
+        {$pull : { utilizadores : { numAluno : numAluno}}})
+        .exec()
+}
+
+
+module.exports.updateComPassword = (idGrupo,body) =>{
+    if(!body.foto){
+    return Utilizador.update({id : idGrupo},
+        {$set :{
+            nome : body.nome,
+            password : body.password,
+            
+        } })
+}
+else{
+return Utilizador.update({id : idGrupo},
+    {$set :{
+        nome : body.nome,
+        password : body.password,
+        foto : body.foto,            
+    } })
+}
+}
+
+
+
+module.exports.updateSemPassword = (idGrupo,body) =>{
+    if(!body.foto){
+    return Utilizador.update({id : idGrupo},
+        {$set :{
+            nome : body.nome,
+        } })
+}
+else{
+return Utilizador.update({numAluno : numAluno},
+    {$set :{
+        nome : body.nome,
+        foto : body.foto,          
+    } })
+}
+
+
+}

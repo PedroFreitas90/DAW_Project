@@ -92,6 +92,46 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 })   
 
 
+router.delete('/sair',verificaAutenticacao,function(req,res){
+    axios.delete('http://localhost:5003/grupos/sair&token='+token),{
+        idGrupo : req.body.idGrupo,
+        numAluno: req.user.numAluno
+    }
+    .then(dados => res.redirect("/grupos/"+idGrupo))
+    .catch(e => res.render('error', {error: e}))
+       
+})
+
+
+router.post('editar/:idGrupo',verificaAutenticacao,function(req,res){
+    var body = {
+                nome: req.body.nome,
+                password: req.body.password          
+            }
+    if(req.file){
+        var extension = path.extname(req.file.originalname)
+      let oldPath = __dirname + '/../' + req.file.path
+      let newPath = __dirname + '/../public/ficheiros/'+id+extension
+     console.log(req.file)
+      fs.rename(oldPath, newPath, function(err){ //mexer ficheiro da cache para public/ficheiros
+        if(err) throw err
+      })
+    
+      let novoFicheiro = new Ficheiro({
+        name: id+extension,
+        mimetype: req.file.mimetype,
+        size: req.file.size,
+        originalName:req.file.originalname
+      })
+      body.foto=novoFicheiro
+    }
+
+    token = gerarToken()
+    axios.put('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token,body)
+    .then(dados => res.redirect('/grupos/'+idGrupo))
+      .catch(e => res.render('error', {error: e}))
+})
+
 
 router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res){
     var id = nanoid()
