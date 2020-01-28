@@ -25,6 +25,17 @@
 
         hr
     
+        if comment.ficheiros.length
+          footer.blockquote-footer
+            i.fas.fa-download
+            |  Anexos 
+            br
+            ul
+              each anexo in comment.ficheiros
+                if !anexo.mimetype.includes('image')
+                  li(style="list-style-type: none")
+                    a.background-hover.rounded(href='../ficheiros/'+anexo.name  target="_blank") #{anexo.originalName}
+
         footer
           if (comment.gostos.users.includes(utilizador.numAluno))
             i.fas.fa-heart.coracao(id="like"+comment.id onclick="darGostoComentario('"+publicacao[0].id+"','"+comment.id+"')")
