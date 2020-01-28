@@ -4,6 +4,7 @@
         img.card-img-top.image-cover(src='../ficheiros/'+grupo.fotoGrupo.name style="max-height:200px;")
         .card-body
           h5.font-weight-bold.font-style-bold.card-title.text-center.mr-2 #{grupo.nome} #{nsbp}
+          .text-center
             if grupo.tipo == 'publico'
                 i.fas.fa-lock-open.mr-1
             else 

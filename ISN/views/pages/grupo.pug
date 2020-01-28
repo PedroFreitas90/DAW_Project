@@ -1,7 +1,19 @@
 extends ../layouts/layout-logged
 
 block content
+  .d-flex.flex-column
+    .d-flex.flex-column
+      .header-bg
+      .profile-navbar.shadow.d-flex.flex-row
+        .box
+        .d-flex.flex-row.profile-bio
+          if grupo[0].admin.numAluno == utilizador.numAluno
+            a.btn.btn-secondary.mr-2(href="#") Editar Grupo
+          a.btn.btn-secondary(href="#") Botao 2
+          a.btn.btn-secondary(href="3") Botao 3
+      img.rounded.profile-picture.image-cover(src="/ficheiros/"+ grupo[0].fotoGrupo.name  height="200px" width="200px")
+    .d-flex.justify-content-around.mt-3.mb-5.perfil-body.align-items-start
+      include ../elements/grupo-card.pug
+      include ../elements/posts-feed.pug
+      include ../elements/membros-list.pug
 
-    p #{JSON.stringify(grupo)}
-    hr
-    p #{JSON.stringify(publicacoes)}

@@ -1,0 +1,17 @@
+.card.profile-card
+  .card-body
+    h5.card-title.font-weight-bold.text-center #{grupo[0].nome} #{nsbp}
+        if grupo[0].tipo == 'publico'
+            i.fas.fa-lock-open
+        else 
+            i.fas.fa-lock
+    
+    if grupo
+      h4.card-subtitle
+        i.fas.fa-users 
+        a.btn(style="cursor:default; font-size:14pt") #{grupo.length}
+
+    if publicacoes
+        h4.card-subtitle
+            i.fas.fa-comments
+            a.btn(style="cursor:default; font-size:14pt") #{publicacoes.length}

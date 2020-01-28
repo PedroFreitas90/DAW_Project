@@ -258,3 +258,18 @@ a {
     background-color: grey;
     padding: 20px;
 }
+
+.member-group {
+    background-color: lightgrey;
+    width: 100%;
+    height: auto;
+}
+
+.member-group:hover {
+    background-color: lightslategrey;
+}
+
+.image-member-list{
+    max-width: 15%;
+    max-height: 15%;
+}

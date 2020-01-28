@@ -1,0 +1,19 @@
+h4 Membros
+.rounded.member-group.m-1.container
+    a(href='../perfil/'+user.utilizadorFoto[0].numAluno)
+        .d-flex.flex-column
+            .d-flex.justify-content-between.p-3
+                img.rounded-circle.image-cover.image-member-list.mr-1(src='../ficheiros/'+user.utilizadorFoto[0].foto.name)
+                .info.d-flex.flex-column
+                    .d-flex.flex-row.mr-2
+                        i.fas.fa-user
+                        |   #{user.utilizadorFoto[0].nome}
+                    .d-flex.flex-row.mr-2
+                        i.fas.fa-hashtag 
+                        |   #{user.utilizadorFoto[0].numAluno}
+                if grupo[0].admin.numAluno == utilizador.numAluno && user.utilizadorFoto[0].numAluno != utilizador.numAluno
+                    button.btn.btn-secondary(href="#") Remover
+                
+
+
+

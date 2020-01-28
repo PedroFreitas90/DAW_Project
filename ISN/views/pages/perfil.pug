@@ -7,8 +7,14 @@ block content
       .profile-navbar.shadow.d-flex.flex-row
         .box
         .d-flex.flex-row.profile-bio
-          p #{utilizador.bio}
-      img.rounded.profile-picture.image-cover(src="/ficheiros/"+ utilizador.foto.name  height="200px" width="200px")
+          if utilizadorPerfil
+            p #{utilizadorPerfil.bio}
+          else
+            p #{utilizador.bio}
+      if utilizadorPerfil
+        img.rounded.profile-picture.image-cover(src="/ficheiros/"+ utilizadorPerfil.foto.name  height="200px" width="200px")
+      else
+        img.rounded.profile-picture.image-cover(src="/ficheiros/"+ utilizador.foto.name  height="200px" width="200px")
     .d-flex.justify-content-around.mt-3.mb-5.perfil-body.align-items-start
       include ../elements/perfil-card.pug
       include ../elements/posts-feed.pug
