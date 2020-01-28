@@ -28,7 +28,7 @@ router.get('/numAluno',passport.authenticate('jwt',{session: false}),function(re
   } 
 })
 
-router.get('/top10',/*passport.authenticate('jwt'),{session :false}),*/function(req,res){
+router.get('/top10',passport.authenticate('jwt',{session :false}),function(req,res){
   Grupos.top10()
   .then(dados => res.jsonp(dados))
   .catch(e => res.status(500).jsonp(e))
