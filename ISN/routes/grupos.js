@@ -58,7 +58,6 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
                 axios.post('http://localhost:5003/grupos/utilizador?token'+token,{
                     numAluno :  req.user.numAluno,
                     nome : req.user.nome,
-                    foto : req.user.foto,
                     idGrupo : idGrupo,
                 })
                 .then(dados=>res.redirect('/grupos/'+idGrupo))
@@ -76,7 +75,6 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
     axios.post('http://localhost:5003/grupos/utilizador?token='+token,{
         numAluno :  req.user.numAluno,
         nome : req.user.nome,
-        foto : req.user.foto,
         idGrupo : req.body.idGrupo,
     })
     .then(dados=>res.redirect('/grupos/'+idGrupo))
@@ -86,12 +84,23 @@ router.post('/aderir',verificaAutenticacao,function(req,res){
 
 
 router.delete('/sair',verificaAutenticacao,function(req,res){
+    if(req.body.numAluno){
+        axios.delete('http://localhost:5003/grupos/sair&token='+token),{
+            idGrupo : req.body.idGrupo,
+            numAluno: req.body.numAluno
+        }
+        .then(dados => res.redirect("/grupos/"+idGrupo))
+        .catch(e => res.render('error', {error: e}))
+        
+    }
+    else {
     axios.delete('http://localhost:5003/grupos/sair&token='+token),{
         idGrupo : req.body.idGrupo,
         numAluno: req.user.numAluno
     }
     .then(dados => res.redirect("/grupos/"+idGrupo))
     .catch(e => res.render('error', {error: e}))
+}
        
 })
 

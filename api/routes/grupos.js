@@ -93,27 +93,12 @@ router.post('/utilizador',passport.authenticate('jwt',{session: false}),function
    var utilizador ={
     numAluno : req.body.numAluno,
     nome :  req.body.nome,
-    foto : req.body.foto
   }
   Grupos.adicionarUtilizador(req.body.idGrupo,utilizador)
   .then(dados => res.jsonp(dados))
   .catch(e => res.status(500).jsonp(e))
  })
 
- router.post('/publicacao',passport.authenticate('jwt',{session: false}),function(req,res){
-
-  var body = req.body
-  var data =  new Date();
-  body.id = nanoid()
-  body.ficheiros.forEach( a => {
-    a.data=data;
-  })
-  body.data = data;
-  Grupos.adicionarPublicacao(req.body.idGrupo,utilizador)
-    .then(dados => res.jsonp(dados))
-    .catch(e => res.status(500).jsonp(e))
-
- })
 
 
  router.delete('/sair',/*passport.authenticate('jwt',{session : false}),*/function(req,res){
