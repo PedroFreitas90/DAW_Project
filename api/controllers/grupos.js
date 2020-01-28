@@ -58,10 +58,10 @@ module.exports.consultarGruposAluno = aluno =>{
 }
 
 
-module.exports.top10 = () =>{
+module.exports.top10 = () => {
     return Grupo.aggregate([
         {$match : { tipo : "publico"}},
-        {$project : { id :1 , admin : 1 , tipo : 1 , fotoGrupo : 1 ,Uilizadores :1 , 
+        {$project : { id :1 , admin : 1 , nome : 1 , tipo:1, fotoGrupo : 1 ,utilizadores :1 , 
             numeroUtilizadores : {$cond : { if : {$isArray : "$utilizadores" },then : { $size : "$utilizadores"},else : "NA"}}}},
             {$sort : { numeroUtilizadores : -1}},
             {$limit : 10}]).exec()
