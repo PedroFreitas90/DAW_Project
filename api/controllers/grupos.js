@@ -35,9 +35,6 @@ module.exports.adicionarUtilizador = (idGrupo,utilizador) => {
     return Grupo.updateOne({id : idGrupo },{$push : {utilizadores : utilizador}})
 }
 
-module.exports.adicionarPublicacao = (idPublicacao,publicacao) => {
-    return Grupo.update({id : idPublicacao },{$push : {publicacoes : publicacao}}).exec()
-}
 
 
 module.exports.verificaPassword = (idGrupo,pass) => {
@@ -58,6 +55,17 @@ module.exports.consultarGruposAluno = aluno =>{
                     $elemMatch : { numAluno :aluno }
                 }
             })
+}
+
+
+module.exports.top10 = () =>{
+    return Grupo.aggregate([
+        {$match : { tipo : "publico"}},
+        {$project : { id :1 , admin : 1 , tipo : 1 , fotoGrupo : 1 ,Uilizadores :1 , 
+            numeroUtilizadores : {$cond : { if : {$isArray : "$utilizadores" },then : { $size : "$utilizadores"},else : "NA"}}}},
+            {$sort : { numeroUtilizadores : -1}},
+            {$limit : 10}]).exec()
+
 }
 
 module.exports.inserir = g => {

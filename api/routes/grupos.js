@@ -28,6 +28,14 @@ router.get('/numAluno',passport.authenticate('jwt',{session: false}),function(re
   } 
 })
 
+router.get('/top10',/*passport.authenticate('jwt'),{session :false}),*/function(req,res){
+  Grupos.top10()
+  .then(dados => res.jsonp(dados))
+  .catch(e => res.status(500).jsonp(e))
+})
+
+
+
 router.get('/password',passport.authenticate('jwt',{session: false}),function(req,res){
   Grupos.consultar(req.body.idGrupo)
   .then(dados =>{

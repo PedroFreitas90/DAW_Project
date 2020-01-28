@@ -32,7 +32,7 @@ function gerarToken(){
     token = gerarToken()
      axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
         .then(dados1 =>{
-          axios.get('http://localhost:5003/grupos?token='+token)
+          axios.get('http://localhost:5003/grupos/top10?token='+token)
           .then(dados2 =>{
             axios.get('http://localhost:5003/utilizadores/info/'+numAluno+'?token='+token)
             .then(dados3 => res.render('pages/homepage',{ publicacoes:dados1.data, grupos : dados2.data , utilizador:dados3.data}))// falta a view do feed
