@@ -14,7 +14,7 @@ var path = require('path')
 function gerarToken(){
   var token = jwt.sign({}, "isn2020",
     {
-      expiresIn: 3000,
+      expiresIn: 30,
       issuer: "FrontEnd ISN"
     })
     return token
