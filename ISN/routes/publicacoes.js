@@ -93,7 +93,7 @@ router.post('/', upload.array('ficheiro'), verificaAutenticacao, function (req, 
     titulo: req.body.titulo,
     text: req.body.texto,
     ficheiros: ficheirosArray,
-    group: req.body.grupo,
+    group_id: req.body.grupo,
     marcadores: hashtags.filtraHashtags(req.body.texto)
   })
 

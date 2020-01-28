@@ -66,7 +66,6 @@ router.post('/',passport.authenticate('jwt',{session: false}), function(req,res)
   })
   body.data = data;
   body.gostos = gostos
-  body.group_id = "feed"
   
   Pubs.inserir(req.body)
     .then(dados => res.jsonp(dados))
