@@ -37,6 +37,9 @@ nav.shadow.navbar.navbar-light.bg-light.justify-content-between
 
 if publicacao
   include ../modals/criar-comentario.pug
+if grupo
+  if grupo[0].tipo == 'privado'
+    include ../modals/aderir-grupo.pug
 include ../modals/criar-pub.pug
 include ../modals/criar-grupo.pug
 include ../modals/editar-utilizador.pug

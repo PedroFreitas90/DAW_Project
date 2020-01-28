@@ -92,7 +92,7 @@ router.delete('/sair',verificaAutenticacao,function(req,res){
         .then(dados => res.redirect("/grupos/"+idGrupo))
         .catch(e => res.render('error', {error: e}))
         
-    }
+    }   
     else {
     axios.delete('http://localhost:5003/grupos/sair?token='+token,{
         idGrupo : req.body.idGrupo,
