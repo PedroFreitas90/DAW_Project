@@ -45,7 +45,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
                 if(dados1.data.length ==0 )
                 res.render('aderir', {grupo: dados2.data , publicacoes : dados3.data , utilizador : dados4.data})
                 else
-                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3, utilizador : dados4.data})
+                res.render('pages/grupo', {grupo:dados2.data , publicacoes : dados3.data, utilizador : dados4.data})
             })
             .catch(e => res.render('error', {error: e}))
             })

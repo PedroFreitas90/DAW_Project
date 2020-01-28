@@ -2,4 +2,9 @@ extends ../layouts/layout-logged
 
 block content
     .container.mt-5
-        include ../elements/posts-feed.pug
+        .d-flex.flex-row
+            .container-fluid
+                h2 Publicações mais recentes
+                include ../elements/posts-feed.pug
+            .container-fluid
+                h2 Grupos mais populares
