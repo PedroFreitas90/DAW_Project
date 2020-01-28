@@ -3,13 +3,14 @@
   .modal-dialog(role='document')
     .modal-content
       .modal-header
-        h5#exampleModalLabel.modal-title
+        h5.modal-title
           img.image-cover.d-inline-block.align-right.rounded(src="/ficheiros/"+ utilizador.foto.name  height="50px" width="50px")
           strong  #{utilizador.nome}
         button.close(type='button' data-dismiss='modal' aria-label='Close')
           span(aria-hidden='true') &times;
       .modal-body
               form(method='POST' action='/publicacoes' enctype='multipart/form-data' onsubmit="return validateFormPublicacaoModal()")
+                
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
@@ -34,5 +35,4 @@
                 .form-group
                   input.btn.float-right.login_btn(type='submit' value='Publicar')
 
-block script
-  script(src='/scripts/views/criar-publicacao-modal.js')
+script(src='/scripts/views/criar-publicacao-modal.js')
