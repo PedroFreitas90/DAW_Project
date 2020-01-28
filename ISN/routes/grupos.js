@@ -10,14 +10,17 @@ var nanoid = require('nanoid')
 var fs = require('fs')
 var path = require('path')
 
-var filePath = __dirname + '/../token.txt'
-var token = ''
-fs.readFile(filePath, (err, data) => { 
-  if (err) throw err;
-    token = data.toString()
-})
+function gerarToken(){
+    var token = jwt.sign({}, "isn2020",
+      {
+        expiresIn: 3000,
+        issuer: "FrontEnd ISN"
+      })
+      return token
+}
 
 router.get('/', verificaAutenticacao, function(req,res){
+    token = gerarToken()
     axios.get('http://localhost:5003/grupos?token'+token)
     .then(dados1 => {res.render('grupos', {lista: dados.data})
     axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
@@ -29,6 +32,7 @@ router.get('/', verificaAutenticacao, function(req,res){
 
 
 router.get('/:idGrupo',verificaAutenticacao, function(req,res){
+    token = gerarToken()
     axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?numAluno='+req.user.numAluno+'&token='+token) 
     .then(dados1 => {
         axios.get('http://localhost:5003/grupos/'+req.params.idGrupo+'?token='+token)
@@ -51,6 +55,7 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 router.post('/aderir',verificaAutenticacao,function(req,res){
     var idGrupo = req.query.grupo
+    token = gerarToken()
     if(req.body.password){
         idGrupo=req.body.idGrupo
         axios.get('http://localhost:5003/grupos/password?idGrupo='+idGrupo+"&password="+req.body.password+'&token='+token)
@@ -105,6 +110,7 @@ router.post('/',upload.single('imagem'), verificaAutenticacao, function(req,res)
       size: req.file.size,
       originalName:req.file.originalname
     })
+    token = gerarToken()
     axios.post('http://localhost:5003/grupos?token='+token,{
         numAluno : req.user.numAluno,
         nomeUtilizador: req.user.nome,
