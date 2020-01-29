@@ -9,7 +9,7 @@ var bcrypt= require('bcryptjs')
 var passport = require('passport')
 
 /* GET users listing. */
-router.get('/',/*passport.authenticate('jwt',{session: false}),*/ function(req, res) {
+router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
   Grupos.listar()
     .then(dados => res.jsonp(dados))
     .catch(e => res.status(500).jsonp(e))
@@ -49,7 +49,7 @@ router.get('/password',passport.authenticate('jwt',{session: false}),function(re
   .catch(e => res.status(500).jsonp(e))
 })
 
-router.get('/:idGrupo',/*passport.authenticate('jwt',{session: false}),*/ function(req, res) {
+router.get('/:idGrupo',passport.authenticate('jwt',{session: false}), function(req, res) {
   if(req.query.numAluno){
   Grupos.filtrarParticipante(req.query.numAluno,req.params.idGrupo)
     .then(dados => res.jsonp(dados))

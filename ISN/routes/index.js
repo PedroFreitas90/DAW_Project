@@ -27,7 +27,6 @@ function gerarToken(){
     
 
    router.get('/feed',verificaAutenticacao,function(req,res){
-     console.log(req.session.passport.user)
     var numAluno =req.session.passport.user
     token = gerarToken()
      axios.get('http://localhost:5003/publicacoes?grupo=feed&token='+token)
@@ -94,7 +93,7 @@ router.post('/reg',upload.single('imagem'), function(req,res){
     console.log(dados.data)
     if (dados.data.length>0){
       console.log("Já existe")
-      res.redirect('/welelele') //adicionar front end para aparecer um aviso 
+      res.redirect('/register') //adicionar front end para aparecer um aviso 
     }
     else {
       axios.post('http://localhost:5003/utilizadores', {

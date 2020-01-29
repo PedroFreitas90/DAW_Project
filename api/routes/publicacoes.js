@@ -4,8 +4,7 @@ var Pubs = require('../controllers/publicacoes')
 var nanoid = require('nanoid');
 var passport = require('passport')
 
-/* GET users listing. */
-router.get('/',/*passport.authenticate('jwt',{session: false}),*/ function(req, res) {
+router.get('/',passport.authenticate('jwt',{session: false}), function(req, res) {
   if(req.query.numAluno){
     Pubs.filtrarAutor(req.query.numAluno)
       .then(dados => res.jsonp(dados))

@@ -25,11 +25,12 @@ router.get('/utilizador',function(req,res){
       .catch(e => res.status(500).jsonp(e))
 })
 
-router.get('/:numAluno', function(req, res) {
+router.get('/:numAluno',passport.authenticate('jwt',{session : false }),function(req, res) {
  
   if(req.query.password) {
   Utilizadores.consultar(req.params.numAluno)
     .then(dados => {
+      console.log(dados)
       if (bcrypt.compareSync(req.query.password, dados.password))
       res.jsonp(dados)
       else 
@@ -52,7 +53,7 @@ router.post('/', function(req,res){
 })
 
 
-router.put('/',function(req,res){
+router.put('/',passport.authenticate('jwt',{session : false }),function(req,res){
   var body = req.body;
   if(req.body.password!= ""){
     var hashNova = bcrypt.hashSync(req.body.password, 10);
