@@ -17,16 +17,35 @@ function validateEditUtilizadorModal() {
         var body = { passwordAntiga: passwordAntiga }
 
         axios.post('/perfil/checkPassword', body)
-        .then(data => {
-            if (!data.data.password) {
-                alert('A password antiga está incorreta.')
-                return false;
-            }
-            else
-                return (nome.length > 0 && email.length > 0);
-        }).catch(error => {
-            alert('Ocorreu um erro a validar o perfil: ' + error)
-        })
+            .then(data => {
+                if (!data.data.password) {
+                    alert('A password antiga está incorreta.')
+                    return false;
+                }
+                else {
+                    if (nome.length > 0 && email.length > 0) {
+                        var formData = new FormData();
+                        formData.append('nome', nome);
+                        formData.append('password', passwordNova);
+                        formData.append('curso', curso);
+                        formData.append('bio', bio);
+                        formData.append('email', email);
+                        formData.append('website', website);
+                        var image = document.querySelector('#editarUtilizadorImagem').files[0];
+                        formData.append('imagem', image);
+                        
+                        axios.post('/perfil/editar',
+                            formData,
+                            { headers: { 'Content-Type': 'multipart/form-data' } })
+                            .then(dados => {
+                                location.reload();
+                            })
+                            .catch(e => alert('Ocorreu um erro: ' + e.error))
+                    }
+                }
+            }).catch(error => {
+                alert('Ocorreu um erro a validar o perfil: ' + error)
+            })
         return false;
     } else {
         return (nome.length > 0 && email.length > 0);
