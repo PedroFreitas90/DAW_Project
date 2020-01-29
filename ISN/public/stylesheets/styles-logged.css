@@ -265,15 +265,16 @@ a {
     height: auto;
 }
 
-.member-group:hover {
+.image-member-list{
+    max-width:100%;
+}
+
+.member-link:hover {
     background-color: lightslategrey;
 }
 
-.image-member-list{
-    max-width: 15%;
-    max-height: 15%;
-}
 
 .remover-membro:hover{
     color: salmon;
+    cursor: pointer;
 }

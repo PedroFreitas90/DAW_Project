@@ -1,8 +1,9 @@
 .rounded.member-group.m-1.container
-    a(href='../perfil/'+user.utilizadorFoto[0].numAluno)
         .d-flex.flex-column
-            .d-flex.justify-content-start.p-3
-                img.rounded-circle.image-cover.image-member-list.mr-3(src='../ficheiros/'+user.utilizadorFoto[0].foto.name)
+            .d-flex.justify-content-center.p-3
+                .member-link.rounded(style='width:50px').mr-5
+                    a(href='../perfil/'+user.utilizadorFoto[0].numAluno)
+                        img.rounded-circle.image-cover.image-member-list(src='../ficheiros/'+user.utilizadorFoto[0].foto.name)
                 .info.d-flex.flex-column.mr-3
                     .d-flex.flex-row.mr-2
                         i.fas.fa-user.mr-2
