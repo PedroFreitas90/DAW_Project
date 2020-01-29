@@ -16,7 +16,8 @@ function validateEditUtilizadorModal() {
     if (passwordAntiga.length > 0 && passwordNova.length > 0) {
         var body = { passwordAntiga: passwordAntiga }
 
-        axios.post('../perfil/checkPassword', body).then(data => {
+        axios.post('/perfil/checkPassword', body)
+        .then(data => {
             if (!data.data.password) {
                 alert('A password antiga está incorreta.')
                 return false;
@@ -26,6 +27,7 @@ function validateEditUtilizadorModal() {
         }).catch(error => {
             alert('Ocorreu um erro a validar o perfil: ' + error)
         })
+        return false;
     } else {
         return (nome.length > 0 && email.length > 0);
     }
