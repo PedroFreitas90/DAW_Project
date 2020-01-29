@@ -34,8 +34,10 @@ router.get('/',verificaAutenticacao, function(req, res, next) {
   .catch(e=>res.render('error',{error:e}))
 });
 
-router.post('/checkPassword',verificaAutenticacao,function(req,res){
-  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno + '?password=' + req.body.passwordAntiga)
+router.post('/checkPassword',function(req,res){
+  token = gerarToken()
+  axios.get('http://localhost:5003/utilizadores/'+req.user.numAluno +'?password=' + req.body.passwordAntiga 
+                                                +'&token='+token)
   .then(dados => {
     console.log(dados.data)
     if(dados.data.length==0){

@@ -22,7 +22,7 @@ function gerarToken(){
 
 router.get('/', verificaAutenticacao, function(req,res){
     token = gerarToken()
-    axios.get('http://localhost:5003/grupos?token'+token)
+    axios.get('http://localhost:5003/grupos?token='+token)
     .then(dados1 => { 
     axios.get('http://localhost:5003/utilizadores/info/' + req.user.numAluno+'?token='+token)
     .then(dados2 =>  res.render('pages/ver-grupos', { grupos: dados1.data, utilizador: dados2.data}))
@@ -50,10 +50,6 @@ router.get('/:idGrupo',verificaAutenticacao, function(req,res){
 
 router.post('/aderir',verificaAutenticacao,function(req,res){
     token = gerarToken()
-    console.log('......................')
-    console.log('......................')
-    console.log('......................')
-    console.log(req)
     if(req.body.password){
         axios.get('http://localhost:5003/grupos/password?idGrupo='+req.body.idGrupo+"&password="+req.body.password+'&token='+token)
         .then(dados => {
