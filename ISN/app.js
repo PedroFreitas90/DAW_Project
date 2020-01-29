@@ -51,7 +51,7 @@ passport.serializeUser((user, done) => {
 
 // Desserialização: a partir do id obtem-se a informação do utilizador
 passport.deserializeUser((numAluno, done) => {
-  var token = jwt.sign({}, "isn2019",
+  var token = jwt.sign({}, "isn2020",
     {
       expiresIn: 3000,
       issuer: "Servidor myAgenda"
