@@ -1,8 +1,25 @@
 function validateFormEditarGrupoModal() {
     let nome = $('#editGrupoNome').val();
     let tipo = $('#editGrupoTipo').val();
+    let password = $('#editGrupoPassword').val();
+    let idGrupo = $('#idGrupo').val();
+    if (nome.length > 0 && tipo.length > 0) {
 
-    return (nome.length > 0 && tipo.length > 0);
+        var formData = new FormData();
+        formData.append('nome', nome);
+        formData.append('password', password);
+        formData.append('tipo', tipo);
+        var image = document.querySelector('#editarUtilizadorImagem').files[0];
+        formData.append('imagem', image);
+
+        axios.post('/grupos/editar/' + idGrupo,
+            formData,
+            { headers: { 'Content-Type': 'multipart/form-data' } })
+            .then(dados => {
+                location.reload();
+            })
+            .catch(e => alert('Ocorreu um erro: ' + e.error))
+    }
 }
 
 $('#editGrupoTipo').ready(() => {

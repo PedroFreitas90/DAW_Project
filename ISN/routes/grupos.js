@@ -100,7 +100,7 @@ router.delete('/sair',verificaAutenticacao,function(req,res){
 })
 
 
-router.post('editar/:idGrupo',verificaAutenticacao,function(req,res){
+router.post('/editar/:idGrupo',verificaAutenticacao,function(req,res){
     var body = {
                 nome: req.body.nome,
                 password: req.body.password          

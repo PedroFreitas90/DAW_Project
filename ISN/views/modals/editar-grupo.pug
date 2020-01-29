@@ -3,7 +3,6 @@
   .modal-dialog(role='document')
     .modal-content
       .modal-body
-              form(method='POST' action='/grupos/editar/'+grupo[0].id enctype='multipart/form-data' onsubmit="return validateFormEditarGrupoModal()")
                 .input-group.form-group
                   .input-group-prepend
                     span.input-group-text
@@ -39,7 +38,9 @@
                       i.fas.fa-id-card
                   input.form-control(type='file' id="editGrupoImagem" name="imagem" multiple)
 
+                  input.form-control(type='hidden' id='idGrupo' name='idGrupo' value=grupo[0].id)
+
                 .form-group
-                  input.btn.float-right.login_btn(type='submit' value='Criar Grupo')
+                  input.btn.float-right.login_btn(type='submit' value='Criar Grupo' onclick='validateFormEditarGrupoModal()')
 
 script(src='/scripts/views/editar-grupo-modal.js')
