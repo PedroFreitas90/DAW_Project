@@ -1,0 +1,45 @@
+// Modal
+#editarGrupoModal.modal.fade(tabindex='-1' role='dialog' aria-labelledby='editarGrupoModalLabel' aria-hidden='true')
+  .modal-dialog(role='document')
+    .modal-content
+      .modal-body
+              form(method='POST' action='/grupos/editar/'+grupo[0].id enctype='multipart/form-data' onsubmit="return validateFormEditarGrupoModal()")
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-heading
+                  if grupo[0].nome
+                    input.form-control(type='text' id="editGrupoNome" name="nome" placeholder=grupo[0].nome value=grupo[0].nome)
+                  else
+                    input.form-control(type='text' id="editGrupoNome" name="nome" placeholder='Nome do grupo')
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-users-cog
+                  select#editGrupoTipo.form-control(name="tipo")
+                    if grupo[0].tipo == 'publico'
+                      option(value='publico' selected) Público
+                    else
+                      option(value='publico') Público
+                    if grupo[0].tipo == 'privado'
+                      option(value='privado' selected) Privado
+                    else
+                      option(value='privado') Privado
+
+                .input-group.form-group.d-none#editGrupoPasswordDiv
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-key
+                  input.form-control(type="password" id="editGrupoPassword" name="password")
+
+                .input-group.form-group
+                  .input-group-prepend
+                    span.input-group-text
+                      i.fas.fa-id-card
+                  input.form-control(type='file' id="editGrupoImagem" name="imagem" multiple)
+
+                .form-group
+                  input.btn.float-right.login_btn(type='submit' value='Criar Grupo')
+
+script(src='/scripts/views/editar-grupo-modal.js')
